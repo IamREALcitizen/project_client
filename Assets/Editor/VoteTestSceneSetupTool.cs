@@ -15,17 +15,28 @@ namespace WhoisntCitizen.EditorTools
     // Tools > Vote Test > Build Prefabs & Scene
     //  - Assets/03_Prefabs/Vote/PlayerProfileItem.prefab
     //  - Assets/03_Prefabs/Vote/VotePanel.prefab
-    //  - Assets/01_Scenes/Vote_test.unity (하단 탭 + 공유 Drawer + VotePanel 인스턴스 + 가짜 데이터)
+    //  - Assets/03_Prefabs/GameUI/ChatLogLine, ChatLogPanel, ChatKeyboardPanel, GameBottomSheet.prefab
+    //  - Assets/01_Scenes/Vote_test.unity
+    //      GameCanvas
+    //      ├─ Background / TopBar_Placeholder
+    //      ├─ ChatLogPanel     (채팅 기록, 아래 끝이 시트 윗변을 따라 올라감)
+    //      └─ GameBottomSheet  (TabBar + Drawer[ChatKeyboardPanel, VotePanel])
     // 이미 있는 파일은 덮어쓰지 않는다. (수작업 수정을 보호) 다시 만들려면 해당 파일을 지우고 실행.
     public static class VoteTestSceneSetupTool
     {
         private const string PrefabDir = "Assets/03_Prefabs/Vote";
         private const string ItemPrefabPath = PrefabDir + "/PlayerProfileItem.prefab";
         private const string VotePanelPrefabPath = PrefabDir + "/VotePanel.prefab";
+        private const string GameUIPrefabDir = "Assets/03_Prefabs/GameUI";
+        private const string ChatLogLinePrefabPath = GameUIPrefabDir + "/ChatLogLine.prefab";
+        private const string ChatLogPanelPrefabPath = GameUIPrefabDir + "/ChatLogPanel.prefab";
+        private const string ChatKeyboardPanelPrefabPath = GameUIPrefabDir + "/ChatKeyboardPanel.prefab";
+        private const string BottomSheetPrefabPath = GameUIPrefabDir + "/GameBottomSheet.prefab";
         private const string ScenePath = "Assets/01_Scenes/Vote_test.unity";
         private const string FontPath = "Assets/Fonts/MalgunGothic SDF.asset";
         private const string PortraitDir = "Assets/09_Image/Portrait";
 
+        private const float TopBarHeight = 120f;
         private const float TabBarHeight = 140f;
         private const float DrawerHeight = 800f;
 
@@ -52,30 +63,41 @@ namespace WhoisntCitizen.EditorTools
             font = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FontPath);
             res = BuildResources();
             EnsureFolder(PrefabDir);
+            EnsureFolder(GameUIPrefabDir);
 
             bool sceneExists = File.Exists(ScenePath);
             if (!sceneExists)
                 EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
 
-            PlayerProfileItem itemPrefab = AssetDatabase.LoadAssetAtPath<PlayerProfileItem>(ItemPrefabPath);
-            if (itemPrefab == null) itemPrefab = BuildItemPrefab();
-            else Debug.Log($"[VoteTestSetup] 기존 프리팹 유지: {ItemPrefabPath}");
-
-            VotePanelController votePanelPrefab = AssetDatabase.LoadAssetAtPath<VotePanelController>(VotePanelPrefabPath);
-            if (votePanelPrefab == null) votePanelPrefab = BuildVotePanelPrefab(itemPrefab);
-            else Debug.Log($"[VoteTestSetup] 기존 프리팹 유지: {VotePanelPrefabPath}");
+            PlayerProfileItem itemPrefab = LoadOrBuild(ItemPrefabPath, BuildItemPrefab);
+            VotePanelController votePanelPrefab = LoadOrBuild(VotePanelPrefabPath, () => BuildVotePanelPrefab(itemPrefab));
+            TextMeshProUGUI linePrefab = LoadOrBuild(ChatLogLinePrefabPath, BuildChatLogLinePrefab);
+            ChatLogView chatLogPrefab = LoadOrBuild(ChatLogPanelPrefabPath, () => BuildChatLogPanelPrefab(linePrefab));
+            GameObject chatKeyboardPrefab = LoadOrBuild(ChatKeyboardPanelPrefabPath, BuildChatKeyboardPanelPrefab);
 
             if (sceneExists)
             {
-                Debug.Log($"[VoteTestSetup] 기존 씬 유지: {ScenePath}");
+                Debug.Log($"[VoteTestSetup] 기존 씬 유지: {ScenePath} (다시 만들려면 씬 파일을 지우고 실행)");
                 return;
             }
 
-            BuildScene(votePanelPrefab);
+            BuildScene(votePanelPrefab, chatLogPrefab, chatKeyboardPrefab);
             Scene scene = SceneManager.GetActiveScene();
             EditorSceneManager.SaveScene(scene, ScenePath);
             AssetDatabase.Refresh();
             Debug.Log($"[VoteTestSetup] 완료: {ScenePath}");
+        }
+
+        // 이미 있으면 그대로 쓰고(수작업 수정 보호), 없을 때만 만든다.
+        private static T LoadOrBuild<T>(string path, System.Func<T> build) where T : Object
+        {
+            T existing = AssetDatabase.LoadAssetAtPath<T>(path);
+            if (existing != null)
+            {
+                Debug.Log($"[VoteTestSetup] 기존 프리팹 유지: {path}");
+                return existing;
+            }
+            return build();
         }
 
         // ================= PlayerProfileItem =================
@@ -279,9 +301,75 @@ namespace WhoisntCitizen.EditorTools
             return SavePrefab(root.gameObject, VotePanelPrefabPath).GetComponent<VotePanelController>();
         }
 
+        // ================= Chat (자리 표시용 기본 프리팹) =================
+
+        private static TextMeshProUGUI BuildChatLogLinePrefab()
+        {
+            TextMeshProUGUI line = NewText("ChatLogLine", null, "메시지", 32);
+            line.alignment = TextAlignmentOptions.TopLeft;
+            line.textWrappingMode = TextWrappingModes.Normal;
+            line.richText = true;
+            line.rectTransform.sizeDelta = new Vector2(1000, 44);
+            return SavePrefab(line.gameObject, ChatLogLinePrefabPath).GetComponent<TextMeshProUGUI>();
+        }
+
+        private static ChatLogView BuildChatLogPanelPrefab(TextMeshProUGUI linePrefab)
+        {
+            RectTransform root = NewRect("ChatLogPanel", null, typeof(Canvas), typeof(GraphicRaycaster), typeof(ScrollRect));
+            root.anchorMin = Vector2.zero;
+            root.anchorMax = Vector2.one;
+            root.sizeDelta = Vector2.zero;
+
+            RectTransform viewport = NewRect("Viewport", root, typeof(RectMask2D), typeof(Image));
+            Stretch(viewport);
+            viewport.GetComponent<Image>().color = new Color(0, 0, 0, 0); // 탭/드래그를 받기 위한 투명 영역
+
+            // Content는 Viewport 하단에 붙인다 → Viewport가 줄어도 최신 메시지가 보인다.
+            RectTransform content = NewRect("Content", viewport, typeof(VerticalLayoutGroup), typeof(ContentSizeFitter));
+            content.anchorMin = new Vector2(0, 0);
+            content.anchorMax = new Vector2(1, 0);
+            content.pivot = new Vector2(0.5f, 0);
+            content.sizeDelta = Vector2.zero;
+            VerticalLayoutGroup vlg = content.GetComponent<VerticalLayoutGroup>();
+            vlg.padding = new RectOffset(36, 36, 24, 24);
+            vlg.spacing = 14;
+            vlg.childControlWidth = true;
+            vlg.childControlHeight = true;
+            vlg.childForceExpandWidth = true;
+            vlg.childForceExpandHeight = false;
+            content.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            ScrollRect sr = root.GetComponent<ScrollRect>();
+            sr.viewport = viewport;
+            sr.content = content;
+            sr.horizontal = false;
+            sr.vertical = true;
+            sr.movementType = ScrollRect.MovementType.Elastic;
+            sr.scrollSensitivity = 40;
+
+            ChatLogView view = root.gameObject.AddComponent<ChatLogView>();
+            Bind(view, "scrollRect", sr);
+            Bind(view, "content", content);
+            Bind(view, "linePrefab", linePrefab);
+            return SavePrefab(root.gameObject, ChatLogPanelPrefabPath).GetComponent<ChatLogView>();
+        }
+
+        private static GameObject BuildChatKeyboardPanelPrefab()
+        {
+            RectTransform root = NewRect("ChatKeyboardPanel", null, typeof(Image));
+            root.anchorMin = Vector2.zero;
+            root.anchorMax = Vector2.one;
+            root.sizeDelta = Vector2.zero;
+            root.GetComponent<Image>().color = PanelColor;
+            TextMeshProUGUI label = NewText("Label", root, "채팅 / 키보드 영역\n(채팅 UI 합칠 자리)", 36);
+            Stretch(label.rectTransform);
+            label.color = new Color(1, 1, 1, 0.4f);
+            return SavePrefab(root.gameObject, ChatKeyboardPanelPrefabPath);
+        }
+
         // ================= Scene =================
 
-        private static void BuildScene(VotePanelController votePanelPrefab)
+        private static void BuildScene(VotePanelController votePanelPrefab, ChatLogView chatLogPrefab, GameObject chatKeyboardPrefab)
         {
             // Camera
             GameObject camGo = new GameObject("Main Camera", typeof(Camera), typeof(AudioListener));
@@ -300,9 +388,8 @@ namespace WhoisntCitizen.EditorTools
             esGo.AddComponent<StandaloneInputModule>();
 #endif
 
-            // Canvas
-            GameObject canvasGo = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            canvasGo.layer = LayerMask.NameToLayer("UI");
+            // GameCanvas
+            GameObject canvasGo = new GameObject("GameCanvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
             Canvas canvas = canvasGo.GetComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             CanvasScaler scaler = canvasGo.GetComponent<CanvasScaler>();
@@ -312,24 +399,66 @@ namespace WhoisntCitizen.EditorTools
             scaler.matchWidthOrHeight = 0f; // 가로 폭 기준으로 맞춤
             Transform canvasT = canvasGo.transform;
 
-            // 게임 화면 자리 표시
-            RectTransform gameArea = NewRect("GameArea_Placeholder", canvasT, typeof(Image));
-            Stretch(gameArea);
-            gameArea.GetComponent<Image>().color = new Color32(0x14, 0x17, 0x1F, 0xFF);
-            TextMeshProUGUI gameLabel = NewText("Label", gameArea, "게임 화면 (Vote_test)\n\n[+] 버튼 → 투표 패널\n입력칸 클릭 → 채팅 패널", 44);
-            Stretch(gameLabel.rectTransform);
-            gameLabel.color = new Color(1, 1, 1, 0.35f);
+            // 배경
+            RectTransform bg = NewRect("Background", canvasT, typeof(Image));
+            Stretch(bg);
+            bg.GetComponent<Image>().color = new Color32(0x14, 0x17, 0x1F, 0xFF);
 
-            // 서랍이 열려 있을 때 바깥을 누르면 닫히는 반투명 버튼 (BottomSheet보다 뒤에 둔다)
-            RectTransform dimmer = NewRect("Dimmer", canvasT, typeof(Image), typeof(Button));
-            Stretch(dimmer);
-            dimmer.GetComponent<Image>().color = new Color(0, 0, 0, 0.35f);
-            Button dimmerButton = dimmer.GetComponent<Button>();
-            dimmerButton.transition = Selectable.Transition.None;
-            dimmerButton.navigation = new Navigation { mode = Navigation.Mode.None };
+            // 상단 바 자리 (페이즈 / 남은 시간 등)
+            RectTransform top = NewRect("TopBar_Placeholder", canvasT, typeof(Image));
+            SetRect(top, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), Vector2.zero, new Vector2(0, TopBarHeight));
+            top.GetComponent<Image>().color = TabBarColor;
+            TextMeshProUGUI topLabel = NewText("Label", top, "낮 1일차 · 투표   (상단 바 자리)", 36);
+            Stretch(topLabel.rectTransform);
+            topLabel.color = new Color(1, 1, 1, 0.6f);
 
-            // BottomSheet: 하단 기준 가로 stretch, 높이 = 탭 바 + Drawer
-            RectTransform sheet = NewRect("BottomSheet", canvasT);
+            // 채팅 기록: 상단 바 아래 ~ 시트 윗변. 아래 끝은 BottomTabController가 시트를 따라 움직인다.
+            ChatLogView chatLog = ((GameObject)PrefabUtility.InstantiatePrefab(chatLogPrefab.gameObject, canvasT)).GetComponent<ChatLogView>();
+            RectTransform logRt = (RectTransform)chatLog.transform;
+            logRt.anchorMin = Vector2.zero;
+            logRt.anchorMax = Vector2.one;
+            logRt.offsetMin = new Vector2(0, TabBarHeight);
+            logRt.offsetMax = new Vector2(0, -TopBarHeight);
+
+            // 하단 시트 (기존 프리팹이 있으면 그대로 배치, 없으면 만들고 프리팹으로 저장)
+            BottomTabController tab;
+            GameObject sheetPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BottomSheetPrefabPath);
+            if (sheetPrefab != null)
+            {
+                tab = ((GameObject)PrefabUtility.InstantiatePrefab(sheetPrefab, canvasT)).GetComponent<BottomTabController>();
+                Debug.Log($"[VoteTestSetup] 기존 프리팹 유지: {BottomSheetPrefabPath}");
+            }
+            else
+            {
+                tab = BuildBottomSheet(canvasT, votePanelPrefab, chatKeyboardPrefab);
+            }
+
+            // 시트 밖(프리팹 바깥) 참조는 씬 인스턴스에서 연결한다.
+            var so = new SerializedObject(tab);
+            SerializedProperty push = so.FindProperty("pushTargets");
+            push.arraySize = 1;
+            push.GetArrayElementAtIndex(0).objectReferenceValue = logRt;
+            so.ApplyModifiedPropertiesWithoutUndo();
+
+            // 채팅 기록을 탭하면 패널을 내린다. (Dimmer 대신)
+            UnityEditor.Events.UnityEventTools.AddVoidPersistentListener(chatLog.OnTapped, tab.Close);
+            PrefabUtility.RecordPrefabInstancePropertyModifications(chatLog); // 프리팹 인스턴스 오버라이드로 기록
+
+            SetLayerRecursive(canvasGo, LayerMask.NameToLayer("UI"));
+
+            // 가짜 데이터 주입
+            GameObject sys = new GameObject("VoteTestSystem");
+            VoteTestBootstrap boot = sys.AddComponent<VoteTestBootstrap>();
+            Bind(boot, "bottomTab", tab);
+            Bind(boot, "votePanel", tab.GetComponentInChildren<VotePanelController>(true));
+            Bind(boot, "chatLog", chatLog);
+            BindSprites(boot, "portraits", LoadPortraits());
+        }
+
+        private static BottomTabController BuildBottomSheet(Transform parent, VotePanelController votePanelPrefab, GameObject chatKeyboardPrefab)
+        {
+            // GameBottomSheet: 하단 기준 가로 stretch, 높이 = 탭 바 + Drawer
+            RectTransform sheet = NewRect("GameBottomSheet", parent);
             sheet.anchorMin = new Vector2(0, 0);
             sheet.anchorMax = new Vector2(1, 0);
             sheet.pivot = new Vector2(0.5f, 0);
@@ -358,25 +487,17 @@ namespace WhoisntCitizen.EditorTools
             send.GetComponent<Image>().color = AccentColor;
             send.GetComponentInChildren<TextMeshProUGUI>().color = new Color32(0x1B, 0x1E, 0x26, 0xFF);
 
-            // Drawer (아래쪽, 채팅/투표 공유 영역)
+            // Drawer (아래쪽, 채팅 키보드/투표 공유 영역)
             RectTransform drawer = NewRect("Drawer", sheet);
             drawer.anchorMin = Vector2.zero;
             drawer.anchorMax = Vector2.one;
             drawer.offsetMin = Vector2.zero;
             drawer.offsetMax = new Vector2(0, -TabBarHeight);
 
-            // 채팅(키보드) 패널 자리 — 채팅 담당 UI가 들어올 슬롯
-            RectTransform chatPanel = NewRect("ChatKeyboardPanel", drawer, typeof(Image));
-            Stretch(chatPanel);
-            chatPanel.GetComponent<Image>().color = PanelColor;
-            TextMeshProUGUI chatLabel = NewText("Label", chatPanel, "채팅 / 키보드 영역\n(채팅 UI 합칠 자리)", 36);
-            Stretch(chatLabel.rectTransform);
-            chatLabel.color = new Color(1, 1, 1, 0.4f);
-
-            // VotePanel 프리팹 인스턴스
-            GameObject voteGo = (GameObject)PrefabUtility.InstantiatePrefab(votePanelPrefab.gameObject, drawer);
-            RectTransform voteRt = (RectTransform)voteGo.transform;
-            Stretch(voteRt);
+            GameObject chatPanel = (GameObject)PrefabUtility.InstantiatePrefab(chatKeyboardPrefab, drawer);
+            Stretch((RectTransform)chatPanel.transform);
+            GameObject votePanel = (GameObject)PrefabUtility.InstantiatePrefab(votePanelPrefab.gameObject, drawer);
+            Stretch((RectTransform)votePanel.transform);
 
             BottomTabController tab = sheet.gameObject.AddComponent<BottomTabController>();
             Bind(tab, "sheet", sheet);
@@ -384,21 +505,17 @@ namespace WhoisntCitizen.EditorTools
             Bind(tab, "chatInput", input);
             Bind(tab, "plusButton", plus);
             Bind(tab, "sendButton", send);
-            Bind(tab, "chatPanel", chatPanel.gameObject);
-            Bind(tab, "votePanel", voteGo);
-            Bind(tab, "dimmer", dimmerButton);
+            Bind(tab, "chatPanel", chatPanel);
+            Bind(tab, "votePanel", votePanel);
 
-            dimmer.gameObject.SetActive(false);
-            chatPanel.gameObject.SetActive(false);
-            voteGo.SetActive(false);
-            SetLayerRecursive(canvasGo, LayerMask.NameToLayer("UI"));
+            chatPanel.SetActive(false);
+            votePanel.SetActive(false);
+            SetLayerRecursive(sheet.gameObject, LayerMask.NameToLayer("UI"));
 
-            // 가짜 데이터 주입
-            GameObject sys = new GameObject("VoteTestSystem");
-            VoteTestBootstrap boot = sys.AddComponent<VoteTestBootstrap>();
-            Bind(boot, "bottomTab", tab);
-            Bind(boot, "votePanel", voteGo.GetComponent<VotePanelController>());
-            BindSprites(boot, "portraits", LoadPortraits());
+            // 씬 인스턴스와 연결된 채로 프리팹 저장 (VotePanel, ChatKeyboardPanel은 중첩 프리팹)
+            PrefabUtility.SaveAsPrefabAssetAndConnect(sheet.gameObject, BottomSheetPrefabPath, InteractionMode.AutomatedAction);
+            Debug.Log($"[VoteTestSetup] 프리팹 생성: {BottomSheetPrefabPath}");
+            return tab;
         }
 
         // ================= Helpers =================
