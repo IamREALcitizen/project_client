@@ -455,6 +455,97 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95484618}
   m_CullTransparentMesh: 1
+--- !u!1 &161325562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 161325565}
+  - component: {fileID: 161325564}
+  - component: {fileID: 161325563}
+  m_Layer: 0
+  m_Name: GameChat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &161325563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161325562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c94e6810511126847aa4ddb9858ff63e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.Chat.GameChatController
+  api: {fileID: 161325564}
+  chatLog: {fileID: 354168055}
+  bottomTab: {fileID: 215151736}
+  maxMessages: 50
+  myUserId: -1
+  autoLogin: 1
+  devUsername: tester1
+  devPassword: Test1234!
+  autoJoinRoom: 1
+  createRoomIfMissing: 1
+  devRoomTitle: "\uCC44\uD305 \uD14C\uC2A4\uD2B8\uBC29"
+  devRoomMaxPlayers: 8
+  pollInterval: 2
+  fullSyncEveryPolls: 15
+  retryInterval: 3
+  myNameColor: {r: 0.45, g: 0.8, b: 1, a: 1}
+  otherNameColor: {r: 1, g: 0.85, b: 0.4, a: 1}
+  errorColor: {r: 1, g: 0.45, b: 0.45, a: 1}
+  systemColor: {r: 0.4, g: 0.9, b: 0.45, a: 1}
+  systemPrefix: "[\uC2DC\uC2A4\uD15C] "
+  localNoticeColor: {r: 0.62, g: 0.91, b: 0.63, a: 1}
+  localNoticePrefix: "[\uC548\uB0B4] "
+  logSystemMessagesToConsole: 1
+--- !u!114 &161325564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161325562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998afd8ce76608b48aaff5246a8ab8be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.Chat.ChatApiClient
+  baseUrl: http://localhost:8080
+  apiPrefix: /api/v1
+  roomId: 1
+  timeoutSeconds: 5
+  adminKey: 
+  messageIdField: messageId
+  typeField: type
+  userIdField: userId
+  nicknameField: nickname
+  messageField: message
+  createdAtField: createdAt
+--- !u!4 &161325565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 161325562}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &215151733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -478,6 +569,14 @@ PrefabInstance:
     - target: {fileID: 7214107507350491975, guid: 6245e44203fc5ec49933bbbe543e5972, type: 3}
       propertyPath: allowSelfVote
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169948307196099880, guid: 6245e44203fc5ec49933bbbe543e5972, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4280688155
+      objectReference: {fileID: 0}
+    - target: {fileID: 8169948307196099880, guid: 6245e44203fc5ec49933bbbe543e5972, type: 3}
+      propertyPath: m_TextStyleHashCode
+      value: -1183493901
       objectReference: {fileID: 0}
     - target: {fileID: 8836696526792155044, guid: 6245e44203fc5ec49933bbbe543e5972, type: 3}
       propertyPath: m_Pivot.x
@@ -976,6 +1075,18 @@ PrefabInstance:
     - target: {fileID: 2428180858544623074, guid: d071e0c73ed8681459e1595082a162f3, type: 3}
       propertyPath: m_Name
       value: ChatLogPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107541734776742747, guid: d071e0c73ed8681459e1595082a162f3, type: 3}
+      propertyPath: systemColor.b
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107541734776742747, guid: d071e0c73ed8681459e1595082a162f3, type: 3}
+      propertyPath: systemColor.g
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3107541734776742747, guid: d071e0c73ed8681459e1595082a162f3, type: 3}
+      propertyPath: systemColor.r
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3107541734776742747, guid: d071e0c73ed8681459e1595082a162f3, type: 3}
       propertyPath: onTapped.m_PersistentCalls.m_Calls.Array.size
@@ -4319,3 +4430,4 @@ SceneRoots:
   - {fileID: 1650414590}
   - {fileID: 1535418196}
   - {fileID: 24983194}
+  - {fileID: 161325565}
