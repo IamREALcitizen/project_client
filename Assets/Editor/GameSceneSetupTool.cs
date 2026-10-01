@@ -19,9 +19,9 @@ namespace WhoisntCitizen.EditorTools
     //   ├─ RoleCard               (새로) 내 직업 카드. 채팅 기록은 그만큼 아래로 내린다
     //   ├─ ChatLogPanel           (klik075)
     //   ├─ GameBottomSheet        (klik075) Drawer에 NightActionPanel(꺼 둠) 추가, VotePanel 자기 투표 허용
-    //   ├─ GameResultPanel        (새로, 꺼 둠) 결과 + "대기실로"
-    //   └─ WaitingRoomPanel       (새로, 꺼 둠) 실제 서버의 대기실일 때만 WaitingRoomView가 켠다
-    //   GameFlow                  (새로) WaitingRoomController + GameController(가짜 서버 켬) + WaitingRoomView
+    //   └─ GameResultPanel        (새로, 꺼 둠) 결과 + "대기실로"(Room 씬으로, 가짜 서버면 새 판)
+    //   GameFlow                  (새로) WaitingRoomController(씬 들어오기·나가기) + GameController(가짜 서버 켬)
+    //   WaitingRoomPanel          삭제 (예전 도구가 만든 씬 안 대기실. 대기실은 Room 씬이 맡는다)
     //   VoteTestSystem            삭제 (가짜 데이터·투표 처리가 G와 부딪힌다)
     // 여러 번 실행해도 된다. 이미 있는 오브젝트는 다시 만들지 않고 연결만 다시 한다(손으로 고친 배치는 그대로 둔다).
     // Ctrl+Z 한 번으로 되돌릴 수 있다. 저장은 직접 한다(Ctrl+S).
@@ -38,7 +38,6 @@ namespace WhoisntCitizen.EditorTools
         private static readonly Color PanelColor = new Color32(0x1B, 0x1E, 0x26, 0xF5);
         private static readonly Color CardColor = new Color32(0x2B, 0x2F, 0x3A, 0xFF);
         private static readonly Color AccentColor = new Color32(0xF2, 0xC1, 0x4E, 0xFF);
-        private static readonly Color BackgroundColor = new Color32(0x14, 0x17, 0x1F, 0xFF);
         private static readonly Color DarkText = new Color32(0x1B, 0x1E, 0x26, 0xFF);
         private static readonly Color DangerColor = new Color32(0xD9, 0x4B, 0x4B, 0xFF);
         private static readonly Color MutedText = new Color(1f, 1f, 1f, 0.6f);
@@ -100,7 +99,7 @@ namespace WhoisntCitizen.EditorTools
             NightActionPanel nightPanel = EnsureNightPanel(votePanel.transform.parent, log); // 3-5
             RoleCardView roleCard = EnsureRoleCard(canvas, topBar, chatLog, log);         // 3-6
             GameResultPanel resultPanel = EnsureResultPanel(canvas, log);                 // 3-7
-            EnsureWaitingRoom(canvas, flow, log);                                         // 3-8
+            RemoveOldWaitingRoom(canvas, flow, log);                                      // 3-8
 
             GameScreen screen = canvas.GetComponent<GameScreen>();                        // 3-9
             if (screen == null)
@@ -158,10 +157,6 @@ namespace WhoisntCitizen.EditorTools
                 BindString(controller, "fakeMyRole", RoleCodes.CrewCaptain);
                 BindBool(controller, "fakeBotsAct", true);
                 log.AppendLine("· GameFlow 생성 (WaitingRoomController + GameController, 가짜 서버 켬)");
-            }
-            if (flow.GetComponent<WaitingRoomView>() == null)
-            {
-                Undo.AddComponent<WaitingRoomView>(flow);
             }
             return flow;
         }
@@ -429,61 +424,25 @@ namespace WhoisntCitizen.EditorTools
             return result;
         }
 
-        // ================================================================ 3-8 대기실
+        // ================================================================ 3-8 예전 대기실 정리
 
-        private static void EnsureWaitingRoom(Transform canvas, GameObject flow, StringBuilder log)
+        // 예전 도구가 GameScene 안에 만든 대기실을 지운다. 대기실은 Room 씬(RoomUIController)이 맡는다.
+        // WaitingRoomView.cs를 지운 뒤라 GameFlow에 Missing Script로 남은 컴포넌트도 지운다.
+        private static void RemoveOldWaitingRoom(Transform canvas, GameObject flow, StringBuilder log)
         {
-            Transform existing = canvas.Find("WaitingRoomPanel");
-            RectTransform root;
-            if (existing != null)
+            Transform panel = canvas.Find("WaitingRoomPanel");
+            if (panel != null)
             {
-                root = (RectTransform)existing;
+                Undo.DestroyObjectImmediate(panel.gameObject);
+                log.AppendLine("· WaitingRoomPanel 삭제 (대기실은 Room 씬)");
             }
-            else
+            int missing = GameObjectUtility.GetMonoBehavioursWithMissingScriptCount(flow);
+            if (missing > 0)
             {
-                root = NewRect("WaitingRoomPanel", canvas, typeof(Image));
-                Stretch(root);
-                root.GetComponent<Image>().color = BackgroundColor;
-
-                TextMeshProUGUI title = NewText("TitleText", root, "대기실", 56);
-                SetRect(title.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), new Vector2(0, -120), new Vector2(-80, 90));
-                title.fontStyle = FontStyles.Bold;
-
-                TextMeshProUGUI count = NewText("CountText", root, "0 / 0명", 40);
-                SetRect(count.rectTransform, new Vector2(0, 1), new Vector2(1, 1), new Vector2(0.5f, 1), new Vector2(0, -220), new Vector2(-80, 60));
-                count.color = MutedText;
-
-                TextMeshProUGUI players = NewText("PlayersText", root, string.Empty, 40);
-                SetOffsets(players.rectTransform, Vector2.zero, Vector2.one, new Vector2(80, 420), new Vector2(-80, -320));
-                players.alignment = TextAlignmentOptions.Top;
-
-                TextMeshProUGUI message = NewText("MessageText", root, string.Empty, 32);
-                SetRect(message.rectTransform, new Vector2(0, 0), new Vector2(1, 0), new Vector2(0.5f, 0), new Vector2(0, 300), new Vector2(-80, 80));
-                message.color = AccentColor;
-
-                Button start = NewButton("StartButton", root, "게임 시작", 44);
-                SetRect((RectTransform)start.transform, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(-230, 120), new Vector2(400, 130));
-                StyleAccentButton(start);
-
-                Button leave = NewButton("LeaveButton", root, "나가기", 44);
-                SetRect((RectTransform)leave.transform, new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(0.5f, 0), new Vector2(230, 120), new Vector2(400, 130));
-                leave.GetComponent<Image>().color = CardColor;
-                leave.GetComponentInChildren<TextMeshProUGUI>().color = Color.white;
-
-                root.gameObject.SetActive(false); // 실제 서버에서 대기 중일 때만 WaitingRoomView가 켠다
-                Created(root.gameObject, log, "WaitingRoomPanel 생성 (꺼 둠, 실제 서버 대기실용)");
+                Undo.RegisterCompleteObjectUndo(flow, "Missing Script");
+                GameObjectUtility.RemoveMonoBehavioursWithMissingScript(flow);
+                log.AppendLine("· GameFlow의 Missing Script " + missing + "개 삭제 (예전 WaitingRoomView)");
             }
-            root.SetAsLastSibling();
-
-            WaitingRoomView view = flow.GetComponent<WaitingRoomView>();
-            Bind(view, "waitingRoom", flow.GetComponent<WaitingRoomController>());
-            Bind(view, "root", root.gameObject);
-            Bind(view, "titleText", Text(root, "TitleText"));
-            Bind(view, "countText", Text(root, "CountText"));
-            Bind(view, "playersText", Text(root, "PlayersText"));
-            Bind(view, "messageText", Text(root, "MessageText"));
-            Bind(view, "startButton", root.Find("StartButton") != null ? root.Find("StartButton").GetComponent<Button>() : null);
-            Bind(view, "leaveButton", root.Find("LeaveButton") != null ? root.Find("LeaveButton").GetComponent<Button>() : null);
         }
 
         // ================================================================ 도우미 (VoteTestSceneSetupTool과 같은 방식)
