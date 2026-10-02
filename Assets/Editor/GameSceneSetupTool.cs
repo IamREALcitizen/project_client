@@ -5,6 +5,7 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using WhoisntCitizen.Chat;
 using WhoisntCitizen.Game;
 using WhoisntCitizen.GameUI;
 using WhoisntCitizen.Vote;
@@ -21,6 +22,7 @@ namespace WhoisntCitizen.EditorTools
     //   ├─ GameBottomSheet        (klik075) Drawer에 NightActionPanel(꺼 둠) 추가, VotePanel 자기 투표 허용
     //   └─ GameResultPanel        (새로, 꺼 둠) 결과 + "대기실로"(Room 씬으로, 가짜 서버면 새 판)
     //   GameFlow                  (새로) WaitingRoomController(씬 들어오기·나가기) + GameController(가짜 서버 켬)
+    //   GameChat                  (새로) ChatApiClient + GameChatController (서버 채팅: ChatLogPanel·하단 탭 입력에 연결)
     //   WaitingRoomPanel          삭제 (예전 도구가 만든 씬 안 대기실. 대기실은 Room 씬이 맡는다)
     //   VoteTestSystem            삭제 (가짜 데이터·투표 처리가 G와 부딪힌다)
     // 여러 번 실행해도 된다. 이미 있는 오브젝트는 다시 만들지 않고 연결만 다시 한다(손으로 고친 배치는 그대로 둔다).
@@ -100,6 +102,7 @@ namespace WhoisntCitizen.EditorTools
             RoleCardView roleCard = EnsureRoleCard(canvas, topBar, chatLog, log);         // 3-6
             GameResultPanel resultPanel = EnsureResultPanel(canvas, log);                 // 3-7
             RemoveOldWaitingRoom(canvas, flow, log);                                      // 3-8
+            EnsureGameChat(chatLog, bottomTab, log);                                      // 3-11 서버 채팅
 
             GameScreen screen = canvas.GetComponent<GameScreen>();                        // 3-9
             if (screen == null)
@@ -443,6 +446,40 @@ namespace WhoisntCitizen.EditorTools
                 GameObjectUtility.RemoveMonoBehavioursWithMissingScript(flow);
                 log.AppendLine("· GameFlow의 Missing Script " + missing + "개 삭제 (예전 WaitingRoomView)");
             }
+        }
+
+        // ================================================================ 3-11 서버 채팅
+
+        // ChatScene의 서버 채팅 기능(GameChatController)을 붙인다. 브랜치 병합 때 씬에서 빠져도 이 도구를 다시 실행하면 복구된다.
+        // 처음 만들 때만 ChatLogView의 [시스템] 색을 채팅과 같은 녹색으로 맞춘다. (다시 실행할 때는 직접 바꾼 값을 둔다)
+        private static void EnsureGameChat(ChatLogView chatLog, BottomTabController bottomTab, StringBuilder log)
+        {
+            GameChatController chat = Object.FindFirstObjectByType<GameChatController>(FindObjectsInactive.Include);
+            if (chat == null)
+            {
+                GameObject go = new GameObject("GameChat");
+                Undo.RegisterCreatedObjectUndo(go, "GameChat");
+                Undo.AddComponent<ChatApiClient>(go);
+                chat = Undo.AddComponent<GameChatController>(go);
+
+                var so = new SerializedObject(chatLog);
+                SerializedProperty color = so.FindProperty("systemColor");
+                if (color != null)
+                {
+                    color.colorValue = chat.systemColor;
+                    so.ApplyModifiedProperties();
+                    PrefabUtility.RecordPrefabInstancePropertyModifications(chatLog);
+                }
+                log.AppendLine("· GameChat 생성 (ChatApiClient + GameChatController, [시스템] 색을 채팅 녹색으로)");
+            }
+            ChatApiClient api = chat.GetComponent<ChatApiClient>();
+            if (api == null)
+            {
+                api = Undo.AddComponent<ChatApiClient>(chat.gameObject);
+            }
+            Bind(chat, "api", api);
+            Bind(chat, "chatLog", chatLog);
+            Bind(chat, "bottomTab", bottomTab);
         }
 
         // ================================================================ 도우미 (VoteTestSceneSetupTool과 같은 방식)
