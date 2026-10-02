@@ -35,7 +35,7 @@ namespace WhoisntCitizen.Title.Editor
         {
             "Assets/01_Scenes/Title.unity",
             "Assets/01_Scenes/Lobby.unity",
-            "Assets/01_Scenes/Game.unity",
+            "Assets/01_Scenes/GameScene.unity",
         };
 
         [MenuItem("Tools/Bind Title Scene")]
