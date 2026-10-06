@@ -3236,7 +3236,7 @@ MonoBehaviour:
   roleCard: {fileID: 2009428167}
   resultPanel: {fileID: 1436139991}
   portraits: []
-  announcePublicWithRealServer: 1
+  announcePublicWithRealServer: 0
 --- !u!1 &1549984331
 GameObject:
   m_ObjectHideFlags: 0
