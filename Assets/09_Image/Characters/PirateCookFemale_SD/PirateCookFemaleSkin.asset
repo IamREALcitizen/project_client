@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f46a6a11718424f9958c5f3421a9e2a, type: 3}
+  m_Name: PirateCookFemaleSkin
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
+  designId: PIRATE_COOK_FEMALE
+  standing: {fileID: 2100000000000000001, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  seatedFront: {fileID: 2100000000000000002, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  seatedFrontBlink: {fileID: 2100000000000000003, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  seatedFrontTalk: {fileID: 2100000000000000004, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  seatedSide: {fileID: 2100000000000000005, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  seatedBack: {fileID: 2100000000000000006, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  seated1OClock: {fileID: 2200000000000000002, guid: 017b957a52664e25958eb9460c0d3b19, type: 3}
+  seated5OClock: {fileID: 2200000000000000004, guid: 017b957a52664e25958eb9460c0d3b19, type: 3}
+  seated7OClock: {fileID: 2200000000000000003, guid: 017b957a52664e25958eb9460c0d3b19, type: 3}
+  seated11OClock: {fileID: 2200000000000000001, guid: 017b957a52664e25958eb9460c0d3b19, type: 3}
+
