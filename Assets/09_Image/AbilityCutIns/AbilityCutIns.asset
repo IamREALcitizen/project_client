@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d382736600464d72b7536cedc64b1ef6, type: 3}
+  m_Name: AbilityCutIns
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.AbilityCutInCatalog
+  entries:
+  - roleCode: CONCEPT_GHOST_CAPTAIN
+    sprite: {fileID: 21300000, guid: 79182eddf1c34d219b185bff68163815, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: CONCEPT_SIREN
+    sprite: {fileID: 21300000, guid: 486f12a6db7e490299257ad921baf9bd, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: CREW_BOATSWAIN
+    sprite: {fileID: 21300000, guid: 7a9281c9e5b54507b371cee2c7ce2928, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: CREW_CAPTAIN
+    sprite: {fileID: 21300000, guid: a6bd391393db4be7becdd09b18b287ab, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: CREW_DOCTOR
+    sprite: {fileID: 21300000, guid: 62d1152751f04c3ea14d833dcf0c32d1, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: CREW_DRUNK
+    sprite: {fileID: 21300000, guid: aa805538540f43a78f744e31f2b35468, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: CREW_GHOST
+    sprite: {fileID: 21300000, guid: 0265d7966be44e788cc4164f15872a05, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: CREW_GUNNER
+    sprite: {fileID: 21300000, guid: 51673754ab7b466a8a8c511f91bb84ea, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: CREW_LOOKOUT
+    sprite: {fileID: 21300000, guid: 5f917b6827ce42848312fa6e2e36f7eb, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: CREW_MONKEY
+    sprite: {fileID: 21300000, guid: 5f9fe2e0594147c5a689848d4389758a, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: CREW_MONKEY_ALT
+    sprite: {fileID: 21300000, guid: bba984899ea245ac8c4c92b769ea87fe, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: CREW_SAILOR
+    sprite: {fileID: 21300000, guid: 5592099670f7426ca56b36db3e342c95, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: PIRATE_COOK
+    sprite: {fileID: 21300000, guid: a10a73084a154a8791b3ff21fde88d12, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: PIRATE_COOK_FEMALE
+    sprite: {fileID: 21300000, guid: 3860b9c1450f412dbf975cdd16ee7698, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: PIRATE_KRAKEN
+    sprite: {fileID: 21300000, guid: 67eace0786f947d396b77ff49256eab6, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: PIRATE_PARROT
+    sprite: {fileID: 21300000, guid: d10aea91f78c4598820882209cf5b2a7, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: PIRATE_RAIDER
+    sprite: {fileID: 21300000, guid: c0564c2907c14de3aaa2fc8a185f15af, type: 3}
+    hasGameplayAbility: 1
+  - roleCode: PIRATE_SPY
+    sprite: {fileID: 21300000, guid: 0027cfd749ce424bb02e61eb0d80d762, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: THIRD_MERMAID
+    sprite: {fileID: 21300000, guid: da803dda592d40e2a49a6a708f5f6d3c, type: 3}
+    hasGameplayAbility: 0
+  - roleCode: THIRD_MERMAID_MALE
+    sprite: {fileID: 21300000, guid: a968f8bd768d45efae2d3ed95b341165, type: 3}
+    hasGameplayAbility: 0

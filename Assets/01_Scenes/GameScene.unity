@@ -166,6 +166,7 @@ MonoBehaviour:
   useFakeServer: 0
   fakeMyRole: CREW_CAPTAIN
   fakeBotsAct: 1
+  fakeDisconnectPlayerId: 104
 --- !u!4 &24983194
 Transform:
   m_ObjectHideFlags: 0
@@ -488,6 +489,7 @@ MonoBehaviour:
   api: {fileID: 161325564}
   chatLog: {fileID: 354168055}
   bottomTab: {fileID: 215151736}
+  inputBar: {fileID: 0}
   maxMessages: 50
   myUserId: -1
   autoLogin: 1
@@ -507,6 +509,8 @@ MonoBehaviour:
   systemPrefix: "[\uC2DC\uC2A4\uD15C] "
   localNoticeColor: {r: 0.62, g: 0.91, b: 0.63, a: 1}
   localNoticePrefix: "[\uC548\uB0B4] "
+  deadColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
+  nightChatColor: {r: 1, g: 0.6, b: 0.2, a: 1}
   logSystemMessagesToConsole: 1
 --- !u!114 &161325564
 MonoBehaviour:
@@ -520,11 +524,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998afd8ce76608b48aaff5246a8ab8be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.Chat.ChatApiClient
-  baseUrl: http://localhost:8080
+  baseUrlOverride: 
   apiPrefix: /api/v1
   roomId: 1
   timeoutSeconds: 5
   adminKey: 
+  nightChatField: nightChat
   messageIdField: messageId
   typeField: type
   userIdField: userId
@@ -3232,11 +3237,12 @@ MonoBehaviour:
   chatLog: {fileID: 354168055}
   bottomTab: {fileID: 215151736}
   votePanel: {fileID: 215151735}
+  voteCardHand: {fileID: 0}
   nightPanel: {fileID: 2035772348}
   roleCard: {fileID: 2009428167}
   resultPanel: {fileID: 1436139991}
   portraits: []
-  announcePublicWithRealServer: 0
+  serverChat: {fileID: 0}
 --- !u!1 &1549984331
 GameObject:
   m_ObjectHideFlags: 0
