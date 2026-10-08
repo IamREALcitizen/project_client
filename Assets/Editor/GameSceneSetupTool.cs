@@ -19,7 +19,7 @@ namespace WhoisntCitizen.EditorTools
     //   ├─ TopBar_Placeholder     Label → 페이즈 표시, TimerText·DisconnectedBanner(꺼 둠) 추가
     //   ├─ RoleCard               (새로) 내 직업 카드. 채팅 기록은 그만큼 아래로 내린다
     //   ├─ ChatLogPanel           (klik075)
-    //   ├─ GameBottomSheet        (klik075) Drawer에 NightActionPanel(꺼 둠) 추가, VotePanel 자기 투표 허용
+    //   ├─ GameBottomSheet        (klik075) Drawer에 NightActionPanel·DaySkipPanel(꺼 둠) 추가, VotePanel 자기 투표 허용
     //   └─ GameResultPanel        (새로, 꺼 둠) 결과 + "대기실로"(Room 씬으로, 가짜 서버면 새 판)
     //   GameFlow                  (새로) WaitingRoomController(씬 들어오기·나가기) + GameController(가짜 서버 켬)
     //   GameChat                  (새로) ChatApiClient + GameChatController (서버 채팅: ChatLogPanel·하단 탭 입력에 연결)
@@ -99,6 +99,7 @@ namespace WhoisntCitizen.EditorTools
             GameObject banner = EnsureDisconnectedBanner(topBar, log);
             AllowSelfVote(votePanel, log);                                                // 3-4
             NightActionPanel nightPanel = EnsureNightPanel(votePanel.transform.parent, log); // 3-5
+            DaySkipPanel dayPanel = EnsureDayPanel(votePanel.transform.parent, log);         // 3-5b
             RoleCardView roleCard = EnsureRoleCard(canvas, topBar, chatLog, log);         // 3-6
             GameResultPanel resultPanel = EnsureResultPanel(canvas, log);                 // 3-7
             RemoveOldWaitingRoom(canvas, flow, log);                                      // 3-8
@@ -119,6 +120,7 @@ namespace WhoisntCitizen.EditorTools
             Bind(screen, "bottomTab", bottomTab);
             Bind(screen, "votePanel", votePanel);
             Bind(screen, "nightPanel", nightPanel);
+            Bind(screen, "dayPanel", dayPanel);
             Bind(screen, "roleCard", roleCard);
             Bind(screen, "resultPanel", resultPanel);
 
@@ -298,6 +300,55 @@ namespace WhoisntCitizen.EditorTools
             Bind(panel, "confirmButton", sideArea.Find("ConfirmButton").GetComponent<Button>());
             Bind(panel, "confirmButtonText", sideArea.Find("ConfirmButton").GetComponentInChildren<TextMeshProUGUI>(true));
             Bind(panel, "skipButton", sideArea.Find("SkipButton") != null ? sideArea.Find("SkipButton").GetComponent<Button>() : null);
+            Bind(panel, "statusText", sideArea.Find("StatusText").GetComponent<TextMeshProUGUI>());
+            return panel;
+        }
+
+        // ================================================================ 3-5b 낮 토론 넘기기 패널
+
+        private static DaySkipPanel EnsureDayPanel(Transform drawer, StringBuilder log)
+        {
+            Transform existing = drawer.Find("DaySkipPanel");
+            GameObject go;
+            if (existing != null)
+            {
+                go = existing.gameObject;
+            }
+            else
+            {
+                // 밤 능력 패널처럼 VotePanel 프리팹을 연결 없이 복제한다. 확정 버튼을 [토론 넘기기] 버튼으로 쓴다.
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(VotePanelPrefabPath);
+                go = Object.Instantiate(prefab, drawer, false);
+                go.name = "DaySkipPanel";
+                Object.DestroyImmediate(go.GetComponent<VotePanelController>());
+
+                Transform title = go.transform.Find("Title");
+                if (title != null && title.GetComponent<TextMeshProUGUI>() != null)
+                {
+                    title.GetComponent<TextMeshProUGUI>().text = "낮 토론";
+                }
+                Transform side = go.transform.Find("SideArea");
+                Transform confirm = side.Find("ConfirmButton");
+                confirm.name = "SkipButton";
+                confirm.GetComponentInChildren<TextMeshProUGUI>().text = "토론 넘기기";
+                side.Find("StatusText").GetComponent<TextMeshProUGUI>().text = "토론을 넘길 수 있습니다.";
+
+                go.AddComponent<DaySkipPanel>();
+                go.SetActive(false); // 낮에 GameScreen이 켠다
+                Created(go, log, "DaySkipPanel 생성 (Drawer 안, VotePanel 복제, 꺼 둠)");
+            }
+
+            DaySkipPanel panel = go.GetComponent<DaySkipPanel>();
+            if (panel == null)
+            {
+                panel = Undo.AddComponent<DaySkipPanel>(go);
+            }
+            Transform sideArea = go.transform.Find("SideArea");
+            Transform skipButton = sideArea.Find("SkipButton");
+            Bind(panel, "itemPrefab", AssetDatabase.LoadAssetAtPath<GameObject>(ItemPrefabPath).GetComponent<PlayerProfileItem>());
+            Bind(panel, "gridRoot", go.transform.Find("Scroll View/Viewport/Content"));
+            Bind(panel, "skipButton", skipButton != null ? skipButton.GetComponent<Button>() : null);
+            Bind(panel, "skipButtonText", skipButton != null ? skipButton.GetComponentInChildren<TextMeshProUGUI>(true) : null);
             Bind(panel, "statusText", sideArea.Find("StatusText").GetComponent<TextMeshProUGUI>());
             return panel;
         }
