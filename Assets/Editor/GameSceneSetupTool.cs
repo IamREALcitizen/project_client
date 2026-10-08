@@ -501,7 +501,7 @@ namespace WhoisntCitizen.EditorTools
 
         // ================================================================ 3-11 서버 채팅
 
-        // ChatScene의 서버 채팅 기능(GameChatController)을 붙인다. 브랜치 병합 때 씬에서 빠져도 이 도구를 다시 실행하면 복구된다.
+        // 서버 채팅 기능(GameChatController)을 붙인다. 브랜치 병합 때 씬에서 빠져도 이 도구를 다시 실행하면 복구된다.
         // 처음 만들 때만 ChatLogView의 [시스템] 색을 채팅과 같은 녹색으로 맞춘다. (다시 실행할 때는 직접 바꾼 값을 둔다)
         private static void EnsureGameChat(ChatLogView chatLog, BottomTabController bottomTab, StringBuilder log)
         {
