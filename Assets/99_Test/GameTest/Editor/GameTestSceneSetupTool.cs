@@ -19,7 +19,7 @@ namespace WhoisntCitizen.EditorTools
     public static class GameTestSceneSetupTool
     {
         private const string GameScenePath = "Assets/01_Scenes/GameScene.unity";
-        private const string TestScenePath = "Assets/01_Scenes/GameTest.unity";
+        private const string TestScenePath = "Assets/99_Test/GameTest/GameTest.unity"; // [99_Test] 테스트 폴더로 이동
         private const string FontPath = "Assets/Fonts/MalgunGothic SDF.asset";
 
         private static readonly Color AccentColor = new Color32(0xF2, 0xC1, 0x4E, 0xFF);
