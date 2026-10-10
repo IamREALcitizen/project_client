@@ -118,12 +118,12 @@ TextureImporter:
       name: CrewSailor_Standing
       rect:
         serializedVersion: 2
-        x: 0
+        x: 119
         y: 512
-        width: 512
-        height: 512
+        width: 307
+        height: 506
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.53476, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: CrewSailor_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
+        x: 584
         y: 512
-        width: 512
-        height: 512
+        width: 370
+        height: 476
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51026, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: CrewSailor_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1093
         y: 512
-        width: 512
-        height: 512
+        width: 370
+        height: 478
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50997, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: CrewSailor_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 108
+        y: 13
+        width: 369
+        height: 482
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51051, y: 0.00415}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: CrewSailor_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 583
+        y: 18
+        width: 397
+        height: 483
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.44069, y: 0.00414}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: CrewSailor_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1076
+        y: 18
+        width: 413
+        height: 486
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49094, y: 0.00412}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

@@ -112,12 +112,12 @@ TextureImporter:
       name: ConceptGhostCaptain_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 768
-        height: 512
+        x: 174
+        y: 513
+        width: 534
+        height: 502
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.4894, y: 0.00398}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: ConceptGhostCaptain_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
+        x: 828
         y: 512
-        width: 768
-        height: 512
+        width: 539
+        height: 501
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50399, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: ConceptGhostCaptain_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 161
+        y: 11
+        width: 555
+        height: 501
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49106, y: 0.00399}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: ConceptGhostCaptain_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 843
+        y: 7
+        width: 548
+        height: 505
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47418, y: 0.00396}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

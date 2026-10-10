@@ -108,3 +108,6 @@ if (!(Test-Path -LiteralPath $folderMeta)) {
 }
 
 Write-Output "$Name imported: $($base.Width)x$($base.Height) base, $($angles.Width)x$($angles.Height) angles, skin $skinGuid, prefab $prefabGuid"
+
+# Trim each pose to the character and put its pivot where it sits, so the skin fits every seat like the others.
+& (Join-Path $PSScriptRoot 'ChibiSkinFit/FitSkins.ps1') -Name $Name

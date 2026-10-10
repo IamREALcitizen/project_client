@@ -118,12 +118,12 @@ TextureImporter:
       name: CrewCaptain_Standing
       rect:
         serializedVersion: 2
-        x: 0
+        x: 113
         y: 512
-        width: 512
-        height: 512
+        width: 376
+        height: 506
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47857, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: CrewCaptain_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
+        x: 588
         y: 512
-        width: 512
-        height: 512
+        width: 406
+        height: 492
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47486, y: 0.00407}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: CrewCaptain_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1098
         y: 512
-        width: 512
-        height: 512
+        width: 401
+        height: 488
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47964, y: 0.0041}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: CrewCaptain_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 76
+        y: 15
+        width: 417
+        height: 490
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47966, y: 0.00408}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: CrewCaptain_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 602
+        y: 18
+        width: 401
+        height: 482
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48172, y: 0.00415}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: CrewCaptain_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1108
+        y: 18
+        width: 386
+        height: 478
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49912, y: 0.00418}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

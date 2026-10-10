@@ -118,12 +118,12 @@ TextureImporter:
       name: PirateCook_Standing
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 512
-        height: 512
+        x: 52
+        y: 513
+        width: 402
+        height: 507
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50219, y: 0.00394}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: PirateCook_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
-        width: 512
-        height: 512
+        x: 560
+        y: 513
+        width: 402
+        height: 481
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49628, y: 0.00416}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: PirateCook_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
-        width: 512
-        height: 512
+        x: 1072
+        y: 513
+        width: 402
+        height: 481
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49716, y: 0.00416}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: PirateCook_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 39
+        y: 5
+        width: 423
+        height: 492
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49307, y: 0.00407}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: PirateCook_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 570
+        y: 15
+        width: 410
+        height: 496
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46076, y: 0.00403}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: PirateCook_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1076
+        y: 12
+        width: 420
+        height: 489
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49221, y: 0.00409}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

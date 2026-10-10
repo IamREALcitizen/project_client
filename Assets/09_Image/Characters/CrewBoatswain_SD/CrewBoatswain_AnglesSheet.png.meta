@@ -112,12 +112,12 @@ TextureImporter:
       name: CrewBoatswain_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
+        x: 220
         y: 512
-        width: 768
-        height: 512
+        width: 472
+        height: 505
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48276, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: CrewBoatswain_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
+        x: 846
         y: 512
-        width: 768
-        height: 512
+        width: 464
+        height: 506
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.511, y: 0.00198}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: CrewBoatswain_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 216
+        y: 26
+        width: 523
+        height: 486
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46333, y: 0.00412}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: CrewBoatswain_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 813
+        y: 23
+        width: 506
+        height: 488
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.53507, y: 0.0041}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

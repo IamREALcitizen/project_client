@@ -112,12 +112,12 @@ TextureImporter:
       name: CrewCaptain_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 624
-        width: 630
-        height: 623
+        x: 95
+        y: 635
+        width: 486
+        height: 600
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.52498, y: 0.00333}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: CrewCaptain_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 630
-        y: 624
-        width: 631
-        height: 623
+        x: 675
+        y: 634
+        width: 501
+        height: 600
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49514, y: 0.00333}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: CrewCaptain_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 630
-        height: 624
+        x: 97
+        y: 49
+        width: 522
+        height: 575
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49643, y: 0.00348}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: CrewCaptain_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 630
-        y: 0
-        width: 631
-        height: 624
+        x: 649
+        y: 46
+        width: 518
+        height: 578
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50528, y: 0.00346}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

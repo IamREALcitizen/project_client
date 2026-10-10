@@ -112,12 +112,12 @@ TextureImporter:
       name: CrewLookout_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
+        x: 176
         y: 512
-        width: 768
-        height: 512
+        width: 557
+        height: 501
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47456, y: 0.00399}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: CrewLookout_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
+        x: 804
         y: 512
-        width: 768
-        height: 512
+        width: 556
+        height: 501
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.5225, y: 0.00399}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: CrewLookout_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 178
+        y: 12
+        width: 488
+        height: 499
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.52394, y: 0.00401}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: CrewLookout_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 869
+        y: 12
+        width: 501
+        height: 496
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47248, y: 0.00403}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

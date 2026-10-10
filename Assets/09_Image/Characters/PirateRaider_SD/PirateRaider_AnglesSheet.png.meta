@@ -112,12 +112,12 @@ TextureImporter:
       name: PirateRaider_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 591
-        width: 665
-        height: 591
+        x: 64
+        y: 600
+        width: 554
+        height: 574
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50005, y: 0.00348}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: PirateRaider_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 665
-        y: 591
-        width: 665
-        height: 591
+        x: 734
+        y: 596
+        width: 535
+        height: 577
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48505, y: 0.00347}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: PirateRaider_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 665
-        height: 591
+        x: 117
+        y: 21
+        width: 510
+        height: 570
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50331, y: 0.00351}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: PirateRaider_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 665
-        y: 0
-        width: 665
-        height: 591
+        x: 705
+        y: 10
+        width: 521
+        height: 581
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50456, y: 0.00344}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

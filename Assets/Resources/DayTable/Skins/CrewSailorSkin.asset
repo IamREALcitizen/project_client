@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f46a6a11718424f9958c5f3421a9e2a, type: 3}
+  m_Name: CrewSailorSkin
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
+  designId: CREW_SAILOR
+  standing: {fileID: 2100000000000000001, guid: 583ae7593bf3420895ddc835a78a5f5c, type: 3}
+  seatedFront: {fileID: 2100000000000000002, guid: 583ae7593bf3420895ddc835a78a5f5c, type: 3}
+  seatedFrontBlink: {fileID: 2100000000000000003, guid: 583ae7593bf3420895ddc835a78a5f5c, type: 3}
+  seatedFrontTalk: {fileID: 2100000000000000004, guid: 583ae7593bf3420895ddc835a78a5f5c, type: 3}
+  seatedSide: {fileID: 2100000000000000005, guid: 583ae7593bf3420895ddc835a78a5f5c, type: 3}
+  seatedBack: {fileID: 2100000000000000006, guid: 583ae7593bf3420895ddc835a78a5f5c, type: 3}
+  seated1OClock: {fileID: 2200000000000000002, guid: 3852fa25fcdd44198bdf428526d6341e, type: 3}
+  seated5OClock: {fileID: 2200000000000000004, guid: 3852fa25fcdd44198bdf428526d6341e, type: 3}
+  seated7OClock: {fileID: 2200000000000000003, guid: 3852fa25fcdd44198bdf428526d6341e, type: 3}
+  seated11OClock: {fileID: 2200000000000000001, guid: 3852fa25fcdd44198bdf428526d6341e, type: 3}
+

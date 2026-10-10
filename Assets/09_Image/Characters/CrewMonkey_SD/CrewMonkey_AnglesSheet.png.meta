@@ -112,12 +112,12 @@ TextureImporter:
       name: CrewMonkey_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 591
-        width: 665
-        height: 591
+        x: 29
+        y: 598
+        width: 514
+        height: 562
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.55816, y: 0.00356}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: CrewMonkey_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 665
-        y: 591
-        width: 665
-        height: 591
+        x: 795
+        y: 601
+        width: 507
+        height: 558
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.43968, y: 0.00358}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: CrewMonkey_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 665
-        height: 591
+        x: 25
+        y: 59
+        width: 562
+        height: 521
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.54497, y: 0.00384}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: CrewMonkey_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 665
-        y: 0
-        width: 665
-        height: 591
+        x: 756
+        y: 56
+        width: 552
+        height: 529
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.4561, y: 0.00378}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

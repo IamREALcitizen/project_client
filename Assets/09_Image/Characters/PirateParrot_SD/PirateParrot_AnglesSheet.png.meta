@@ -112,12 +112,12 @@ TextureImporter:
       name: PirateParrot_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 768
-        height: 512
+        x: 125
+        y: 520
+        width: 558
+        height: 504
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.55794, y: 0.00397}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: PirateParrot_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 512
-        width: 768
-        height: 512
+        x: 850
+        y: 520
+        width: 564
+        height: 504
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.4364, y: 0.00397}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: PirateParrot_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 116
+        y: 6
+        width: 556
+        height: 506
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.58425, y: 0.00395}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: PirateParrot_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 888
+        y: 4
+        width: 538
+        height: 508
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.42374, y: 0.00394}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

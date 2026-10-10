@@ -112,12 +112,12 @@ TextureImporter:
       name: ConceptSiren_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 768
-        height: 512
+        x: 185
+        y: 516
+        width: 528
+        height: 507
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51785, y: 0.00394}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: ConceptSiren_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
+        x: 830
         y: 512
-        width: 768
-        height: 512
+        width: 530
+        height: 509
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49025, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: ConceptSiren_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 130
+        y: 3
+        width: 579
+        height: 509
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.54091, y: 0.00393}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: ConceptSiren_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 830
+        y: 4
+        width: 577
+        height: 508
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46811, y: 0.00394}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

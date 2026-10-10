@@ -118,12 +118,12 @@ TextureImporter:
       name: CrewGunner_Standing
       rect:
         serializedVersion: 2
-        x: 0
+        x: 82
         y: 512
-        width: 512
-        height: 512
+        width: 341
+        height: 501
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.53395, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: CrewGunner_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
+        x: 569
         y: 512
-        width: 512
-        height: 512
+        width: 399
+        height: 466
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48002, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: CrewGunner_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1081
         y: 512
-        width: 512
-        height: 512
+        width: 399
+        height: 466
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47981, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: CrewGunner_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 63
+        y: 23
+        width: 401
+        height: 476
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47836, y: 0.0042}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: CrewGunner_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 551
+        y: 27
+        width: 445
+        height: 475
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46314, y: 0.00421}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: CrewGunner_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1100
+        y: 27
+        width: 376
+        height: 475
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49803, y: 0.00421}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
