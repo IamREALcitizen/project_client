@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEditor;
@@ -20,15 +20,15 @@ namespace WhoisntCitizen.Title.Editor
         // Canvas 아래 경로. (Regi_Panel 안의 입력칸 이름이 모두 Regi_ID_Input이라 부모 이름까지 포함해 구분한다)
         private const string LoginId = "Login/ID/ID_Input";
         private const string LoginPassword = "Login/Password/Password_Input";
-        private const string LoginButton = "Login/Button_Login";
-        private const string OpenRegisterButton = "Login/Button_Regi";
+        private const string LoginButton = "Login/Buttons/Button_Login";
+        private const string OpenRegisterButton = "Login/Buttons/Button_Regi";
         private const string LoginMessage = "Login/ErrorMessage";
         private const string RegisterPanel = "Regi_Panel";
-        private const string RegisterId = "Regi_Panel/Regi_ID/Regi_ID_Input";
-        private const string RegisterPassword = "Regi_Panel/Regi_Password/Regi_ID_Input";
-        private const string RegisterPasswordConfirm = "Regi_Panel/Regi_Password_re/Regi_ID_Input";
-        private const string RegisterNickname = "Regi_Panel/Regi_Nickname/Regi_ID_Input";
-        private const string RegisterButton = "Regi_Panel/Regi_button";
+        private const string RegisterId = "Regi_Panel/List/Regi_ID/Regi_ID_Input";
+        private const string RegisterPassword = "Regi_Panel/List/Regi_Password/Regi_ID_Input";
+        private const string RegisterPasswordConfirm = "Regi_Panel/List/Regi_Password_re/Regi_ID_Input";
+        private const string RegisterNickname = "Regi_Panel/List/Regi_Nickname/Regi_ID_Input";
+        private const string RegisterButton = "Regi_Panel/List/Regi_button";
         private const string RegisterMessage = "Regi_Panel/Regi_ErrorMessage";
 
         private static readonly string[] BuildScenes =
@@ -56,6 +56,9 @@ namespace WhoisntCitizen.Title.Editor
             }
             Transform canvas = canvasGo.transform;
 
+            // 게스트/로그인 메인, 로그인 수단 선택 팝업 등 새 로그인 플로우 UI가 없으면 먼저 만든다.
+            if (!AuthFlowUiBuilder.EnsureTitleUi(canvas)) return;
+
             // 경로로 모든 대상을 먼저 찾고, 하나라도 없으면 아무것도 바꾸지 않는다.
             var missing = new List<string>();
             TMP_InputField loginId = Find<TMP_InputField>(canvas, LoginId, missing);
@@ -72,6 +75,20 @@ namespace WhoisntCitizen.Title.Editor
             Button registerButton = Find<Button>(canvas, RegisterButton, missing);
             TextMeshProUGUI registerMessage = Find<TextMeshProUGUI>(canvas, RegisterMessage, missing);
             Button registerCloseButton = FindCloseButton(registerPanel, registerButton, missing);
+
+            // 새 로그인 플로우
+            Transform loginPanel = canvas.Find("Login");
+            Transform mainPanel = canvas.Find(AuthFlowUiBuilder.MainPanel);
+            Transform selectPanel = canvas.Find(AuthFlowUiBuilder.LoginSelectPanel);
+            Button guestButton = Find<Button>(canvas, "Main_Panel/Button_Guest", missing);
+            Button openLoginSelectButton = Find<Button>(canvas, "Main_Panel/Button_OpenLogin", missing);
+            TextMeshProUGUI mainMessage = Find<TextMeshProUGUI>(canvas, "Main_Panel/Message", missing);
+            Button googleButton = Find<Button>(canvas, "LoginSelect_Panel/Button_Google", missing);
+            Button kakaoButton = Find<Button>(canvas, "LoginSelect_Panel/Button_Kakao", missing);
+            Button accountButton = Find<Button>(canvas, "LoginSelect_Panel/Button_Account", missing);
+            Button selectCloseButton = Find<Button>(canvas, "LoginSelect_Panel/Button_Close", missing);
+            TextMeshProUGUI selectMessage = Find<TextMeshProUGUI>(canvas, "LoginSelect_Panel/Message", missing);
+            Button accountBackButton = Find<Button>(canvas, "Login/Button_Back", missing);
 
             if (missing.Count > 0)
             {
@@ -91,6 +108,18 @@ namespace WhoisntCitizen.Title.Editor
             if (controller == null) controller = system.AddComponent<TitleController>();
 
             SerializedObject so = new SerializedObject(controller);
+            SetRef(so, "mainPanel", mainPanel.gameObject);
+            SetRef(so, "guestLoginButton", guestButton);
+            SetRef(so, "openLoginSelectButton", openLoginSelectButton);
+            SetRef(so, "mainMessageText", mainMessage);
+            SetRef(so, "loginSelectPanel", selectPanel.gameObject);
+            SetRef(so, "googleLoginButton", googleButton);
+            SetRef(so, "kakaoLoginButton", kakaoButton);
+            SetRef(so, "accountLoginButton", accountButton);
+            SetRef(so, "loginSelectCloseButton", selectCloseButton);
+            SetRef(so, "loginSelectMessageText", selectMessage);
+            SetRef(so, "accountPanel", loginPanel.gameObject);
+            SetRef(so, "accountBackButton", accountBackButton);
             SetRef(so, "loginIdInput", loginId);
             SetRef(so, "loginPasswordInput", loginPassword);
             SetRef(so, "loginButton", loginButton);
@@ -111,6 +140,20 @@ namespace WhoisntCitizen.Title.Editor
             ResetListeners(openRegisterButton.onClick);
             ResetListeners(registerButton.onClick);
             ResetListeners(registerCloseButton.onClick);
+            ResetListeners(guestButton.onClick);
+            ResetListeners(openLoginSelectButton.onClick);
+            ResetListeners(googleButton.onClick);
+            ResetListeners(kakaoButton.onClick);
+            ResetListeners(accountButton.onClick);
+            ResetListeners(selectCloseButton.onClick);
+            ResetListeners(accountBackButton.onClick);
+            UnityEventTools.AddPersistentListener(guestButton.onClick, controller.OnGuestLoginClicked);
+            UnityEventTools.AddPersistentListener(openLoginSelectButton.onClick, controller.OnOpenLoginSelectClicked);
+            UnityEventTools.AddPersistentListener(googleButton.onClick, controller.OnGoogleLoginClicked);
+            UnityEventTools.AddPersistentListener(kakaoButton.onClick, controller.OnKakaoLoginClicked);
+            UnityEventTools.AddPersistentListener(accountButton.onClick, controller.OnAccountLoginClicked);
+            UnityEventTools.AddPersistentListener(selectCloseButton.onClick, controller.OnCloseLoginSelectClicked);
+            UnityEventTools.AddPersistentListener(accountBackButton.onClick, controller.OnAccountBackClicked);
             UnityEventTools.AddPersistentListener(loginButton.onClick, controller.OnLoginClicked);
             UnityEventTools.AddPersistentListener(openRegisterButton.onClick, controller.OnOpenRegisterClicked);
             UnityEventTools.AddPersistentListener(registerButton.onClick, controller.OnRegisterClicked);
