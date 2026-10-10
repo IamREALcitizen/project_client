@@ -2,7 +2,7 @@
 
 These 20 opaque portrait-format images are full-screen illustrations to show when a role uses an ability or, for designs without a coded ability, as visual concept art. They are separate from the small role sprites and from the empty night backgrounds.
 
-`AbilityCutIns.asset` maps each role/design code to its sprite. `hasGameplayAbility` is true only for the seven roles whose night actions are currently defined in `GameConstants.cs` and `AbilityRules.cs`. A false entry is a visual concept and does not add a game mechanic.
+`AbilityCutIns.asset` (in `Assets/Resources/NightScene/`, loaded at run time by `NightRoomView`, which plays the cut-in through `AbilityCutInView` when the player's night action is accepted) maps each role/design code to its sprite. `hasGameplayAbility` is true only for the seven roles whose night actions are currently defined in `GameConstants.cs` and `AbilityRules.cs`. A false entry is a visual concept and does not add a game mechanic.
 
 | Design code | Illustration idea | Gameplay ability |
 | --- | --- | --- |
