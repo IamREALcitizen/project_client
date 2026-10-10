@@ -118,12 +118,12 @@ TextureImporter:
       name: PirateKraken_Standing
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 512
-        height: 512
+        x: 17
+        y: 519
+        width: 487
+        height: 493
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49478, y: 0.00406}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: PirateKraken_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
-        width: 512
-        height: 512
+        x: 524
+        y: 530
+        width: 496
+        height: 433
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50566, y: 0.00462}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: PirateKraken_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
-        width: 512
-        height: 512
+        x: 1036
+        y: 529
+        width: 492
+        height: 433
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50262, y: 0.00462}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: PirateKraken_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 11
+        y: 35
+        width: 501
+        height: 439
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50851, y: 0.00456}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: PirateKraken_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 539
+        y: 37
+        width: 485
+        height: 447
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48668, y: 0.00447}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: PirateKraken_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1037
+        y: 40
+        width: 492
+        height: 437
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49885, y: 0.00458}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

@@ -118,12 +118,12 @@ TextureImporter:
       name: CrewMonkeyAlt_Standing
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 512
-        height: 512
+        x: 24
+        y: 513
+        width: 455
+        height: 500
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51492, y: 0.004}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: CrewMonkeyAlt_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
-        width: 512
-        height: 512
+        x: 525
+        y: 522
+        width: 479
+        height: 446
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.5069, y: 0.00448}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: CrewMonkeyAlt_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
-        width: 512
-        height: 512
+        x: 1025
+        y: 520
+        width: 486
+        height: 449
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50823, y: 0.00445}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: CrewMonkeyAlt_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 30
+        y: 29
+        width: 482
+        height: 471
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51817, y: 0.00425}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: CrewMonkeyAlt_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 535
+        y: 41
+        width: 440
+        height: 454
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.52182, y: 0.00441}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: CrewMonkeyAlt_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1040
+        y: 46
+        width: 468
+        height: 453
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.52527, y: 0.00442}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

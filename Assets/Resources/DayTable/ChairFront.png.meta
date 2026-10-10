@@ -1,25 +1,37 @@
 fileFormatVersion: 2
-guid: 727c3b3fd872473a92306aa60c921a12
+guid: 692e7ec7b0f8a0f4e9602c76d7880908
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2100000000000000001
-    second: CrewCaptain_Standing
+      213: -3001753398039102764
+    second: ChairFront_0
   - first:
-      213: 2100000000000000002
-    second: CrewCaptain_SeatedFront
+      213: -242130901646737366
+    second: ChairFront_1
   - first:
-      213: 2100000000000000003
-    second: CrewCaptain_SeatedFrontBlink
+      213: 6432821435723996445
+    second: ChairFront_2
   - first:
-      213: 2100000000000000004
-    second: CrewCaptain_SeatedFrontTalk
+      213: 7716497188058395640
+    second: ChairFront_3
   - first:
-      213: 2100000000000000005
-    second: CrewCaptain_SeatedSide
+      213: -6845900433039902551
+    second: ChairFront_4
   - first:
-      213: 2100000000000000006
-    second: CrewCaptain_SeatedBack
+      213: -3687777634936486530
+    second: ChairFront_5
+  - first:
+      213: -277248807725024999
+    second: ChairFront_6
+  - first:
+      213: -3342764539113159682
+    second: ChairFront_7
+  - first:
+      213: 6468301051187098311
+    second: ChairFront_8
+  - first:
+      213: 5267292124402446379
+    second: ChairFront_9
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,12 +73,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.02}
-  spritePixelsToUnits: 128
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,133 +127,221 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CrewCaptain_Standing
+      name: ChairFront_0
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1042
+        width: 37
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4dabe8e3031a756d0800000000000000
+      internalID: -3001753398039102764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChairFront_1
       rect:
         serializedVersion: 2
         x: 113
-        y: 512
-        width: 376
-        height: 506
-      alignment: 9
-      pivot: {x: 0.47857, y: 0}
+        y: 17
+        width: 1211
+        height: 1137
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200010800000000000000
-      internalID: 2100000000000000001
+      spriteID: a2083325a37c3acf0800000000000000
+      internalID: -242130901646737366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedFront
+      name: ChairFront_2
       rect:
         serializedVersion: 2
-        x: 588
-        y: 512
-        width: 406
-        height: 492
-      alignment: 9
-      pivot: {x: 0.47486, y: 0.00407}
+        x: 262
+        y: 760
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200020800000000000000
-      internalID: 2100000000000000002
+      spriteID: d1dd8d36309f54950800000000000000
+      internalID: 6432821435723996445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedFrontBlink
+      name: ChairFront_3
       rect:
         serializedVersion: 2
-        x: 1098
-        y: 512
-        width: 401
-        height: 488
-      alignment: 9
-      pivot: {x: 0.47964, y: 0.0041}
+        x: 64
+        y: 346
+        width: 16
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200030800000000000000
-      internalID: 2100000000000000003
+      spriteID: 8f3758c0f41861b60800000000000000
+      internalID: 7716497188058395640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedFrontTalk
+      name: ChairFront_4
       rect:
         serializedVersion: 2
-        x: 76
-        y: 15
-        width: 417
-        height: 490
-      alignment: 9
-      pivot: {x: 0.47966, y: 0.00408}
+        x: 523
+        y: 80
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200040800000000000000
-      internalID: 2100000000000000004
+      spriteID: 9a8b6f8c3d97ef0a0800000000000000
+      internalID: -6845900433039902551
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedSide
+      name: ChairFront_5
       rect:
         serializedVersion: 2
-        x: 602
-        y: 18
-        width: 401
-        height: 482
-      alignment: 9
-      pivot: {x: 0.48172, y: 0.00415}
+        x: 564
+        y: 80
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200050800000000000000
-      internalID: 2100000000000000005
+      spriteID: e750bfa97c162dcc0800000000000000
+      internalID: -3687777634936486530
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedBack
+      name: ChairFront_6
       rect:
         serializedVersion: 2
-        x: 1108
-        y: 18
-        width: 386
-        height: 478
-      alignment: 9
-      pivot: {x: 0.49912, y: 0.00418}
+        x: 668
+        y: 72
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200060800000000000000
-      internalID: 2100000000000000006
+      spriteID: 9193625ada3072cf0800000000000000
+      internalID: -277248807725024999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChairFront_7
+      rect:
+        serializedVersion: 2
+        x: 684
+        y: 74
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef34366cc5d1c91d0800000000000000
+      internalID: -3342764539113159682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChairFront_8
+      rect:
+        serializedVersion: 2
+        x: 825
+        y: 72
+        width: 16
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7c2fa48198504c950800000000000000
+      internalID: 6468301051187098311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChairFront_9
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 60
+        width: 9
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b207833a74e291940800000000000000
+      internalID: 5267292124402446379
       vertices: []
       indices: 
       edges: []
@@ -250,7 +350,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -259,17 +359,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      CrewCaptain_Standing: 2100000000000000001
-      CrewCaptain_SeatedFront: 2100000000000000002
-      CrewCaptain_SeatedFrontBlink: 2100000000000000003
-      CrewCaptain_SeatedFrontTalk: 2100000000000000004
-      CrewCaptain_SeatedSide: 2100000000000000005
-      CrewCaptain_SeatedBack: 2100000000000000006
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-
-

@@ -118,12 +118,12 @@ TextureImporter:
       name: ConceptGhostCaptain_Standing
       rect:
         serializedVersion: 2
-        x: 0
+        x: 34
         y: 512
-        width: 512
-        height: 512
+        width: 453
+        height: 508
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49038, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: ConceptGhostCaptain_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
+        x: 526
         y: 512
-        width: 512
-        height: 512
+        width: 493
+        height: 459
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49512, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: ConceptGhostCaptain_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1035
         y: 512
-        width: 512
-        height: 512
+        width: 493
+        height: 459
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49443, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: ConceptGhostCaptain_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 10
+        y: 27
+        width: 502
+        height: 480
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51509, y: 0.00417}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: ConceptGhostCaptain_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 542
+        y: 23
+        width: 479
+        height: 476
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48712, y: 0.0042}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: ConceptGhostCaptain_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1053
+        y: 22
+        width: 470
+        height: 474
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50584, y: 0.00422}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

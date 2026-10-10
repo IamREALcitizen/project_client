@@ -112,12 +112,12 @@ TextureImporter:
       name: PirateCook_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 768
-        height: 512
+        x: 228
+        y: 516
+        width: 456
+        height: 506
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.4492, y: 0.00395}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: PirateCook_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 512
-        width: 768
-        height: 512
+        x: 906
+        y: 514
+        width: 458
+        height: 503
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46997, y: 0.00398}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: PirateCook_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 198
+        y: 14
+        width: 493
+        height: 498
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.45807, y: 0.00402}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: PirateCook_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 845
+        y: 12
+        width: 503
+        height: 500
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.52547, y: 0.004}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

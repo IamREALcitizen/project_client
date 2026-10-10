@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: 727c3b3fd872473a92306aa60c921a12
+guid: 99a4ebc83f9c4ec4fa326049df0af95a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2100000000000000001
-    second: CrewCaptain_Standing
+      213: 6343480001268347246
+    second: ChairDiagonalBack_0
   - first:
-      213: 2100000000000000002
-    second: CrewCaptain_SeatedFront
+      213: -5309191595241463262
+    second: ChairDiagonalBack_1
   - first:
-      213: 2100000000000000003
-    second: CrewCaptain_SeatedFrontBlink
-  - first:
-      213: 2100000000000000004
-    second: CrewCaptain_SeatedFrontTalk
-  - first:
-      213: 2100000000000000005
-    second: CrewCaptain_SeatedSide
-  - first:
-      213: 2100000000000000006
-    second: CrewCaptain_SeatedBack
+      213: 6737397425471999158
+    second: ChairDiagonalBack_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,12 +52,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.02}
-  spritePixelsToUnits: 128
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -115,133 +106,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CrewCaptain_Standing
+      name: ChairDiagonalBack_0
       rect:
         serializedVersion: 2
-        x: 113
-        y: 512
-        width: 376
-        height: 506
-      alignment: 9
-      pivot: {x: 0.47857, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d24b2dfac5200010800000000000000
-      internalID: 2100000000000000001
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrewCaptain_SeatedFront
-      rect:
-        serializedVersion: 2
-        x: 588
-        y: 512
-        width: 406
-        height: 492
-      alignment: 9
-      pivot: {x: 0.47486, y: 0.00407}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d24b2dfac5200020800000000000000
-      internalID: 2100000000000000002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrewCaptain_SeatedFrontBlink
-      rect:
-        serializedVersion: 2
-        x: 1098
-        y: 512
-        width: 401
-        height: 488
-      alignment: 9
-      pivot: {x: 0.47964, y: 0.0041}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1d24b2dfac5200030800000000000000
-      internalID: 2100000000000000003
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrewCaptain_SeatedFrontTalk
-      rect:
-        serializedVersion: 2
-        x: 76
+        x: 30
         y: 15
-        width: 417
-        height: 490
-      alignment: 9
-      pivot: {x: 0.47966, y: 0.00408}
+        width: 1305
+        height: 1091
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200040800000000000000
-      internalID: 2100000000000000004
+      spriteID: e61f463b371980850800000000000000
+      internalID: 6343480001268347246
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedSide
+      name: ChairDiagonalBack_1
       rect:
         serializedVersion: 2
-        x: 602
-        y: 18
-        width: 401
-        height: 482
-      alignment: 9
-      pivot: {x: 0.48172, y: 0.00415}
+        x: 80
+        y: 796
+        width: 96
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200050800000000000000
-      internalID: 2100000000000000005
+      spriteID: 222a4299f56f156b0800000000000000
+      internalID: -5309191595241463262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_SeatedBack
+      name: ChairDiagonalBack_2
       rect:
         serializedVersion: 2
-        x: 1108
-        y: 18
-        width: 386
-        height: 478
-      alignment: 9
-      pivot: {x: 0.49912, y: 0.00418}
+        x: 56
+        y: 23
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d24b2dfac5200060800000000000000
-      internalID: 2100000000000000006
+      spriteID: 6bcc3ef134b008d50800000000000000
+      internalID: 6737397425471999158
       vertices: []
       indices: 
       edges: []
@@ -250,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -259,17 +184,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      CrewCaptain_Standing: 2100000000000000001
-      CrewCaptain_SeatedFront: 2100000000000000002
-      CrewCaptain_SeatedFrontBlink: 2100000000000000003
-      CrewCaptain_SeatedFrontTalk: 2100000000000000004
-      CrewCaptain_SeatedSide: 2100000000000000005
-      CrewCaptain_SeatedBack: 2100000000000000006
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-
-

@@ -118,12 +118,12 @@ TextureImporter:
       name: ConceptSiren_Standing
       rect:
         serializedVersion: 2
-        x: 0
+        x: 64
         y: 512
-        width: 512
+        width: 435
         height: 512
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51744, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: ConceptSiren_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
+        x: 537
         y: 512
-        width: 512
-        height: 512
+        width: 468
+        height: 499
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48709, y: 0.002}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: ConceptSiren_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1038
         y: 512
-        width: 512
-        height: 512
+        width: 469
+        height: 497
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48915, y: 0.00402}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: ConceptSiren_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 63
+        y: 11
+        width: 449
+        height: 496
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51434, y: 0.00403}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: ConceptSiren_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 555
+        y: 13
+        width: 452
+        height: 493
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46493, y: 0.00406}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: ConceptSiren_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1038
+        y: 11
+        width: 457
+        height: 496
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51707, y: 0.00403}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

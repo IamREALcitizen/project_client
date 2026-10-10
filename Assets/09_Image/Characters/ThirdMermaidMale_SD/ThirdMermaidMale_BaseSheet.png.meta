@@ -118,12 +118,12 @@ TextureImporter:
       name: ThirdMermaidMale_Standing
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 512
-        height: 512
+        x: 31
+        y: 513
+        width: 426
+        height: 511
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50162, y: 0.00391}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: ThirdMermaidMale_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
-        y: 512
-        width: 512
-        height: 512
+        x: 554
+        y: 524
+        width: 441
+        height: 466
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49602, y: 0.00429}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: ThirdMermaidMale_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 512
-        width: 512
-        height: 512
+        x: 1051
+        y: 524
+        width: 444
+        height: 466
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.49411, y: 0.00429}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: ThirdMermaidMale_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 23
+        y: 15
+        width: 483
+        height: 497
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48416, y: 0.00402}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: ThirdMermaidMale_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 529
+        y: 11
+        width: 476
+        height: 501
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.45303, y: 0.00399}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: ThirdMermaidMale_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1047
+        y: 12
+        width: 474
+        height: 500
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.53521, y: 0.004}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

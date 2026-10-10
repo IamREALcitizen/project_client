@@ -118,12 +118,12 @@ TextureImporter:
       name: PirateRaider_Standing
       rect:
         serializedVersion: 2
-        x: 0
+        x: 61
         y: 512
-        width: 512
-        height: 512
+        width: 451
+        height: 505
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.48749, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: PirateRaider_SeatedFront
       rect:
         serializedVersion: 2
-        x: 512
+        x: 561
         y: 512
-        width: 512
-        height: 512
+        width: 462
+        height: 482
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50764, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: PirateRaider_SeatedFrontBlink
       rect:
         serializedVersion: 2
-        x: 1024
+        x: 1071
         y: 512
-        width: 512
-        height: 512
+        width: 452
+        height: 485
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51725, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: PirateRaider_SeatedFrontTalk
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 512
-        height: 512
+        x: 47
+        y: 3
+        width: 453
+        height: 484
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.50839, y: 0.00413}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: PirateRaider_SeatedSide
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
-        width: 512
-        height: 512
+        x: 564
+        y: 6
+        width: 418
+        height: 480
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.47104, y: 0.00417}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -228,12 +228,12 @@ TextureImporter:
       name: PirateRaider_SeatedBack
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 512
-        height: 512
+        x: 1061
+        y: 7
+        width: 435
+        height: 472
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.51421, y: 0.00424}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

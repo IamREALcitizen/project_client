@@ -112,12 +112,12 @@ TextureImporter:
       name: CrewGunner_Seated11OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 512
-        width: 768
-        height: 512
+        x: 248
+        y: 513
+        width: 415
+        height: 496
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46955, y: 0.00403}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: CrewGunner_Seated1OClock
       rect:
         serializedVersion: 2
-        x: 768
+        x: 867
         y: 512
-        width: 768
-        height: 512
+        width: 436
+        height: 498
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.52531, y: 0.00201}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -156,12 +156,12 @@ TextureImporter:
       name: CrewGunner_Seated7OClock
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 768
-        height: 512
+        x: 223
+        y: 30
+        width: 486
+        height: 482
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.46747, y: 0.00415}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -178,12 +178,12 @@ TextureImporter:
       name: CrewGunner_Seated5OClock
       rect:
         serializedVersion: 2
-        x: 768
-        y: 0
-        width: 768
-        height: 512
+        x: 821
+        y: 28
+        width: 497
+        height: 484
       alignment: 9
-      pivot: {x: 0.5, y: 0.02}
+      pivot: {x: 0.53318, y: 0.00413}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []

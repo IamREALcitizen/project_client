@@ -1,19 +1,13 @@
 fileFormatVersion: 2
-guid: 3bd8f8dee3f04b1abbac1edbda80986d
+guid: ec7aeab52b90ae146867b14f03110ecb
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2200000000000000001
-    second: CrewCaptain_Seated11OClock
+      213: -7674671546854932662
+    second: ChairDiagonalFront_0
   - first:
-      213: 2200000000000000002
-    second: CrewCaptain_Seated1OClock
-  - first:
-      213: 2200000000000000003
-    second: CrewCaptain_Seated7OClock
-  - first:
-      213: 2200000000000000004
-    second: CrewCaptain_Seated5OClock
+      213: -1649164209519138782
+    second: ChairDiagonalFront_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,12 +49,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.02}
-  spritePixelsToUnits: 128
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -109,89 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CrewCaptain_Seated11OClock
+      name: ChairDiagonalFront_0
       rect:
         serializedVersion: 2
-        x: 95
-        y: 635
-        width: 486
-        height: 600
-      alignment: 9
-      pivot: {x: 0.52498, y: 0.00333}
+        x: 64
+        y: 11
+        width: 1091
+        height: 1131
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e87f85809dc00010800000000000000
-      internalID: 2200000000000000001
+      spriteID: a4ff9e9e3e61e7590800000000000000
+      internalID: -7674671546854932662
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CrewCaptain_Seated1OClock
+      name: ChairDiagonalFront_1
       rect:
         serializedVersion: 2
-        x: 675
-        y: 634
-        width: 501
-        height: 600
-      alignment: 9
-      pivot: {x: 0.49514, y: 0.00333}
+        x: 1133
+        y: 489
+        width: 12
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e87f85809dc00020800000000000000
-      internalID: 2200000000000000002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrewCaptain_Seated7OClock
-      rect:
-        serializedVersion: 2
-        x: 97
-        y: 49
-        width: 522
-        height: 575
-      alignment: 9
-      pivot: {x: 0.49643, y: 0.00348}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e87f85809dc00030800000000000000
-      internalID: 2200000000000000003
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CrewCaptain_Seated5OClock
-      rect:
-        serializedVersion: 2
-        x: 649
-        y: 46
-        width: 518
-        height: 578
-      alignment: 9
-      pivot: {x: 0.50528, y: 0.00346}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1e87f85809dc00040800000000000000
-      internalID: 2200000000000000004
+      spriteID: 228e25b93edfc19e0800000000000000
+      internalID: -1649164209519138782
       vertices: []
       indices: 
       edges: []
@@ -200,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -209,16 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      CrewCaptain_Seated11OClock: 2200000000000000001
-      CrewCaptain_Seated1OClock: 2200000000000000002
-      CrewCaptain_Seated7OClock: 2200000000000000003
-      CrewCaptain_Seated5OClock: 2200000000000000004
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-
-
-
