@@ -5,7 +5,7 @@ using WhoisntCitizen.Chat;
 
 /// <summary>
 /// Tools > Chat > System Message Console
-/// Play 모드에서 현재 씬의 채팅 컨트롤러(ChatScene: ChatUIController / GameScene: GameChatController)를 통해
+/// Play 모드에서 현재 씬의 채팅 컨트롤러(GameScene: GameChatController)를 통해
 /// 시스템 메시지(공지)를 서버로 보냅니다. (IChatSystemSender를 구현한 컴포넌트를 찾음)
 ///  - 보낸 메시지는 서버에 type=SYSTEM으로 저장되어 모든 클라이언트 채팅창에 녹색 [시스템] 메시지로 표시됩니다.
 ///  - 채팅창에 표시되는 시스템 메시지(입장·퇴장 알림, 공지)는 Unity 콘솔에도 [Chat][시스템]으로 출력됩니다.
@@ -36,9 +36,9 @@ public class ChatSystemConsoleWindow : EditorWindow
 
         // 상태
         if (!Application.isPlaying)
-            EditorGUILayout.HelpBox("Play 모드에서 사용할 수 있습니다. (ChatScene 등 ChatUIController가 있는 씬)", MessageType.Info);
+            EditorGUILayout.HelpBox("Play 모드에서 사용할 수 있습니다. (GameChatController가 있는 씬)", MessageType.Info);
         else if (chat == null)
-            EditorGUILayout.HelpBox("현재 씬에 채팅 컨트롤러(ChatUIController / GameChatController)가 없습니다.", MessageType.Warning);
+            EditorGUILayout.HelpBox("현재 씬에 채팅 컨트롤러(GameChatController)가 없습니다.", MessageType.Warning);
         else
             EditorGUILayout.LabelField("대상",
                 "room " + chat.RoomId + (chat.IsReady ? "  (연결됨)" : "  (연결 중...)"),
