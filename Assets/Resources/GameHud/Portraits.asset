@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9872415e9c9f4824938686fed7f100c9, type: 3}
+  m_Name: Portraits
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.DesignSpriteCatalog
+  entries:
+  - designId: CONCEPT_GHOST_CAPTAIN
+    sprite: {fileID: -2907640988166597232, guid: 1c8dc37efeba2447eafb25ed2223cd02, type: 3}
+  - designId: CONCEPT_SIREN
+    sprite: {fileID: -8172110048455051528, guid: 7b59199896dec45529d07682a2a9e569, type: 3}
+  - designId: CONCEPT_SIREN_ALT
+    sprite: {fileID: 5074945622015331794, guid: 268ad222d5aa844b6bff01867633ed61, type: 3}
+  - designId: CREW_BOATSWAIN
+    sprite: {fileID: 6908188858080432131, guid: 3d9cd078495504180818b4e960fa5270, type: 3}
+  - designId: CREW_CAPTAIN
+    sprite: {fileID: 5756071052222329510, guid: fa5bee5c293d54a5e9252c921ee021f6, type: 3}
+  - designId: CREW_DOCTOR
+    sprite: {fileID: 3381413113330925473, guid: 284411bf5b0ed4867bdd29efa7ee4ed0, type: 3}
+  - designId: CREW_DRUNK
+    sprite: {fileID: 8351126799973245422, guid: 388ee79f641a24c84a9ad86abb2131c9, type: 3}
+  - designId: CREW_GHOST
+    sprite: {fileID: -1685236431468568694, guid: cc7082255b92f4b39ba44a1440797f20, type: 3}
+  - designId: CREW_GUNNER
+    sprite: {fileID: -3240962548833151686, guid: ccac1d2873d264c53ae4b41d1074171d, type: 3}
+  - designId: CREW_LOOKOUT
+    sprite: {fileID: -7679639961799169246, guid: 279d5d0a75d6e49d2bfbb2f6611dcf6b, type: 3}
+  - designId: CREW_MONKEY
+    sprite: {fileID: -1877498069861066182, guid: 2798c50f2aec847c2bfe9930ee79703c, type: 3}
+  - designId: CREW_MONKEY_ALT
+    sprite: {fileID: -1877498069861066182, guid: 57d8d7bbbcbb4dcabae3953cb8c4b032, type: 3}
+  - designId: CREW_SAILOR
+    sprite: {fileID: 6536686025046544161, guid: 0c836b9851fdc44439c431db57104d4a, type: 3}
+  - designId: PIRATE_COOK
+    sprite: {fileID: -7172026105246684885, guid: a21571667d27fa141a531d47184c5db4, type: 3}
+  - designId: PIRATE_COOK_FEMALE
+    sprite: {fileID: 6800802107858699163, guid: 26a5d11d51e0bb745b5eb35846ea0666, type: 3}
+  - designId: PIRATE_KRAKEN
+    sprite: {fileID: 7702171996286829605, guid: 60cacdc9bac04495898f27decf96d841, type: 3}
+  - designId: PIRATE_PARROT
+    sprite: {fileID: -6519589114198161420, guid: 4de5cc9a2cd0e406a92fafba04c7e57d, type: 3}
+  - designId: PIRATE_RAIDER
+    sprite: {fileID: -6943503272783040525, guid: 7aa4dd1df79a045b3baff8c504069b9d, type: 3}
+  - designId: PIRATE_SPY
+    sprite: {fileID: -770005369195513833, guid: dfb2613b618b743b4b80cbc193a93a29, type: 3}
+  - designId: THIRD_MERMAID
+    sprite: {fileID: 5578007159371375075, guid: 5ac371df6383c454a847a573b17a41e7, type: 3}
+  - designId: THIRD_MERMAID_MALE
+    sprite: {fileID: 5149409553328822109, guid: 2ad6069f9dd48cc47a0ab57d49cb3154, type: 3}
