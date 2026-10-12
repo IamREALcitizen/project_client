@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.RoundTableLayout
   stageTop: 236
   stageHeight: 810
-  deckRaise: 380
-  tableWidth: 765
-  tableY: -60
-  chairSize: 184
-  fewPlayersScale: 1.12
-  ringPaddingX: 40
-  ringPaddingY: 0
-  ringOffsetY: 0
-  seatRotation: 0
-  cardSpotRadius: 0.7
-  nameSize: 26
-  previewPlayers: 8
+  deckRaise: 170
+  tableWidth: 743
+  tableY: -150
+  chairSize: 171.3
+  fewPlayersScale: 1
+  ringPaddingX: 90
+  ringPaddingY: -4
+  ringOffsetY: 64
+  seatRotation: -0.107999995
+  cardSpotRadius: 0.67142
+  nameSize: 25
+  previewPlayers: 12
