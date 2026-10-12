@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db514b943d2e4034ba61572c5b10e147, type: 3}
+  m_Name: RoundTableLayout
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.RoundTableLayout
+  stageTop: 236
+  stageHeight: 810
+  deckRaise: 380
+  tableWidth: 765
+  tableY: 50
+  chairSize: 184
+  fewPlayersScale: 1.12
+  ringPaddingX: 40
+  ringPaddingY: 0
+  ringOffsetY: 0
+  seatRotation: 0
+  cardSpotRadius: 0.7
+  nameSize: 26
