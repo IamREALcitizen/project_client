@@ -1,0 +1,1 @@
+PASS: 4/6/12 participants, capacity change, empty berths, scrolling, host/guest manage controls, single callback, settings permissions, Korean glyphs, circular portrait masks, crown/check/dot status, long self name badge, existing scene chat open/close; rendered 9 previews. Network APIs were not invoked.

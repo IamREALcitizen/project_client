@@ -1979,6 +1979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d855d1d1e45124fe09857a4ed902f52a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.Lobby.RoomUIController
+  useCabinLayout: 1
   titleText: {fileID: 966887968}
   memberCountText: {fileID: 1407487650}
   playerListContent: {fileID: 637410055}
