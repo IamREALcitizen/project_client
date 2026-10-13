@@ -7,6 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using WhoisntCitizen.Game;
+using WhoisntCitizen.GameUI;
 
 public static class CaptureResults
 {
@@ -64,40 +65,124 @@ public static class CaptureResults
             Stretch(buttonText.rectTransform); buttonText.text = "대기실로";
             buttonText.fontSize = 36; buttonText.alignment = TextAlignmentOptions.Center;
             var panel = root.gameObject.AddComponent<GameResultPanel>();
+            var skins = Resources.LoadAll<ChibiCharacterSkin>("DayTable/Skins");
+            Array.Sort(skins, (a, b) => string.CompareOrdinal(a.name, b.name));
+            Check(skins.Length >= 12, "Missing test skins");
+            panel.SkinOf = id => skins[(int)(id - 1) % skins.Length];
             Bind(panel, "winnerText", winnerText); Bind(panel, "outcomeText", outcome);
             Bind(panel, "playersText", players); Bind(panel, "backButton", button);
             typeof(GameResultPanel).GetMethod("Awake", Private).Invoke(panel, null);
             int backCount = 0; panel.BackRequested += () => backCount++;
+            root.gameObject.SetActive(false); // Match scenes whose result panel starts hidden.
 
             string[] names = { "CrewVictory", "PirateVictory", "PersonalVictory", "Defeat" };
             for (int i = 0; i < names.Length; i++)
             {
                 string winningFaction = i == 3 ? Factions.Pirate : factions[i];
                 string myFaction = i == 3 ? Factions.Crew : factions[i];
-                panel.Show(Result(winningFaction), new MyRoleDto { faction = myFaction });
-                Canvas.ForceUpdateCanvases(); players.ForceMeshUpdate();
+                panel.Show(Result(winningFaction), new MyRoleDto { playerId = 1, faction = myFaction });
+                Check(panel.IsIntroPlaying && !Counting(panel), "Countdown must wait for intro");
+                var sequence = root.GetComponent<GameResultSequence>();
+                Step(sequence, .25f);
+                Check(winnerText.GetComponent<CanvasGroup>().alpha == 0f && players.GetComponent<CanvasGroup>().alpha == 0f, "Early text reveal");
+                if (i == 0)
+                {
+                    Save(camera, target, Path.Combine(output, "Intro-025.png"));
+                    Step(sequence, .55f);
+                    Save(camera, target, Path.Combine(output, "Intro-080.png"));
+                    Step(sequence, .45f);
+                    Save(camera, target, Path.Combine(output, "Intro-125.png"));
+                    Step(sequence, .75f);
+                }
+                else panel.SkipIntro();
+                Check(!panel.IsIntroPlaying && Counting(panel), "Intro completion or skip did not start countdown");
+                Bind(panel, "remaining", 17f); panel.SkipIntro();
+                Check((float)typeof(GameResultPanel).GetField("remaining", Private).GetValue(panel) == 17f, "Repeated skip reset countdown");
+                int expectedFigures = i == 2 || i == 3 ? 1 : i == 1 ? 4 : 9;
+                Check(root.Find("ResultCharacters").childCount == expectedFigures, "Wrong winning team / solo figures");
+                foreach (Transform holder in root.Find("ResultCharacters"))
+                {
+                    long id = long.Parse(holder.name.Substring("Winner_".Length));
+                    Check(holder.Find("Character").GetComponent<Image>().sprite == panel.SkinOf(id).Standing, "Worn skin changed");
+                }
+                Canvas.ForceUpdateCanvases(); Step(sequence, 0f);
+                CheckUniformLineup(root);
                 Image art = root.Find("ResultBackground").GetComponent<Image>();
                 Check(art.sprite != null && art.sprite.name == names[i], "Wrong or missing resource: " + names[i]);
-                Check(!players.isTextOverflowing, "12-player roster overflow");
+                Transform cards = root.Find("Card/ResultPlayerCards/Players");
+                Check(cards.childCount == 12 && !players.gameObject.activeSelf, "Portrait cards must replace the text roster");
+                var catalog = Resources.Load<DesignSpriteCatalog>("GameHud/Portraits");
+                var buttonCorners = new Vector3[4]; buttonRect.GetWorldCorners(buttonCorners);
+                foreach (Transform row in cards)
+                {
+                    long id = long.Parse(row.name.Substring("Player_".Length));
+                    Sprite expectedPortrait = catalog.Find(panel.SkinOf(id).DesignId);
+                    if (expectedPortrait == null) expectedPortrait = panel.SkinOf(id).Standing;
+                    Check(row.Find("PortraitBase/Portrait").GetComponent<Image>().sprite == expectedPortrait, "Card portrait differs from worn skin: " + id);
+                    var rowCorners = new Vector3[4]; ((RectTransform)row).GetWorldCorners(rowCorners);
+                    Check(rowCorners[0].y > buttonCorners[2].y, "Result card overlaps the return button");
+                    Check(row.Find("Status").GetComponent<TextMeshProUGUI>().text == ((id - 1) % 3 != 0 ? "생존" : "사망"), "Wrong alive/dead badge");
+                    foreach (string field in new[] { "Nickname", "Role", "Faction", "Status" })
+                    {
+                        var label = row.Find(field).GetComponent<TextMeshProUGUI>(); label.ForceMeshUpdate();
+                        Check(label.textInfo.meshInfo[0].vertexCount > 0, "Card text is not visible: " + field);
+                    }
+                }
                 if (i == 2) Check(winnerText.text == "개인 승리", "Personal victory headline exposes backend faction code");
                 Check(art.transform.GetSiblingIndex() == 0, "Background covers controls");
-                Check(root.childCount == 2, "Repeated Show duplicated background");
+                Check(root.childCount == 6, "Repeated Show duplicated presentation layers");
                 var a = new Vector3[4]; var b = new Vector3[4];
                 root.GetWorldCorners(a); art.rectTransform.GetWorldCorners(b);
                 Check(b[0].x <= a[0].x + .1f && b[0].y <= a[0].y + .1f && b[2].x >= a[2].x - .1f && b[2].y >= a[2].y - .1f,
                     "Background does not cover panel");
                 Save(camera, target, Path.Combine(output, names[i] + ".png"));
                 button.onClick.Invoke();
+                button.onClick.Invoke(); // Return must only fire once for this presentation.
                 panel.Hide(); Check(!root.gameObject.activeSelf, "Hide failed");
             }
             Check(backCount == 4, "Back callback failed or duplicate listeners");
+            var fullCrew = Result(Factions.Crew);
+            foreach (var player in fullCrew.players) player.role = RoleCodes.CrewSailor;
+            panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
+            panel.SkipIntro();
+            Check(!Counting(panel), "Fake game auto-return enabled");
+            Check(root.Find("ResultCharacters").childCount == 12, "Full 12-player lineup missing");
+            Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f); CheckUniformLineup(root);
+            Save(camera, target, Path.Combine(output, "TwelveWinners.png"));
+            panel.SkinOf = id => skins[((int)(id - 1) + 12) % skins.Length];
+            panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
+            panel.SkipIntro(); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
+            CheckUniformLineup(root); // Includes wide kraken/mermaid/animal skins as well as humans.
+            Save(camera, target, Path.Combine(output, "MixedWinners.png"));
+            panel.SkinOf = id => skins[(int)(id - 1) % skins.Length];
+            panel.Show(Result(Factions.Crew), new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
+            string frames = Path.Combine(output, "IntroFrames"); Directory.CreateDirectory(frames);
+            Save(camera, target, Path.Combine(frames, "Frame000.png"));
+            for (int frame = 1; frame <= 40; frame++)
+            {
+                Step(root.GetComponent<GameResultSequence>(), .05f);
+                Save(camera, target, Path.Combine(frames, "Frame" + frame.ToString("D3") + ".png"));
+            }
+            panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew });
+            Step(root.GetComponent<GameResultSequence>(), .7f); panel.Hide();
+            Step(root.GetComponent<GameResultSequence>(), 10f);
+            Check(!Counting(panel) && !panel.IsIntroPlaying && backCount == 4, "Hidden intro sent delayed callbacks");
+            panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew });
+            button.onClick.Invoke();
+            Check(!panel.IsIntroPlaying && backCount == 4, "First click should skip rather than leave");
+            Bind(panel, "remaining", 0f);
+            typeof(GameResultPanel).GetMethod("Update", Private).Invoke(panel, null);
+            typeof(GameResultPanel).GetMethod("Update", Private).Invoke(panel, null);
+            Check(backCount == 5, "Automatic return fired incorrectly");
             var cancellation = Result(null); cancellation.endReason = EndReasons.CancelledNoDeaths;
             panel.Show(cancellation, new MyRoleDto { faction = Factions.Crew });
             Check(!root.Find("ResultBackground").gameObject.activeSelf, "Stale defeat background after cancellation");
             Check(winnerText.text == "게임 취소", "Cancellation headline");
+            Check(!panel.IsIntroPlaying && !root.Find("ResultCharacters").gameObject.activeSelf, "Cancellation celebrated");
+            Check(players.gameObject.activeSelf && !root.Find("Card/ResultPlayerCards").gameObject.activeSelf, "Cancellation kept stale player cards");
             panel.Show(Result(Factions.Crew), null);
             Check(!root.Find("ResultBackground").gameObject.activeSelf, "Unknown player should not be labelled defeated");
-            File.WriteAllText(Path.Combine(output, "status.txt"), "PASS: 9 win/loss mappings, null/unknown/pending and 3 cancellations, 4 imported backgrounds, 12-player text fit, aspect cover, repeat show/hide, back button; 4 previews rendered.");
+            File.WriteAllText(Path.Combine(output, "status.txt"), "PASS: result mappings, 4 backgrounds, 12-player text/lineup, worn skins, staged reveal, skip, repeated click, 20-second countdown after intro, fake-game return disabled, interrupted intro cleanup and cancellations; previews rendered.");
             EditorApplication.Exit(0);
         }
         catch (Exception ex)
@@ -111,7 +196,8 @@ public static class CaptureResults
     {
         var result = new GameResultDto { ended = true, endReason = EndReasons.Win, winner = winner, lastDay = 4 };
         string[] roles = { "선장", "해적", "선의", "망루지기", "갑판장", "주정뱅이", "앵무새", "원숭이", "선원", "선원", "해적", "선원" };
-        for (int i = 0; i < 12; i++) result.players.Add(new PlayerResultDto { playerId = i + 1, nickname = "플레이어 " + (i + 1), roleName = roles[i], alive = i % 3 != 0 });
+        string[] codes = { "CREW_CAPTAIN", "PIRATE_RAIDER", "CREW_DOCTOR", "CREW_LOOKOUT", "CREW_BOATSWAIN", "CREW_DRUNK", "PIRATE_PARROT", "CREW_MONKEY", "CREW_SAILOR", "CREW_SAILOR", "PIRATE_RAIDER", "CREW_SAILOR" };
+        for (int i = 0; i < 12; i++) result.players.Add(new PlayerResultDto { playerId = i + 1, nickname = "플레이어 " + (i + 1), role = codes[i], roleName = roles[i], alive = i % 3 != 0 });
         return result;
     }
     static RectTransform Rect(string name, Transform parent)
@@ -128,6 +214,31 @@ public static class CaptureResults
     static void Stretch(RectTransform rect) { rect.anchorMin = Vector2.zero; rect.anchorMax = Vector2.one; rect.offsetMin = rect.offsetMax = Vector2.zero; }
     static void Bind(object target, string name, object value) { target.GetType().GetField(name, Private).SetValue(target, value); }
     static void Check(bool passed, string message) { if (!passed) throw new Exception(message); }
+    static bool Counting(GameResultPanel panel) => (bool)typeof(GameResultPanel).GetField("counting", Private).GetValue(panel);
+    static void Step(GameResultSequence sequence, float delta) { typeof(GameResultSequence).GetMethod("Step", Private).Invoke(sequence, new object[] { delta }); }
+    static void CheckUniformLineup(RectTransform root)
+    {
+        Transform stage = root.Find("ResultCharacters");
+        float height = -1f;
+        for (int i = 0; i < stage.childCount; i++)
+        {
+            Transform holder = stage.GetChild(i);
+            Image avatar = holder.Find("Character").GetComponent<Image>(); Rect rect = avatar.rectTransform.rect;
+            if (height < 0f) height = rect.height;
+            Check(Mathf.Abs(rect.height - height) < .01f, "Character heights differ");
+            Check(Mathf.Abs(rect.width / rect.height - avatar.sprite.rect.width / avatar.sprite.rect.height) < .001f, "Character stretched");
+            Check(Mathf.Abs(avatar.rectTransform.pivot.y - avatar.sprite.pivot.y / avatar.sprite.rect.height) < .001f, "Feet pivot changed");
+            for (int j = 0; j < i; j++)
+            {
+                var other = (RectTransform)stage.GetChild(j);
+                if (Mathf.Abs(((RectTransform)holder).anchoredPosition.y - other.anchoredPosition.y) > .1f) continue;
+                var left = new Vector3[4]; var right = new Vector3[4];
+                other.Find("Character").GetComponent<RectTransform>().GetWorldCorners(left);
+                avatar.rectTransform.GetWorldCorners(right);
+                Check(left[2].x < right[0].x, "Characters overlap at uniform height");
+            }
+        }
+    }
     static void Save(Camera camera, RenderTexture target, string path)
     {
         Canvas.ForceUpdateCanvases(); camera.Render(); RenderTexture.active = target;
