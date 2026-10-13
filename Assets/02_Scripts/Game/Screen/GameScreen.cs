@@ -231,6 +231,7 @@ namespace WhoisntCitizen.Game
                 nightPanel.PortraitResolver = PortraitOf;
                 nightPanel.Confirmed += OnNightConfirmed;
                 nightPanel.Skipped += OnNightSkipped;
+                nightPanel.Struck += OnNightStruck;
             }
             if (dayPanel != null)
             {
@@ -301,6 +302,7 @@ namespace WhoisntCitizen.Game
             {
                 nightPanel.Confirmed -= OnNightConfirmed;
                 nightPanel.Skipped -= OnNightSkipped;
+                nightPanel.Struck -= OnNightStruck;
             }
             if (dayPanel != null)
             {
@@ -547,7 +549,8 @@ namespace WhoisntCitizen.Game
             {
                 return;
             }
-            AddSystem(GameScreenText.ActionAccepted(result, session.Me.actionCode, session.MyNightTarget, session.SkippedTonight, session.State));
+            AddSystem(GameScreenText.ActionAccepted(result, session.Me.actionCode, session.MyNightTarget, session.SkippedTonight, session.State,
+                session.StruckTonight, session.KrakenMarks.Count));
             foreach (long pirateId in result.contactedPirateIds)
             {
                 if (!contactedPirates.Contains(pirateId)) contactedPirates.Add(pirateId); // 앵무새 접선: 해적 방으로 간다
@@ -744,6 +747,14 @@ namespace WhoisntCitizen.Game
             }
         }
 
+        private void OnNightStruck()
+        {
+            if (controller != null)
+            {
+                controller.StrikeKraken();
+            }
+        }
+
         private void OnDaySkipped()
         {
             if (controller != null)
@@ -887,15 +898,17 @@ namespace WhoisntCitizen.Game
                 return;
             }
             long target = session.MyNightTarget;
-            if (target == 0)
+            bool struck = session.StruckTonight; // 크라켄 발동은 대상이 없다
+            if (target == 0 && !struck)
             {
                 return;
             }
             bool firstTonight = cutInVersion != session.State.phaseVersion;
             cutInVersion = session.State.phaseVersion;
             MyRoleDto me = session.Me;
-            nightRoom.PlayAbility(NightRoomRules.DesignIdFor(me.role), me.actionCode, me.roleName,
-                GameScreenText.AbilityCutInLine(me.actionCode, target, session.State), firstTonight);
+            string action = struck ? ActionCodes.KrakenStrike : me.actionCode;
+            nightRoom.PlayAbility(NightRoomRules.DesignIdFor(me.role), action, me.roleName,
+                GameScreenText.AbilityCutInLine(action, target, session.State), firstTonight);
         }
 
         // ================================================================ 결과 컷신
@@ -917,7 +930,10 @@ namespace WhoisntCitizen.Game
                 && state.phaseVersion != joinedPhaseVersion;
         }
 
-        /// <summary>밤 결과 컷신: 사망(희생자 수배서), 선의 보호(금빛 고리), 아무 일 없음(고요한 바다). 끝나면 낮 명패.</summary>
+        /// <summary>
+        /// 밤 결과 컷신: 사망(희생자 수배서), 선의 보호(금빛 고리), 아무 일 없음(고요한 바다). 끝나면 낮 명패.
+        /// 수배서는 한 사람만 그린다(내가 죽었으면 나, 아니면 습격 먼저·크라켄 다음). 여러 명이 죽었으면 나머지는 공지와 채팅 안내로 알린다.
+        /// </summary>
         private void PlayNightTransition(NightResultDto result)
         {
             if (!PlaysTransitions || !IsLiveResult(GamePhases.NightResult))
@@ -927,8 +943,10 @@ namespace WhoisntCitizen.Game
             var info = new DayTransitionInfo { Day = result.day, GameOver = currentPhase == GamePhases.Ended };
             if (result.HasKill)
             {
+                DeathDto first = result.Deaths.Find(d => d.playerId == MyId) ?? result.Deaths[0]; // 내가 죽었으면 나를
                 info.Kind = DayTransitionKind.Killed;
-                DescribeDead(info, result.killedPlayerId, result.killedNickname);
+                info.Kraken = first.cause == DeathCauses.Kraken;
+                DescribeDead(info, first.playerId, first.nickname);
             }
             else
             {

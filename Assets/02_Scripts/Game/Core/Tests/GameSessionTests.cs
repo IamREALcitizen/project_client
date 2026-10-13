@@ -476,5 +476,65 @@ namespace WhoisntCitizen.Game.Tests
             Assert.IsTrue(session.IsClosed);
             Assert.AreEqual(1, api.Calls("GetState"));
         }
+
+        // ---------------------------------------------------------------- 중립 직업 (가짜 서버에 없어서 정해 둔 응답으로)
+
+        /// <summary>밤, 나 11(me) + 12 영희 + 13 민수 생존.</summary>
+        private ScriptedGameApi Scripted(MyRoleDto me)
+        {
+            now = 0;
+            var scripted = new ScriptedGameApi { State = GameTestData.NightAllAlive(), Me = me };
+            view = new RecordingView();
+            session = new GameSession(scripted, FakeGameApi.FakeGameId, view, () => now, 1.0);
+            session.Tick(); // 상태 → /me
+            return scripted;
+        }
+
+        [Test]
+        public void 크라켄은_표식_대신_발동을_보낼_수_있다()
+        {
+            var me = GameTestData.Me(11, "NEUTRAL_KRAKEN", ActionCodes.KrakenMark, -1);
+            me.krakenMarkIds.Add(12);
+            ScriptedGameApi scripted = Scripted(me);
+
+            Assert.IsTrue(session.CanStrike);
+            Assert.IsTrue(session.StrikeKraken());
+
+            Assert.AreEqual(new System.Collections.Generic.KeyValuePair<long, string>(0, ActionCodes.KrakenStrike), scripted.NightActions.Single());
+            Assert.IsTrue(session.StruckTonight);
+            Assert.IsFalse(session.SkippedTonight); // 대상이 없어도 넘긴 것이 아니다
+            Assert.AreEqual(0L, session.MyNightTarget);
+
+            Assert.IsTrue(session.SubmitNightAction(13)); // 판정 전에는 표식으로 다시 바꿀 수 있다
+            Assert.AreEqual(new System.Collections.Generic.KeyValuePair<long, string>(13, null), scripted.NightActions.Last());
+            Assert.IsFalse(session.StruckTonight);
+            Assert.AreEqual(13L, session.MyNightTarget);
+        }
+
+        [Test]
+        public void 표식이_없으면_발동을_보내지_않는다()
+        {
+            ScriptedGameApi scripted = Scripted(GameTestData.Me(11, "NEUTRAL_KRAKEN", ActionCodes.KrakenMark, -1));
+
+            Assert.IsFalse(session.CanStrike);
+            Assert.IsFalse(session.StrikeKraken());
+
+            Assert.AreEqual(0, scripted.NightActions.Count);
+            Assert.AreEqual(GameSession.CannotStrikeMessage, view.Errors.Single());
+        }
+
+        [Test]
+        public void 쉬는_밤의_세이렌은_유혹을_보내지_않는다()
+        {
+            var me = GameTestData.Me(11, "NEUTRAL_SIREN", ActionCodes.Seduce, -1);
+            me.abilityAvailable = false;
+            ScriptedGameApi scripted = Scripted(me);
+
+            Assert.AreEqual(AbilityBlock.Resting, session.NightAbility);
+            Assert.IsFalse(session.SubmitNightAction(12));
+
+            Assert.AreEqual(0, scripted.NightActions.Count);
+            Assert.AreEqual(ReportFormatter.AbilityBlockMessage(AbilityBlock.Resting), view.Errors.Single());
+        }
     }
 }

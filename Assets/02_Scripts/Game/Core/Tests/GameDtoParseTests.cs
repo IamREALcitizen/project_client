@@ -373,9 +373,11 @@ namespace WhoisntCitizen.Game.Tests
         // ---------------------------------------------------------------- 요청 · 도우미
 
         [Test]
-        public void 요청_body는_targetId_하나다()
+        public void 요청_body는_targetId와_고른_능력이다()
         {
-            Assert.AreEqual("{\"targetId\":5}", GameJson.TargetBody(5));
+            // JsonUtility는 null 문자열을 ""로 보낸다. 서버는 빈 actionCode를 직업의 기본 능력으로 본다.
+            Assert.AreEqual("{\"targetId\":5,\"actionCode\":\"\"}", GameJson.TargetBody(5));
+            Assert.AreEqual("{\"targetId\":0,\"actionCode\":\"KRAKEN_STRIKE\"}", GameJson.TargetBody(0, ActionCodes.KrakenStrike));
         }
 
         [Test]
