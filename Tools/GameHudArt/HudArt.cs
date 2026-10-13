@@ -273,14 +273,14 @@ public static class HudArt
 
     // ------------------------------------------------------------------ files
 
-    static Img Crop(Img img, int x0, int y0, int w, int h)
+    public static Img Crop(Img img, int x0, int y0, int w, int h)
     {
         var o = new Img(w, h);
         for (int y = 0; y < h; y++) Buffer.BlockCopy(img.Px, ((y0 + y) * img.W + x0) * 4, o.Px, y * w * 4, w * 4);
         return o;
     }
 
-    static Img Trim(Img img)
+    public static Img Trim(Img img)
     {
         int l = img.W, t = img.H, r = -1, b = -1;
         for (int y = 0; y < img.H; y++)
@@ -304,7 +304,7 @@ public static class HudArt
         }
     }
 
-    static void Save(Img img, string path)
+    public static void Save(Img img, string path)
     {
         using (var b = new Bitmap(img.W, img.H, PixelFormat.Format32bppArgb))
         {
@@ -316,7 +316,7 @@ public static class HudArt
     }
 
     // A UI sprite: single, no mipmaps, alpha is transparency, full-rect mesh (needed for 9-slicing).
-    static void WriteMeta(string path, Vector4 border)
+    public static void WriteMeta(string path, Vector4 border, int maxSize = 2048)
     {
         string guid = Guid.NewGuid().ToString("N");
         if (File.Exists(path))
@@ -328,13 +328,13 @@ public static class HudArt
         {
             "fileFormatVersion: 2", "guid: " + guid, "TextureImporter:", "  internalIDToNameTable: []", "  externalObjects: {}",
             "  serializedVersion: 13", "  mipmaps:", "    mipMapMode: 0", "    enableMipMap: 0", "    sRGBTexture: 1",
-            "    linearTexture: 0", "  isReadable: 0", "  maxTextureSize: 2048", "  textureSettings:", "    serializedVersion: 2",
+            "    linearTexture: 0", "  isReadable: 0", "  maxTextureSize: " + maxSize, "  textureSettings:", "    serializedVersion: 2",
             "    filterMode: 1", "    aniso: 1", "    mipBias: 0", "    wrapU: 1", "    wrapV: 1", "    wrapW: 1", "  nPOTScale: 0",
             "  spriteMode: 1", "  spriteExtrude: 1", "  spriteMeshType: 0", "  alignment: 0", "  spritePivot: {x: 0.5, y: 0.5}",
             "  spritePixelsToUnits: 100",
             string.Format(CultureInfo.InvariantCulture, "  spriteBorder: {{x: {0}, y: {1}, z: {2}, w: {3}}}", border.L, border.B, border.R, border.T),
             "  alphaUsage: 1", "  alphaIsTransparency: 1", "  textureType: 8", "  textureShape: 1", "  platformSettings:",
-            "  - serializedVersion: 4", "    buildTarget: DefaultTexturePlatform", "    maxTextureSize: 2048", "    resizeAlgorithm: 0",
+            "  - serializedVersion: 4", "    buildTarget: DefaultTexturePlatform", "    maxTextureSize: " + maxSize, "    resizeAlgorithm: 0",
             "    textureFormat: -1", "    textureCompression: 1", "    compressionQuality: 50", "    crunchedCompression: 0",
             "  userData: ", "  assetBundleName: ", "  assetBundleVariant: ", ""
         });
