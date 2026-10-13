@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Day Transition Storyboard</title>
+<style>
+@font-face { font-family: Kyobo; src: url(../../Assets/Fonts/KyoboHandwriting2025lyb.ttf); }
+@font-face { font-family: Nanum; src: url(../../Assets/Fonts/NanumGothic-Regular.ttf); }
+
+:root {
+  --paper: #f3eee3;
+  --ink: #2a2018;
+  --muted: #7a6a58;
+  --gold: #d8a84a;
+  --red: #c8352c;
+  --teal: #1f5a5e;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); font-family: "Malgun Gothic", Nanum, sans-serif; color: var(--ink); }
+.board { display: none; padding: 34px 40px 30px; }
+.board.on { display: block; }
+
+/* ---------------------------------------------------------------- 보드 머리 */
+.head { display: flex; align-items: flex-end; gap: 22px; margin-bottom: 10px; }
+.head .tag { font: 700 15px "Malgun Gothic"; color: #fff; background: var(--ink); padding: 6px 12px; border-radius: 6px; letter-spacing: .5px; }
+.head h1 { margin: 0; font: 700 34px "Malgun Gothic"; letter-spacing: -.5px; }
+.head h1 em { font-style: normal; color: var(--red); }
+.head .cond { margin-left: auto; text-align: right; font-size: 15px; color: var(--muted); line-height: 1.5; }
+.head .cond code { font: 600 14px Consolas, monospace; color: var(--ink); background: #e6dece; padding: 1px 6px; border-radius: 4px; }
+
+.tlwrap { position: relative; margin: 14px 0 34px; }
+.timeline { display: flex; height: 30px; border-radius: 6px; overflow: hidden; background: #e4dccb; }
+.tlwrap .mk { position: absolute; top: -4px; height: 38px; border-left: 2px dashed var(--ink); }
+.tlwrap .mk span { position: absolute; top: 38px; left: -1px; transform: translateX(-50%); font: 700 12px "Malgun Gothic"; color: var(--ink); white-space: nowrap; }
+.tlwrap .mk.end { border-left-style: solid; border-left-width: 3px; }
+.tlwrap .mk.end span { left: auto; right: -2px; transform: none; }
+.timeline .seg { position: relative; display: flex; align-items: center; justify-content: center; font: 700 13px "Malgun Gothic"; color: #fff; border-right: 2px solid var(--paper); white-space: nowrap; }
+.timeline .seg:last-child { border-right: 0; }
+
+/* ---------------------------------------------------------------- 컷 */
+.strip { display: flex; gap: 28px; }
+.cut { width: 360px; flex: none; }
+.cut .label { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; font: 700 19px "Malgun Gothic"; }
+.cut .label b { display: inline-grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 14px; transform: translateY(-2px); }
+.cut .label span { margin-left: auto; font: 600 14px Consolas, monospace; color: var(--muted); }
+.cut .label i { font-style: normal; font: 700 11px "Malgun Gothic"; color: #fff; background: #8a7a66; padding: 2px 6px; border-radius: 4px; transform: translateY(-3px); }
+.cut .cap { margin-top: 10px; font-size: 14.5px; line-height: 1.55; color: #3b3027; min-height: 92px; }
+.cut .cap strong { color: var(--ink); }
+.cut .cap .sfx { display: inline-block; font: 700 12px "Malgun Gothic"; color: #fff; background: #4a6b8a; padding: 1px 7px; border-radius: 4px; margin-right: 4px; }
+.cut .cap .hap { background: #8a5a9a; }
+
+.frame { position: relative; width: 360px; height: 640px; overflow: hidden; border-radius: 14px; background: #000; box-shadow: 0 10px 24px #0004, 0 0 0 1px #0006; isolation: isolate; }
+.frame > * { position: absolute; }
+.fill { inset: 0; }
+.bg { inset: 0; background-size: cover; background-position: center; }
+
+/* 시네마 바 */
+.bar { left: 0; right: 0; height: 64px; background: #050403; z-index: 40; }
+.bar.t { top: 0; border-bottom: 1px solid #b8893a66; }
+.bar.b { bottom: 0; border-top: 1px solid #b8893a66; }
+
+/* 연출 글자 */
+.cine { left: 0; right: 0; text-align: center; z-index: 30; font-family: Batang, serif; color: #f4e6c4; text-shadow: 0 2px 6px #000, 0 0 18px #000a; }
+.cine .big { font-size: 34px; font-weight: 700; letter-spacing: 2px; }
+.cine .mid { font-size: 21px; letter-spacing: 1px; }
+.cine .sm { font-size: 15px; letter-spacing: 1px; opacity: .9; }
+.cine .rule { display: block; margin: 8px auto; width: 150px; height: 9px; background:
+  radial-gradient(circle, #e8c070 0 2px, transparent 3px) center/9px 9px no-repeat,
+  linear-gradient(90deg, transparent, #e8c070aa 30%, transparent 48%, transparent 52%, #e8c070aa 70%, transparent) center/100% 1px no-repeat; }
+
+/* 효과음 글자 (스토리보드 표기) */
+.onoma { z-index: 35; font-family: Kyobo; font-size: 46px; color: #fff; -webkit-text-stroke: 3px #9c1d17; paint-order: stroke fill; transform: rotate(-10deg); text-shadow: 0 4px 0 #3a0806; }
+.onoma.gold { -webkit-text-stroke-color: #8a5a10; text-shadow: 0 4px 0 #3a2506; }
+.onoma.blue { -webkit-text-stroke-color: #1d4f7c; text-shadow: 0 4px 0 #0b2238; }
+.onoma.dark { -webkit-text-stroke-color: #2a1d10; text-shadow: 0 4px 0 #000; }
+
+/* 스토리보드 메모 (프레임 위 연필 표기) */
+.note { z-index: 60; font: 700 11.5px "Malgun Gothic"; color: #1a1a1a; background: #ffe36be6; padding: 3px 7px; border-radius: 4px; box-shadow: 0 1px 3px #0006; white-space: nowrap; }
+.arrow { z-index: 59; overflow: visible; }
+
+/* 게임 HUD (축약) */
+.hud > *, .stage > * { position: absolute; }
+.hud { left: 0; right: 0; top: 0; height: 58px; z-index: 20; background: linear-gradient(#0b1220ee, #0b122000); }
+.plaque { position: absolute; display: grid; place-items: center; background: url(../../Assets/Resources/GameHud/PhasePlaque.png) center/100% 100% no-repeat; font: 700 13px "Malgun Gothic"; color: #3a2612; }
+.plaque .in { display: flex; align-items: center; gap: 5px; }
+.timer { display: flex; align-items: center; justify-content: flex-end; padding-right: 22px; background: url(../../Assets/Resources/GameHud/TimerPanel.png) center/100% 100% no-repeat; font: 700 15px Consolas, monospace; color: #f2e2b8; }
+.btn { background: center/contain no-repeat; }
+.sun { width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(#ffe9a0, #f0a020); box-shadow: 0 0 0 2px #f0a02055, 0 0 6px #ffb03a; }
+.moon { width: 12px; height: 12px; border-radius: 50%; box-shadow: inset -4px 1px 0 0 #e9d48a; transform: rotate(-20deg); }
+
+/* 공지 두루마리 */
+.notice { z-index: 25; display: grid; place-items: center; padding: 0 4px; text-align: center; border-style: solid; border-width: 0 46px; border-image: url(../../Assets/Resources/GameHud/NoticeScroll.png) 0 135 fill / 0 46px stretch; font: 700 12.5px "Malgun Gothic"; color: #3a2612; line-height: 1.35; }
+.notice .chip { position: absolute; top: -9px; left: 50%; transform: translateX(-50%); font: 700 10px "Malgun Gothic"; color: #f5e3b5; background: #1f3a40; border: 1px solid #c9a050; padding: 1px 8px; border-radius: 4px; }
+
+/* 원탁 무대 */
+.stage { left: 0; right: 0; top: 0; height: 392px; overflow: hidden; }
+.deck { inset: 0; background-size: 360px auto; background-position: 0 -40px; }
+.table { left: 50%; width: 262px; height: 175px; transform: translateX(-50%); background: url(../../Assets/Resources/DayTable/RoundTable.png) center/contain no-repeat; }
+.actor { transform: translate(-50%, -100%); }
+.spr { background-repeat: no-repeat; }
+.chair { transform: translate(-50%, -100%); background: center bottom/contain no-repeat; }
+.nm { transform: translateX(-50%); font: 700 9.5px "Malgun Gothic"; color: #f6ead0; background: #000a; padding: 1px 6px; border-radius: 8px; white-space: nowrap; z-index: 15; }
+.nm.dead { color: #a8a8a8; text-decoration: line-through; }
+
+/* 채팅 · 명단 (축약) */
+.chat { left: 8px; right: 8px; top: 400px; height: 150px; border: 2px solid #9c7434; border-radius: 8px; background: #120d09f0; padding: 8px 8px 0; z-index: 10; box-shadow: inset 0 0 0 1px #000; }
+.chat .row { display: flex; align-items: center; gap: 6px; height: 21px; font: 600 9.5px "Malgun Gothic"; color: #7fd77f; white-space: nowrap; overflow: hidden; }
+.chat .row .who { flex: none; font-size: 8.5px; color: #f2deb0; background: #2c2216; border: 1px solid #6b5126; border-radius: 3px; padding: 0 5px; }
+.chat .row.hl { color: #ff9a8a; }
+.chat .row.gd { color: #ffd77a; }
+.chat .input { position: absolute; left: 8px; right: 8px; bottom: 7px; height: 24px; border-radius: 12px; background: #e8d6ad; border: 1px solid #7a5a2a; font: 9px "Malgun Gothic"; color: #8a7558; padding: 5px 12px; }
+.roster { left: 0; right: 0; top: 556px; height: 84px; z-index: 10; display: flex; justify-content: space-around; padding: 8px 6px 0; background: linear-gradient(#0f0b08, #1a130c); }
+.roster .p { position: relative; width: 38px; text-align: center; font: 700 9px "Malgun Gothic"; color: #e9dcc0; }
+.roster .face { width: 38px; height: 38px; border-radius: 50%; border: 2px solid #c99a46; background: #2a3a40 center 18%/150% no-repeat; box-shadow: 0 0 0 1px #000; margin-bottom: 4px; }
+.roster .p.dead .face { filter: grayscale(1) brightness(.55); border-color: #666; }
+.roster .p.dead::after { content: ""; position: absolute; left: 4px; top: 4px; width: 30px; height: 30px; background:
+  linear-gradient(45deg, transparent 44%, #e0362c 44% 56%, transparent 56%),
+  linear-gradient(-45deg, transparent 44%, #e0362c 44% 56%, transparent 56%); }
+.roster .p.dead { color: #888; }
+.roster .p.glint .face { box-shadow: 0 0 0 1px #000, 0 0 10px 3px #ffd76a; border-color: #ffe9a0; }
+.roster .p.target .face { box-shadow: 0 0 0 1px #000, 0 0 12px 4px #ff3a2a; border-color: #ff6a50; }
+
+/* 양피지 카드 */
+.parch { border-style: solid; border-width: 30px 40px; border-image: url(../../Assets/Resources/GameHud/ParchmentPanel.png) 70 100 fill / 30px 40px stretch; }
+.portrait { background: center top/cover no-repeat; }
+
+/* 투표 카드 더미 */
+.cards { transform: translate(-50%, -50%); z-index: 12; }
+.cards .c { position: absolute; width: 26px; height: 41px; background: url(../../Assets/Resources/GameHud/CardBack.png) center/100% 100% no-repeat; box-shadow: 0 1px 2px #000a; border-radius: 2px; }
+.cards .n { position: absolute; left: 22px; top: -10px; width: 20px; height: 20px; border-radius: 50%; background: #c8352c; border: 2px solid #ffd8a0; display: grid; place-items: center; font: 800 11px "Malgun Gothic"; color: #fff; z-index: 2; }
+
+/* ---------------------------------------------------------------- 보드 꼬리 */
+.foot { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 16px; }
+.foot .box { background: #fbf8f1; border: 1px solid #ddd3c0; border-radius: 10px; padding: 12px 16px; font-size: 14px; line-height: 1.6; color: #3b3027; }
+.foot .box h3 { margin: 0 0 6px; font: 700 14.5px "Malgun Gothic"; color: var(--ink); }
+.foot .box ul { margin: 0; padding-left: 18px; }
+.foot.two { grid-template-columns: 1.15fr 1fr 1fr; }
+</style>
+</head>
+<body>
+
+<div id="boards"></div>
+
+<script>
+// ============================================================== 에셋
+const A = '../../Assets/';
+const IMG = {
+  deckDay: A + 'Resources/DayTable/Deck.png',
+  deckNight: A + '09_Image/SceneBackgrounds/Night/PIRATE_SHARED_Night.png',
+  chair: A + 'Resources/DayTable/ChairFront.png',
+  settings: A + 'Resources/GameHud/ButtonSettings.png',
+  map: A + 'Resources/GameHud/ButtonMap.png',
+};
+const sheet = key => `${A}09_Image/Characters/${key}_SD/${key}_BaseSheet.png`;
+const portrait = id => `${A}09_Image/Portrait/${id}.png`;
+
+// 스프라이트 시트의 칸 (Unity rect: x, 아래에서 y, w, h — 시트 1536x1024)
+const RECT = {
+  CrewSailor:       { front: [584, 512, 370, 476], back: [1076, 18, 413, 486], stand: [119, 512, 307, 506] },
+  CrewCaptain:      { front: [588, 512, 406, 492], back: [1108, 18, 386, 478], stand: [113, 512, 376, 506] },
+  ThirdMermaid:     { front: [528, 512, 484, 435], back: [1028, 10, 493, 486], stand: [17, 512, 460, 509] },
+  CrewGunner:       { front: [569, 512, 399, 466], back: [1100, 27, 376, 475], stand: [82, 512, 341, 501] },
+  CrewDrunk:        { front: [553, 512, 411, 480], back: [1104, 22, 393, 488], stand: [61, 512, 383, 512] },
+  PirateCookFemale: { front: [594, 512, 383, 501], back: [1082, 18, 409, 494], stand: [73, 512, 354, 511] },
+  CrewLookout:      { front: [552, 514, 465, 448], back: [1079, 16, 423, 473], stand: [38, 512, 473, 495] },
+  ConceptSiren:     { front: [537, 512, 468, 499], back: [1038, 11, 457, 496], stand: [64, 512, 435, 512] },
+};
+
+// 플레이어 (스킨은 외형일 뿐 직업과 무관)
+const CAST = {
+  '나':  { key: 'CrewSailor',       p: 'CREW_SAILOR' },
+  '철수': { key: 'CrewCaptain',      p: 'CREW_CAPTAIN' },
+  '영희': { key: 'ThirdMermaid',     p: 'THIRD_MERMAID' },
+  '민수': { key: 'CrewGunner',       p: 'CREW_GUNNER' },
+  '지훈': { key: 'CrewDrunk',        p: 'CREW_DRUNK' },
+  '수진': { key: 'PirateCookFemale', p: 'PIRATE_COOK_FEMALE' },
+  '현우': { key: 'CrewLookout',      p: 'CREW_LOOKOUT' },
+  '유나': { key: 'ConceptSiren',     p: 'CONCEPT_SIREN' },
+};
+const ORDER = ['나', '철수', '영희', '민수', '지훈', '수진', '현우', '유나'];
+
+// 원탁 자리 (무대 좌표, 발끝 기준). z: 테이블(10) 뒤/앞
+const SEATS = {
+  '철수': { x: 92,  y: 214, pose: 'front', h: 78, z: 5 },
+  '영희': { x: 148, y: 196, pose: 'front', h: 74, z: 4 },
+  '민수': { x: 212, y: 196, pose: 'front', h: 76, z: 4 },
+  '지훈': { x: 268, y: 214, pose: 'front', h: 78, z: 5 },
+  '수진': { x: 46,  y: 300, pose: 'front', h: 86, z: 12 },
+  '현우': { x: 314, y: 300, pose: 'front', h: 86, z: 12 },
+  '유나': { x: 126, y: 374, pose: 'back',  h: 92, z: 14 },
+  '나':  { x: 234, y: 374, pose: 'back',  h: 92, z: 14 },
+};
+
+// 고정 난수 (매번 같은 그림)
+let seed = 7;
+const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+
+function sprite(name, pose, h, extraStyle = '') {
+  const key = CAST[name] ? CAST[name].key : name;
+  const [x, yU, w, hh] = RECT[key][pose];
+  const k = h / hh, top = 1024 - yU - hh;
+  return `<div class="spr" style="width:${(w * k).toFixed(1)}px;height:${h}px;background-image:url(${sheet(key)});` +
+    `background-size:${(1536 * k).toFixed(1)}px ${(1024 * k).toFixed(1)}px;background-position:${(-x * k).toFixed(1)}px ${(-top * k).toFixed(1)}px;${extraStyle}"></div>`;
+}
+
+// ============================================================== 조각
+const bars = () => `<div class="bar t"></div><div class="bar b"></div>`;
+const note = (x, y, text) => `<div class="note" style="left:${x}px;top:${y}px">${text}</div>`;
+const onoma = (x, y, text, cls = '', size = 46, rot = -10) =>
+  `<div class="onoma ${cls}" style="left:${x}px;top:${y}px;font-size:${size}px;transform:rotate(${rot}deg)">${text}</div>`;
+
+// 움직임 화살표 (스토리보드 표기)
+function arrow(x1, y1, x2, y2, opt = {}) {
+  const c = opt.color || '#fff', bend = opt.bend || 0, dash = opt.dash ? 'stroke-dasharray="7 5"' : '';
+  const mx = (x1 + x2) / 2 - (y2 - y1) * bend, my = (y1 + y2) / 2 + (x2 - x1) * bend;
+  const ang = Math.atan2(y2 - my, x2 - mx), L = 11;
+  const h1 = [x2 - L * Math.cos(ang - 0.45), y2 - L * Math.sin(ang - 0.45)], h2 = [x2 - L * Math.cos(ang + 0.45), y2 - L * Math.sin(ang + 0.45)];
+  return `<svg class="arrow" style="left:0;top:0" width="360" height="640" viewBox="0 0 360 640">
+    <path d="M${x1} ${y1} Q${mx} ${my} ${x2} ${y2}" fill="none" stroke="#000a" stroke-width="5" ${dash}/>
+    <path d="M${x1} ${y1} Q${mx} ${my} ${x2} ${y2}" fill="none" stroke="${c}" stroke-width="2.5" ${dash}/>
+    <path d="M${h1} L${x2} ${y2} L${h2}" fill="none" stroke="#000a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M${h1} L${x2} ${y2} L${h2}" fill="none" stroke="${c}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function plaque(text, icon, w = 118, h = 46, x = 8, y = 6, fs = 13) {
+  const ic = icon === 'moon' ? '<span class="moon"></span>' : icon === 'sun' ? '<span class="sun"></span>' : '';
+  return `<div class="plaque" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;font-size:${fs}px"><div class="in">${ic}${text}</div></div>`;
+}
+
+function hud(phase, icon, timer) {
+  return `<div class="hud">${plaque(phase, icon)}
+    <div class="timer" style="left:130px;top:7px;width:118px;height:44px">${timer}</div>
+    <div class="btn" style="left:262px;top:9px;width:40px;height:40px;background-image:url(${IMG.settings})"></div>
+    <div class="btn" style="left:308px;top:9px;width:40px;height:40px;background-image:url(${IMG.map})"></div></div>`;
+}
+
+function notice(text, top = 64, h = 52) {
+  return `<div class="notice" style="left:24px;right:24px;top:${top}px;height:${h}px"><span class="chip">공지</span><div>${text}</div></div>`;
+}
+
+function chat(lines) {
+  return `<div class="chat">${lines.map(l => `<div class="row ${l[1] || ''}"><span class="who">🔔 시스템</span>${l[0]}</div>`).join('')}
+    <div class="input">메시지를 입력하세요...</div></div>`;
+}
+
+function roster(opt = {}) {
+  return `<div class="roster">${ORDER.map(n => {
+    const cls = (opt.dead || []).includes(n) ? 'dead' : (opt.glint ? 'glint' : '') + ((opt.target === n) ? ' target' : '');
+    return `<div class="p ${cls}"><div class="face" style="background-image:url(${portrait(CAST[n].p)})"></div>${n}</div>`;
+  }).join('')}</div>`;
+}
+
+// 원탁 무대. opt.empty: 빈자리(죽은 사람), opt.extra: 무대 위에 더 얹을 것
+function stage(opt = {}) {
+  const deck = opt.night ? IMG.deckNight : IMG.deckDay;
+  let html = `<div class="stage"><div class="deck" style="position:absolute;background-image:url(${deck});${opt.deckStyle || ''}"></div>`;
+  html += `<div class="table" style="position:absolute;top:150px;z-index:10"></div>`;
+  for (const n of Object.keys(SEATS)) {
+    const s = SEATS[n];
+    if ((opt.empty || []).includes(n)) {
+      html += `<div class="chair" style="position:absolute;left:${s.x}px;top:${s.y + 6}px;width:66px;height:78px;background-image:url(${IMG.chair});z-index:${s.z + 2};filter:brightness(.75) saturate(.7)"></div>`;
+      if (opt.memorial === n) {
+        // 빈 의자 등받이의 검은 리본 + 그 앞 테이블 위 촛불
+        const cx = s.x, cy = s.y + 26;
+        html += `<div style="position:absolute;left:${s.x - 24}px;top:${s.y - 52}px;width:48px;height:9px;background:#0d0d0d;transform:rotate(-16deg);box-shadow:0 1px 3px #000;z-index:${s.z + 3}"></div>
+          <div style="position:absolute;left:${s.x + 6}px;top:${s.y - 50}px;width:7px;height:20px;background:#0d0d0d;transform:rotate(14deg);z-index:${s.z + 3}"></div>
+          <div style="position:absolute;left:${cx - 40}px;top:${cy - 34}px;width:80px;height:50px;border-radius:50%;background:radial-gradient(#ffcf6a66,transparent 70%);z-index:11"></div>
+          <div style="position:absolute;left:${cx - 4}px;top:${cy - 16}px;width:8px;height:17px;border-radius:2px;background:linear-gradient(90deg,#d8c8a0,#fff6e0 40%,#c8b48a);z-index:12;box-shadow:0 2px 2px #0008"></div>
+          <div style="position:absolute;left:${cx - 5}px;top:${cy - 30}px;width:10px;height:15px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#fffbe0,#ffb030 55%,#ff6a0000 75%);box-shadow:0 0 16px 8px #ffb03066;z-index:12"></div>`;
+      }
+      html += `<div class="nm dead" style="position:absolute;left:${s.x}px;top:${s.y + 1}px">${n}</div>`;
+      continue;
+    }
+    const style = !opt.dim ? '' : opt.dim !== n ? 'filter:brightness(.45) saturate(.6)' : 'filter:drop-shadow(0 0 2px #ff8a6a) drop-shadow(0 0 8px #ff2a1a)';
+    html += `<div class="actor" style="position:absolute;left:${s.x}px;top:${s.y}px;z-index:${s.z}">${sprite(n, s.pose, s.h, style)}</div>`;
+    html += `<div class="nm" style="position:absolute;left:${s.x}px;top:${s.y + 1}px">${n}</div>`;
+  }
+  html += (opt.extra || '') + `</div>`;
+  return html;
+}
+
+// 게임 화면 전체 (HUD + 무대 + 채팅 + 명단)
+function gameScreen(opt) {
+  return stage(opt) + hud(opt.phase, opt.icon || 'sun', opt.timer || '02:00') +
+    (opt.notice ? notice(opt.notice, 62, opt.noticeH || 52) : '') + chat(opt.chat || []) + roster(opt);
+}
+
+// 반짝이·불티·재 같은 작은 점들
+function specks(n, opt) {
+  let s = '';
+  for (let i = 0; i < n; i++) {
+    const x = (opt.x0 || 0) + rnd() * (opt.w || 360), y = (opt.y0 || 0) + rnd() * (opt.h || 640);
+    const r = (opt.r0 || 1) + rnd() * (opt.r1 || 2);
+    const a = (opt.a0 || .4) + rnd() * (1 - (opt.a0 || .4));
+    s += `<div style="left:${x.toFixed(0)}px;top:${y.toFixed(0)}px;width:${(r * 2).toFixed(1)}px;height:${(r * 2).toFixed(1)}px;border-radius:50%;opacity:${a.toFixed(2)};background:${opt.color};box-shadow:0 0 ${(r * 3).toFixed(0)}px ${opt.glow || opt.color};z-index:${opt.z || 26}"></div>`;
+  }
+  return s;
+}
+
+// 붉은 칼자국 (cx, cy 중심, len 길이, ang 각도)
+function slash(cx, cy, len, ang, w = 7, opt = {}) {
+  const core = opt.core || '#fff6f0', glow = opt.glow || '#ff2a1a';
+  return `<div style="left:${cx - len / 2}px;top:${cy - w / 2}px;width:${len}px;height:${w}px;transform:rotate(${ang}deg);z-index:${opt.z || 28};
+    border-radius:50%;background:linear-gradient(90deg,transparent,${glow} 12%,${core} 50%,${glow} 88%,transparent);
+    box-shadow:0 0 10px 3px ${glow}cc,0 0 30px 10px ${glow}55;opacity:${opt.o || 1}"></div>`;
+}
+
+// 별 모양 불꽃
+function spark(x, y, r, color = '#fff2b0', rot = 0) {
+  const pts = [];
+  for (let i = 0; i < 16; i++) { const rr = i % 2 ? r * .22 : (i % 4 ? r * .6 : r); const a = i * Math.PI / 8; pts.push(`${(r + rr * Math.cos(a)).toFixed(1)},${(r + rr * Math.sin(a)).toFixed(1)}`); }
+  return `<svg style="left:${x - r}px;top:${y - r}px;z-index:31;transform:rotate(${rot}deg);filter:drop-shadow(0 0 6px ${color}) drop-shadow(0 0 14px #ffae00)" width="${r * 2}" height="${r * 2}"><polygon points="${pts.join(' ')}" fill="${color}"/></svg>`;
+}
+
+// ============================================================== 장면
+// 공통 오프닝: 밤이 걷힌다
+function sceneNightOpen() {
+  return `<div class="bg" style="background-image:url(${IMG.deckNight});filter:brightness(.62) saturate(.85)"></div>
+    <div class="fill" style="background:radial-gradient(ellipse at 50% 42%,transparent 30%,#000c 95%);z-index:2"></div>
+    ${bars()}
+    <div style="left:0;right:0;top:64px;height:58px;z-index:41;opacity:.38">${plaque('1일차 밤', 'moon', 118, 46, 8, -20)}</div>
+    <div class="cine" style="top:268px"><div class="sm">— 1일차 밤 —</div><span class="rule"></span><div class="mid">밤이 지나갑니다…</div></div>
+    ${specks(26, { y0: 64, h: 200, color: '#fff', r0: .4, r1: 1, a0: .3, z: 3 })}
+    ${arrow(64, 92, 64, 40, { color: '#ffe36b' })}
+    ${arrow(180, 600, 180, 640, { color: '#ffe36b' })}
+    ${note(130, 78, 'HUD·채팅이 화면 밖으로')}
+    ${note(196, 590, '시네마 바 닫힘')}`;
+}
+
+// 습격의 흔적 (사망·보호 공통)
+function sceneSlash() {
+  return `<div class="bg" style="background-image:url(${IMG.deckNight});filter:brightness(.38) saturate(.5);transform:translate(6px,-4px) scale(1.04)"></div>
+    <div class="fill" style="background:#5a0000;mix-blend-mode:multiply;opacity:.55;z-index:2"></div>
+    <div class="fill" style="background:radial-gradient(ellipse at 50% 50%,transparent 25%,#7a0505cc 70%,#200000 100%);z-index:3"></div>
+    ${bars()}
+    ${slash(190, 300, 420, -32, 8, { o: .25, z: 27 })}
+    ${slash(150, 330, 460, -32, 9)}
+    ${slash(196, 352, 440, -32, 7)}
+    ${slash(238, 376, 400, -32, 5)}
+    ${specks(30, { x0: 40, w: 280, y0: 220, h: 240, color: '#ff8a5a', glow: '#ff3a1a', r0: .6, r1: 1.6, a0: .5, z: 29 })}
+    ${onoma(208, 168, '촤악!', '', 50, -14)}
+    <div class="cine" style="top:470px"><div class="mid" style="color:#ffd9cf">어젯밤, 누군가 습격당했습니다</div></div>
+    ${note(14, 76, '화면 흔들림 0.25s')}
+    ${note(14, 536, '붉은 맥박 비네트 ×2')}`;
+}
+
+// 희생자 공개
+function sceneVictim(name) {
+  const c = CAST[name];
+  return `<div class="bg" style="background:radial-gradient(ellipse at 50% 45%,#3a0d0a 0%,#160504 55%,#050101 100%)"></div>
+    ${specks(40, { color: '#c9b9a8', glow: '#0000', r0: .5, r1: 1.4, a0: .25, z: 2 })}
+    ${bars()}
+    <div class="cine" style="top:80px"><div class="sm" style="color:#e8a090;letter-spacing:4px">밤사이 희생자</div></div>
+    <div class="parch" style="left:52px;top:116px;width:256px;height:340px;transform:rotate(-3deg);z-index:20;filter:drop-shadow(0 10px 16px #000)">
+      <div style="position:absolute;left:4px;right:4px;top:2px;height:196px;background:#2a1d14;border:3px solid #5a3e22;overflow:hidden">
+        <div class="portrait" style="position:absolute;inset:-6px -20px;background-image:url(${portrait(c.p)});filter:grayscale(1) sepia(.35) contrast(1.15) brightness(.95)"></div>
+        <div style="position:absolute;inset:0;box-shadow:inset 0 0 30px #000c"></div>
+      </div>
+      <div style="position:absolute;right:-30px;top:-6px;width:120px;height:20px;background:#0c0c0c;transform:rotate(38deg);box-shadow:0 2px 4px #000a"></div>
+      <div style="position:absolute;left:0;right:0;top:206px;text-align:center;font:700 34px Batang,serif;color:#3a1d0e;letter-spacing:2px">${name}님</div>
+      <div style="position:absolute;left:0;right:0;top:252px;text-align:center;font:17px Batang,serif;color:#7a1d12">밤사이 사망했습니다</div>
+    </div>
+    ${slash(196, 236, 230, -58, 4, { z: 22, glow: '#c01010', core: '#ff8070' })}
+    ${slash(222, 246, 210, -58, 3, { z: 22, glow: '#c01010', core: '#ff8070' })}
+    ${onoma(236, 474, '댕—', 'dark', 36, -6)}
+    ${arrow(30, 130, 30, 196, { color: '#ffe36b' })}
+    ${note(12, 470, '위에서 툭 떨어져 흔들림')}
+    ${note(12, 540, '직업은 공개하지 않음')}`;
+}
+
+// 새벽 (사망·보호·무사 공통 뼈대)
+function sceneDawn(kind) {
+  let extra = '';
+  if (kind === 'kill') {
+    extra = `<div class="parch" style="left:236px;top:470px;width:76px;height:96px;border-width:12px 14px;border-image-width:12px 14px;transform:rotate(-8deg);z-index:33;opacity:.92">
+        <div class="portrait" style="position:absolute;inset:0 0 22px;background-image:url(${portrait(CAST['민수'].p)});filter:grayscale(1) sepia(.3)"></div></div>
+      <div style="left:226px;top:462px;width:96px;height:112px;border-radius:8px;background:radial-gradient(#fff3,transparent 70%);z-index:32"></div>
+      ${arrow(272, 576, 214, 628, { color: '#ffe36b', bend: .2 })}
+      ${note(150, 520, '카드는 명단 민수 칸으로')}`;
+  } else if (kind === 'save') {
+    extra = specks(70, { color: '#ffe7a0', glow: '#ffbf3a', r0: .6, r1: 1.8, a0: .5, z: 27 }) +
+      `<div style="left:0;right:0;top:362px;height:50px;z-index:29;background:linear-gradient(90deg,transparent,#000a 22%,#000a 78%,transparent)"></div><div class="cine" style="top:372px"><div class="mid" style="color:#fff4d6">아무도 죽지 않았습니다</div></div>`;
+  }
+  return `<div class="bg" style="background-image:url(${IMG.deckDay});background-size:auto 900px;background-position:50% 0"></div>
+    <div class="fill" style="background:linear-gradient(#0b1530 0%,#1a2648cc 26%,#e0703000 52%);z-index:2"></div>
+    <div class="fill" style="background:linear-gradient(#000 0%,transparent 30%,transparent 60%,#0008 100%);z-index:2;opacity:.6"></div>
+    <div class="fill" style="background:radial-gradient(ellipse 70% 22% at 50% 37%,#ffd27a 0%,#ff9a3a88 35%,transparent 70%);mix-blend-mode:screen;z-index:3"></div>
+    <div class="fill" style="background:repeating-conic-gradient(from 0deg at 50% 37%,#fff3c022 0deg 4deg,transparent 4deg 12deg);-webkit-mask:radial-gradient(circle at 50% 37%,#000 0,transparent 60%);z-index:3"></div>
+    ${bars()}
+    <div style="left:50%;top:232px;transform:translateX(-50%);z-index:30;filter:drop-shadow(0 8px 10px #000a)">${plaque('1일차 낮', 'sun', 230, 96, -115, 0, 26).replace('position', 'position')}</div>
+    ${arrow(180, 160, 180, 222, { color: '#ffe36b' })}
+    ${note(196, 172, '명패가 쿵 내려앉음')}
+    ${arrow(44, 600, 44, 430, { color: '#ffe36b', bend: 0 })}
+    ${note(56, 470, '햇빛이 아래→위로')}
+    ${extra}`;
+}
+
+// 보호: 막아낸 습격
+function sceneShield() {
+  const ribbons = [
+    'M-20 380 C 60 300, 140 430, 210 330 S 330 260, 390 300',
+    'M-20 300 C 70 240, 120 380, 200 300 S 320 360, 390 250',
+    'M-10 430 C 80 380, 160 470, 230 380 S 330 330, 380 380',
+  ];
+  return `<div class="bg" style="background-image:url(${IMG.deckNight});filter:brightness(.4) saturate(.6)"></div>
+    <div class="fill" style="background:radial-gradient(ellipse at 50% 50%,#ffcf6a55 0%,#3a240a99 45%,#0a0602 100%);z-index:2"></div>
+    ${bars()}
+    <svg style="left:0;top:0;z-index:24" width="360" height="640">
+      <defs><linearGradient id="rb" x1="0" x2="1"><stop offset="0" stop-color="#fff6d8" stop-opacity="0"/><stop offset=".2" stop-color="#fff2c8"/><stop offset=".8" stop-color="#ffd970"/><stop offset="1" stop-color="#ffd970" stop-opacity="0"/></linearGradient>
+      <filter id="gl"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+      <circle cx="180" cy="340" r="98" fill="#ffe7a018" stroke="#ffe08a" stroke-width="3" filter="url(#gl)"/>
+      <circle cx="180" cy="340" r="108" fill="none" stroke="#ffe08a66" stroke-width="1.5" stroke-dasharray="3 7"/>
+      ${ribbons.map(d => `<path d="${d}" fill="none" stroke="url(#rb)" stroke-width="13" stroke-linecap="round" filter="url(#gl)" opacity=".9"/>
+        <path d="${d}" fill="none" stroke="#c99a3a" stroke-width="1" stroke-dasharray="2 5" opacity=".7"/>`).join('')}
+      <g transform="translate(180 352)" opacity=".85">
+        <path d="M-40 58 C -40 22, -24 6, 0 6 C 24 6, 40 22, 40 58 Z" fill="#120c06"/>
+        <circle cx="0" cy="-16" r="19" fill="#120c06"/>
+        <text x="0" y="-8" text-anchor="middle" font-family="Batang" font-size="22" font-weight="700" fill="#ffe7a0">?</text>
+      </g>
+    </svg>
+    ${slash(66, 214, 150, -32, 7, { z: 25 })}
+    ${slash(320, 470, 120, -32, 5, { z: 25, o: .7 })}
+    ${spark(110, 252, 26)}${spark(86, 236, 14, '#fff', 20)}${spark(132, 270, 11, '#ffe08a', 10)}
+    ${specks(40, { x0: 60, w: 120, y0: 200, h: 110, color: '#ffd27a', glow: '#ff9a20', r0: .6, r1: 1.6, a0: .6, z: 30 })}
+    ${onoma(160, 150, '챙!', 'gold', 52, 8)}
+    <div class="cine" style="top:466px"><div class="big" style="color:#ffe7a8;text-shadow:0 0 14px #ffb53a,0 2px 4px #000">선의의 보호</div><span class="rule"></span><div class="sm">습격이 막혔습니다</div></div>
+    ${note(12, 76, '붉은 비네트 → 금빛으로 전환')}
+    ${note(204, 290, '노려진 사람은 익명 실루엣')}`;
+}
+
+// 고요한 밤 (무사)
+function sceneCalm() {
+  return `<div class="bg" style="background-image:url(${IMG.deckNight});background-size:auto 1250px;background-position:52% 0;filter:saturate(.9)"></div>
+    <div class="fill" style="background:linear-gradient(#0a1838aa,transparent 40%,#04081888);z-index:2"></div>
+    <svg style="left:0;top:0;z-index:4" width="360" height="640">
+      ${Array.from({ length: 14 }, (_, i) => { const y = 420 + i * 9 + rnd() * 4, x = 210 + rnd() * 40 - 20, w = 30 + rnd() * 50; return `<line x1="${x}" y1="${y}" x2="${x + w}" y2="${y}" stroke="#fff6d0" stroke-opacity="${(.5 - i * .03).toFixed(2)}" stroke-width="1.6" stroke-linecap="round"/>`; }).join('')}
+    </svg>
+    ${specks(40, { y0: 64, h: 260, color: '#fff', r0: .4, r1: 1.1, a0: .3, z: 3 })}
+    ${bars()}
+    <div class="cine" style="top:500px"><div class="mid">고요한 밤이었습니다</div></div>
+    ${onoma(30, 440, '쏴아…', 'blue', 30, -4)}
+    ${arrow(120, 160, 230, 160, { color: '#ffe36b' })}
+    ${note(70, 130, '천천히 바다 쪽으로 패닝')}
+    ${note(196, 536, '붉은 연출 없음 · 1초')}`;
+}
+
+// 해돋이 (무사)
+function sceneSunrise() {
+  const gull = (x, y, s) => `<path d="M${x} ${y} q${4 * s} ${-5 * s} ${8 * s} 0 q${4 * s} ${-5 * s} ${8 * s} 0" fill="none" stroke="#2a2018" stroke-width="${1.6 * s}" stroke-linecap="round"/>`;
+  return `<div class="bg" style="background-image:url(${IMG.deckDay});background-size:auto 1250px;background-position:52% 0"></div>
+    <div class="fill" style="background:linear-gradient(#f3a35a88 0%,#ffd08a55 32%,transparent 60%);mix-blend-mode:multiply;z-index:2"></div>
+    <div class="fill" style="background:radial-gradient(circle at 56% 34%,#fffbe8 0 18px,#ffe08acc 26px,#ffb04a55 70px,transparent 160px);z-index:3"></div>
+    <div class="fill" style="background:repeating-conic-gradient(from 0deg at 56% 34%,#fff5d033 0deg 3deg,transparent 3deg 11deg);-webkit-mask:radial-gradient(circle at 56% 34%,#000 0,transparent 70%);z-index:3"></div>
+    <svg style="left:0;top:0;z-index:5" width="360" height="640">${gull(70, 140, 1.4)}${gull(104, 120, 1)}${gull(250, 104, 1.2)}${gull(282, 128, .8)}</svg>
+    ${bars()}
+    <div style="left:50%;top:300px;transform:translateX(-50%);z-index:30;filter:drop-shadow(0 8px 10px #0008)">${plaque('1일차 낮', 'sun', 220, 92, -110, 0, 25)}</div>
+    <div style="left:0;right:0;top:402px;height:46px;z-index:29;background:linear-gradient(90deg,transparent,#0009 20%,#0009 80%,transparent)"></div>
+    <div class="cine" style="top:410px"><div class="mid" style="color:#fff">밤사이 아무도 죽지 않았습니다</div></div>
+    ${onoma(236, 470, '끼룩', 'blue', 28, 6)}
+    ${arrow(202, 250, 202, 196, { color: '#ffe36b' })}
+    ${note(216, 236, '해가 떠오름')}`;
+}
+
+// 처형: 개표
+function sceneTally() {
+  const cards = (x, y, n, hot) => {
+    let s = `<div class="cards" style="position:absolute;left:${x}px;top:${y}px;width:22px;height:35px">`;
+    for (let i = 0; i < n; i++) s += `<div class="c" style="left:${i * 3 - 2}px;top:${-i * 3}px;transform:rotate(${(i % 2 ? 6 : -5) + i}deg)"></div>`;
+    s += `<div class="n" style="${hot ? '' : 'background:#3a4a52'}">${n}</div></div>`;
+    return s;
+  };
+  const extra = cards(254, 252, 4, true) + cards(198, 238, 2) + cards(140, 284, 1) +
+    `<div style="position:absolute;left:168px;top:-20px;width:200px;height:250px;z-index:17;background:linear-gradient(#ff7a5a77,#ff3a2a2a);clip-path:polygon(44% 0,56% 0,92% 100%,8% 100%);filter:blur(2px)"></div><div style="position:absolute;left:224px;top:196px;width:90px;height:34px;border-radius:50%;z-index:17;background:radial-gradient(#ff4a3a88,transparent 70%)"></div>`;
+  return gameScreen({
+    phase: '1일차 처형', icon: 'sun', timer: '판정 중', dim: '지훈', extra,
+    notice: '개표 중…', chat: [['투표 시간이 끝났습니다.'], ['득표: 지훈님 4표, 민수님 2표, 유나님 1표']], target: '지훈',
+  }) + `<div class="fill" style="bottom:auto;height:392px;background:radial-gradient(ellipse 30% 36% at 74% 48%,transparent 40%,#0009 100%);z-index:16;pointer-events:none"></div>
+    ${onoma(12, 346, '두구두구…', 'dark', 24, -6)}
+    ${arrow(200, 150, 254, 196, { color: '#ffe36b' })}
+    ${note(124, 132, '카드가 날아와 뒤집힘')}
+    ${note(150, 300, '최다 득표 자리에 붉은 조명')}`;
+}
+
+// 처형: 판결
+function sceneVerdict(name) {
+  const c = CAST[name];
+  const seal = [];
+  for (let i = 0; i < 28; i++) { const a = i / 28 * Math.PI * 2, r = 46 + (i % 2 ? 4 : -1) + rnd() * 3; seal.push(`${(50 + r * Math.cos(a)).toFixed(1)},${(50 + r * Math.sin(a)).toFixed(1)}`); }
+  return `<div class="bg" style="background-image:url(${IMG.deckDay});filter:blur(3px) brightness(.35) sepia(.4)"></div>
+    <div class="fill" style="background:radial-gradient(ellipse at 50% 48%,transparent 30%,#000d 90%);z-index:2"></div>
+    ${bars()}
+    <div class="parch" style="left:46px;top:96px;width:268px;height:386px;z-index:20;filter:drop-shadow(0 10px 18px #000)">
+      <div style="position:absolute;left:0;right:0;top:-6px;text-align:center;font:700 26px Batang,serif;color:#3a1d0e;letter-spacing:12px">판 결</div>
+      <div style="position:absolute;left:30px;right:30px;top:34px;height:1px;background:#7a5a30"></div>
+      <div style="position:absolute;left:26px;right:26px;top:46px;height:170px;background:#2a1d14;border:3px solid #5a3e22;overflow:hidden">
+        <div class="portrait" style="position:absolute;inset:-4px -14px;background-image:url(${portrait(c.p)});filter:sepia(.25) contrast(1.05)"></div>
+      </div>
+      <div style="position:absolute;left:0;right:0;top:226px;text-align:center;font:700 30px Batang,serif;color:#3a1d0e">${name}님</div>
+      <div style="position:absolute;left:0;right:0;top:268px;text-align:center;font:15px Batang,serif;color:#5a3a1e">8명 중 <b style="color:#9c1d17;font-size:18px">4표</b></div>
+    </div>
+    <svg style="left:198px;top:226px;z-index:34;transform:rotate(-14deg);filter:drop-shadow(0 4px 4px #000a)" width="104" height="104" viewBox="0 0 100 100">
+      <polygon points="${seal.join(' ')}" fill="#a8201a"/>
+      <circle cx="50" cy="50" r="34" fill="none" stroke="#6e0f0b" stroke-width="3"/>
+      <circle cx="50" cy="50" r="34" fill="none" stroke="#e05040" stroke-width="1" opacity=".5" transform="translate(-1 -1)"/>
+      <text x="50" y="59" text-anchor="middle" font-family="Batang" font-weight="700" font-size="25" fill="#ffd8c8" stroke="#6e0f0b" stroke-width=".6">처형</text>
+    </svg>
+    ${Array.from({ length: 9 }, (_, i) => { const a = (-150 + i * 26) * Math.PI / 180, r1 = 64, r2 = 86; const cx = 250, cy = 278; return `<svg style="left:0;top:0;z-index:33" width="360" height="640"><line x1="${cx + r1 * Math.cos(a)}" y1="${cy + r1 * Math.sin(a)}" x2="${cx + r2 * Math.cos(a)}" y2="${cy + r2 * Math.sin(a)}" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".8"/></svg>`; }).join('')}
+    ${onoma(30, 480, '쾅!', '', 54, -8)}
+    ${note(12, 76, '두루마리가 위→아래로 펼쳐짐')}
+    ${note(150, 546, '도장 쾅 + 흔들림 + 진동')}`;
+}
+
+// 처형 ③④: 스토리보드 합성본을 바탕으로 다시 그린 컷 (art/, 576x1024, 시네마 바·메모가 그림에 들어 있다)
+const artCut = file => `<div class="bg" style="background-image:url(art/${file})"></div>`;
+
+// 처형 후: 밤으로
+function sceneDusk(name) {
+  return `<div class="bg" style="background-image:url(${IMG.deckNight});filter:brightness(.8)"></div>
+    <div class="fill" style="background:linear-gradient(#e0703066 0%,transparent 30%);mix-blend-mode:screen;z-index:2"></div>
+    <div class="fill" style="background:radial-gradient(ellipse at 50% 40%,transparent 30%,#000a 100%);z-index:2"></div>
+    <div style="left:50%;top:230px;transform:translateX(-50%);z-index:30;filter:drop-shadow(0 8px 10px #000a)">${plaque('2일차 밤', 'moon', 230, 96, -115, 0, 26)}</div>
+    <div class="cine" style="top:344px"><div class="sm">밤이 찾아옵니다. 능력을 사용하세요</div></div>
+    ${notice(name + '님이 처형되었습니다.', 62, 50)}
+    ${roster({ dead: [name] })}
+    <div class="fill" style="top:auto;height:180px;bottom:84px;background:linear-gradient(transparent,#000c);z-index:9"></div>
+    ${arrow(180, 470, 180, 380, { color: '#ffe36b' })}
+    ${note(196, 448, '노을 → 달빛으로 디졸브')}
+    ${note(150, 528, '명단 ✕ 표시 · 밤 능력 화면으로')}`;
+}
+
+// ============================================================== 보드
+const BOARDS = {
+  kill: {
+    tag: '시안 A', title: '밤사이 사망 — <em>「습격」</em>',
+    cond: '<code>NIGHT_RESULT</code> · <code>killedPlayerId ≠ 0</code><br>밤 결과(5초) 중 3.8초 재생 · 남은 시간은 ⑤에서 대기 → 1일차 낮',
+    timeline: [['① 밤이 걷힘', .6, '#3d4a6b'], ['② 습격', .8, '#9c2a22'], ['③ 희생자 공개', 1.6, '#6e1d18'], ['④ 새벽', .8, '#c9822e'], ['⑤ 원탁 복귀 (낮)', 1.2, '#2e6a5e']],
+    phaseAt: [[3.8, '연출 끝'], [5.0, 'DAY 시작']],
+    cuts: [
+      ['밤이 걷힌다', '0.0–0.6s', 'A·B·C 공통', sceneNightOpen(),
+        'HUD와 채팅이 위아래로 빠지고 <strong>시네마 바</strong>가 닫힌다. 밤 갑판 위에 “밤이 지나갑니다…”.<br><span class="sfx">SFX</span>파도 · 바람'],
+      ['습격의 흔적', '0.6–1.4s', 'A·B 공통', sceneSlash(),
+        '붉은 <strong>칼자국 세 줄</strong>이 화면을 가르고 0.25초 흔들림. 보호(B)도 여기까지 똑같아서 <strong>결과를 끝까지 숨긴다</strong>.<br><span class="sfx">SFX</span>촤악 · 심장 박동 <span class="sfx hap">진동</span>짧게'],
+      ['희생자 공개', '1.4–3.0s', '', sceneVictim('민수'),
+        '찢긴 <strong>양피지 수배서</strong>가 떨어지며 흑백 초상(그 사람이 입은 스킨) + “민수님 / 밤사이 사망했습니다”. 직업은 숨긴다.<br><span class="sfx">SFX</span>조종(낮은 종) 1회'],
+      ['새벽', '3.0–3.8s', '', sceneDawn('kill'),
+        '수평선에서 햇빛이 쓸어 올라오고 <strong>“1일차 낮” 명패</strong>가 쿵. 수배서는 작아지며 명단의 민수 칸으로 빨려 들어간다.<br><span class="sfx">SFX</span>뱃고동 · 갈매기'],
+      ['원탁 복귀', '3.8s~', 'DAY', gameScreen({
+        phase: '1일차 낮', timer: '02:00', empty: ['민수'], memorial: '민수', dead: ['민수'],
+        notice: '민수님이 밤사이 사망했습니다.',
+        chat: [['1일차 밤이 되었습니다.'], ['민수님이 밤사이 사망했습니다.', 'hl'], ['1일차 낮이 되었습니다. 토론을 시작하세요.']],
+      }) + arrow(186, 252, 206, 214, { color: '#ffe36b' }) + note(96, 254, '빈 의자 + 촛불 · 검은 리본') + note(150, 532, '명단 회색 + ✕'),
+        '시네마 바가 열리며 평소 화면. 민수 자리엔 <strong>빈 의자와 촛불</strong>, 명단 초상은 회색 + ✕. 공지·채팅에 결과 문구, 타이머 시작.'],
+    ],
+    foot: [
+      ['정보 공개 (서버가 주는 것만)', ['보여줌: 사망자 닉네임 · 스킨 초상', '숨김: 사망자 직업, 공격한 해적, 공격 횟수', '<code>NightResultDto</code>에 직업이 없으므로 화면에서도 만들지 않는다']],
+      ['내가 희생자일 때', ['③에서 수배서 아래 붉은 띠 “당신은 사망했습니다”', '⑤부터 화면 채도를 낮춘 관전 모드 유지', '개인 결과(reports)는 ⑤ 이후 채팅으로만']],
+      ['길이 · 건너뛰기', ['남은 결과 시간에 맞춰 ③을 늘이고 줄인다 (최소 2.5초)', '재접속 등으로 1.5초 미만 남으면 ⑤만', '화면을 탭하면 ⑤로 바로 (결과 문구는 그대로 남음)']],
+    ],
+  },
+  save: {
+    tag: '시안 B', title: '선의의 보호로 생존 — <em style="color:#b07a10">「막아낸 습격」</em>',
+    cond: '<code>NIGHT_RESULT</code> · <code>killedPlayerId = 0</code> · <code>protectedByDoctor = true</code><br>②까지 A와 똑같이 재생한 뒤 갈라진다 · 3.6초 재생',
+    timeline: [['① 밤이 걷힘', .6, '#3d4a6b'], ['② 습격', .8, '#9c2a22'], ['③ 막아냄', 1.2, '#b07a10'], ['④ 안도의 새벽', 1.0, '#c9822e'], ['⑤ 원탁 복귀 (낮)', 1.4, '#2e6a5e']],
+    phaseAt: [[3.6, '연출 끝'], [5.0, 'DAY 시작']],
+    cuts: [
+      ['밤이 걷힌다', '0.0–0.6s', 'A와 같음', sceneNightOpen(),
+        '사망(A)과 같은 오프닝. 여기서는 아직 어떤 결과인지 알 수 없다.<br><span class="sfx">SFX</span>파도 · 바람'],
+      ['습격의 흔적', '0.6–1.4s', 'A와 같음', sceneSlash(),
+        '칼자국이 그어지고 화면이 붉어진다 — 플레이어는 누군가 죽었다고 생각하는 순간.<br><span class="sfx">SFX</span>촤악 · 심장 박동'],
+      ['막아냄', '1.4–2.6s', '', sceneShield(),
+        '<strong>금빛 붕대 띠</strong>가 휘감아 칼자국을 끊는다(챙!). 불꽃이 튀고 붉은 비네트가 금빛으로 바뀐다. 노려진 사람은 <strong>익명 실루엣</strong>.<br><span class="sfx">SFX</span>쇳소리 · 반짝임 <span class="sfx hap">진동</span>짧게'],
+      ['안도의 새벽', '2.6–3.6s', '', sceneDawn('save'),
+        '금가루가 흩날리는 해돋이. “1일차 낮” 명패 아래 “아무도 죽지 않았습니다”.<br><span class="sfx">SFX</span>뱃고동 · 밝은 현악 한 소절'],
+      ['원탁 복귀', '3.6s~', 'DAY', gameScreen({
+        phase: '1일차 낮', timer: '02:00', glint: true,
+        notice: '선의의 보호로 아무도 죽지 않았습니다.',
+        chat: [['1일차 밤이 되었습니다.'], ['선의의 보호로 아무도 죽지 않았습니다.', 'gd'], ['1일차 낮이 되었습니다. 토론을 시작하세요.']],
+      }) + note(120, 532, '명단 전원 금빛 반짝임 1회'),
+        '전원 자리에 그대로. 명단 초상 테두리에 <strong>금빛이 한 번</strong> 훑고 지나간다. 공지·채팅에 결과 문구.'],
+    ],
+    foot: [
+      ['정보 공개 (서버가 주는 것만)', ['보여줌: 보호가 있었다는 사실 (<code>protectedByDoctor</code>)', '숨김: 노려진 사람, 선의가 누구인지', '실루엣·초상은 특정 스킨 모양을 쓰지 않는다']],
+      ['A와 갈라지는 지점', ['① ② 컷은 A와 프레임 단위로 똑같이', '③ 시작 0.1초 전 칼자국이 멈칫(히트스톱)한 뒤 금빛', '덕분에 사망·보호 모두 ③까지 긴장이 유지됨']],
+      ['선의 본인에게', ['개인 결과 없음 (서버 reports에 없음)', '연출은 모두와 같게 — 선의만 다른 연출을 보면 정체가 화면 공유로 드러날 수 있음']],
+    ],
+  },
+  quiet: {
+    tag: '시안 C', title: '아무 일도 없음 — <em style="color:#3d6a9a">「고요한 밤」</em>',
+    cond: '<code>NIGHT_RESULT</code> · <code>killedPlayerId = 0</code> · <code>protectedByDoctor = false</code><br>붉은 연출 없이 짧게 · 2.8초 재생',
+    timeline: [['① 밤이 걷힘', .6, '#3d4a6b'], ['② 고요한 바다', 1.0, '#3d6a9a'], ['③ 해돋이', 1.2, '#c9822e'], ['④ 원탁 복귀 (낮)', 2.2, '#2e6a5e']],
+    phaseAt: [[2.8, '연출 끝'], [5.0, 'DAY 시작']],
+    cuts: [
+      ['밤이 걷힌다', '0.0–0.6s', 'A·B와 같음', sceneNightOpen(),
+        '공통 오프닝. 여기까지는 다른 결과와 구분되지 않는다.<br><span class="sfx">SFX</span>파도 · 바람'],
+      ['고요한 바다', '0.6–1.6s', '', sceneCalm(),
+        '칼자국 대신 카메라가 <strong>달빛 바다</strong>로 천천히 흐른다. “고요한 밤이었습니다”.<br><span class="sfx">SFX</span>잔잔한 파도'],
+      ['해돋이', '1.6–2.8s', '', sceneSunrise(),
+        '해가 떠오르고 갈매기. <strong>“1일차 낮” 명패</strong>와 “밤사이 아무도 죽지 않았습니다”.<br><span class="sfx">SFX</span>갈매기 · 뱃고동'],
+      ['원탁 복귀', '2.8s~', 'DAY', gameScreen({
+        phase: '1일차 낮', timer: '02:00',
+        notice: '밤사이 아무도 죽지 않았습니다.<br><span style="font-weight:400;font-size:11px;color:#7a2a1a">…해적은 아직 이 배에 있습니다</span>', noticeH: 58,
+        chat: [['1일차 밤이 되었습니다.'], ['밤사이 아무도 죽지 않았습니다.'], ['1일차 낮이 되었습니다. 토론을 시작하세요.']],
+      }) + note(236, 122, '긴장 한 줄 (선택)'),
+        '전원 자리에 그대로. 공지 아래 작은 글씨로 <strong>“…해적은 아직 이 배에 있습니다”</strong>를 붙여 토론을 재촉한다(선택).'],
+    ],
+    foot: [
+      ['왜 짧게?', ['아무 일도 없는 밤이 반복되면 긴 연출은 지루하다', '대신 A·B와 같은 ① 오프닝을 써서 매번 “혹시?” 하는 순간은 남긴다']],
+      ['남는 시간', ['연출이 2.8초에 끝나도 DAY는 5초에 시작', '④에서 타이머 자리에 “곧 낮” 표시 후 DAY가 오면 02:00부터']],
+      ['반복될 때', ['“아무도 죽지 않는 날”이 이어지면 게임이 취소될 수 있음 (<code>CANCELLED_NO_DEATHS</code>)', '연속 2일째부터 공지 아래 줄을 “고요가 너무 오래 이어집니다…”로']],
+    ],
+  },
+  exec: {
+    tag: '시안 D', title: '투표로 처형 — <em>「판결 · 널빤지」</em>',
+    cond: '<code>EXECUTION</code> · <code>executedPlayerId ≠ 0</code><br>처형 결과(5초) 중 4.0초 재생 · ⑤가 밤으로 넘겨줌 → 2일차 밤',
+    timeline: [['① 개표', 1.0, '#5a4a3a'], ['② 판결', 1.0, '#9c2a22'], ['③ 널빤지', 1.2, '#b0583a'], ['④ 첨벙', .8, '#3d6a9a'], ['⑤ 밤으로', 1.0, '#2a3050']],
+    phaseAt: [[4.0, '연출 끝'], [5.0, 'NIGHT 시작']],
+    cuts: [
+      ['개표', '0.0–1.0s', '', sceneTally(),
+        '원탁 위 투표 카드가 날아와 뒤집히고 <strong>득표 더미</strong>가 쌓인다(지훈 4 · 민수 2 · 유나 1). 최다 득표 자리에 붉은 조명, 나머지는 어둡게.<br><span class="sfx">SFX</span>카드 넘김 · 북소리'],
+      ['판결', '1.0–2.0s', '', sceneVerdict('지훈'),
+        '<strong>판결문 두루마리</strong>가 펼쳐지고 초상 위로 붉은 <strong>밀랍 도장 “처형”</strong>이 쾅. 화면 흔들림.<br><span class="sfx">SFX</span>도장 쾅 <span class="sfx hap">진동</span>강하게'],
+      ['널빤지', '2.0–3.2s', '', artCut('D3_Plank.png'),
+        '노을 진 바다 위 <strong>널빤지 끝</strong>에 선 지훈님(그 사람이 입은 스킨). 다른 선원은 난간 너머 실루엣, 아래엔 상어 지느러미.<br><span class="sfx">SFX</span>삐걱 · 파도'],
+      ['첨벙', '3.2–4.0s', '', artCut('D4_Splash.png'),
+        '<strong>물보라</strong>와 퍼지는 물결. 아래 띠에 “지훈님이 처형되었습니다”. 직업은 공개하지 않는다.<br><span class="sfx">SFX</span>첨벙 · 물방울'],
+      ['밤으로', '4.0–5.0s', '', sceneDusk('지훈'),
+        '노을이 달빛으로 디졸브되며 <strong>“2일차 밤” 명패</strong>. 명단의 지훈 초상은 회색 + ✕. 곧 밤 능력 화면으로.<br><span class="sfx">SFX</span>낮은 현악 · 바람'],
+    ],
+    foot: [
+      ['동점 · 투표 없음 (<code>executedPlayerId = 0</code>)', ['② 판결문에 초상 대신 “판결 불발”, 도장 “무효”가 찍히다 <strong>금이 감</strong>(뚝)', '③ ④를 건너뛰고 ⑤로 · 공지 “동점이라 아무도 처형되지 않았습니다.”', '득표 더미(①)는 그대로 보여준다']],
+      ['내가 처형될 때', ['③ 널빤지 장면을 1인칭으로: 발끝 아래 바다 + 뒤에서 선원들 실루엣', '④ 이후 화면 채도를 낮춘 관전 모드']],
+      ['정보 공개 · 길이', ['보여줌: 처형자 닉네임 · 스킨, 득표 수 (<code>votes</code>)', '숨김: 처형자 직업, 누가 누구에게 투표했는지', '탭하면 ⑤로 · 남은 시간 1.5초 미만이면 ⑤만']],
+    ],
+  },
+};
+
+// ============================================================== 그리기
+function renderBoard(id, b) {
+  const total = b.timeline.reduce((s, t) => s + t[1], 0);
+  const tl = `<div class="timeline">${b.timeline.map(t => `<div class="seg" style="flex:${t[1]};background:${t[2]}">${t[0]} · ${t[1].toFixed(1)}s</div>`).join('')}</div>` +
+    (b.phaseAt || []).map(p => `<div class="mk ${p[0] >= total ? 'end' : ''}" style="left:${(p[0] / total * 100).toFixed(2)}%"><span>${p[0].toFixed(1)}s ${p[1]}</span></div>`).join('');
+  const cuts = b.cuts.map((c, i) => `<section class="cut">
+      <div class="label"><b>${i + 1}</b>${c[0]}${c[2] ? `<i>${c[2]}</i>` : ''}<span>${c[1]}</span></div>
+      <div class="frame">${c[3]}</div>
+      <div class="cap">${c[4]}</div></section>`).join('');
+  const foot = b.foot.map(f => `<div class="box"><h3>${f[0]}</h3><ul>${f[1].map(x => `<li>${x}</li>`).join('')}</ul></div>`).join('');
+  return `<div class="board" id="${id}">
+    <div class="head"><div class="tag">${b.tag}</div><h1>${b.title}</h1><div class="cond">${b.cond}</div></div>
+    <div class="tlwrap">${tl}</div>
+    <div class="strip">${cuts}</div>
+    <div class="foot ${id === 'exec' ? 'two' : ''}">${foot}</div></div>`;
+}
+
+const root = document.getElementById('boards');
+root.innerHTML = Object.entries(BOARDS).map(([id, b]) => renderBoard(id, b)).join('');
+// #kill → 보드 하나, #kill/5 → 그 보드의 5번 컷만 두 배로 (확인용)
+const [want, only] = (location.hash || '#kill').slice(1).split('/');
+document.getElementById(want).classList.add('on');
+if (only) {
+  const cut = document.querySelectorAll(`#${want} .frame`)[only - 1];
+  document.body.innerHTML = '';
+  document.body.appendChild(cut);
+  cut.style.zoom = location.search.includes("z1") ? 1 : 2;
+  document.body.style.display = "flex";
+  cut.style.borderRadius = 0;
+}
+</script>
+</body>
+</html>

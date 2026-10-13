@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 544aaa5179834d9ca160b87f858e2637, type: 3}
+  m_Name: DayTransitionSettings
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.DayTransitionSettings
+  killed:
+    nightLifts: 0.7
+    strike: 0.8
+    victim: 1.7
+    dawn: 0.8
+  protectedNight:
+    nightLifts: 0.7
+    strike: 0.8
+    shield: 1.3
+    dawn: 0.9
+  quiet:
+    nightLifts: 0.7
+    calmSea: 0.9
+    sunrise: 1
+  executed:
+    tally: 0.8
+    verdict: 1
+    plank: 1.3
+    splash: 0.8
+    nightFalls: 0.6
+  notExecuted:
+    tally: 0.8
+    verdict: 1.4
+    nightFalls: 0.6
+  outLength: 0.5
+  maxHold: 2.5

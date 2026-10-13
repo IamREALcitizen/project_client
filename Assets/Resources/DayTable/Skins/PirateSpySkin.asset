@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f46a6a11718424f9958c5f3421a9e2a, type: 3}
+  m_Name: PirateSpySkin
+  m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
+  designId: PIRATE_SPY
+  standing: {fileID: -7172026105246684885, guid: 975448e01fa743b19b6d4229fe9e6ab1, type: 3}
+  seatedFront: {fileID: -7172026105246684885, guid: 0740c97d3da64e95a1325c5e2479d8fd, type: 3}
+  seatedFrontBlink: {fileID: -7172026105246684885, guid: 140841f1bb62401ba8e4e22dd167ae58, type: 3}
+  seatedFrontTalk: {fileID: -7172026105246684885, guid: 9e581c498b984d968dd817241347e2e3, type: 3}
+  seatedSide: {fileID: -7172026105246684885, guid: 471c3c2446034fe88448da315b1c669a, type: 3}
+  seatedBack: {fileID: -7172026105246684885, guid: 55701bf5a9554f9a864556333f2f91fb, type: 3}
+  seated1OClock: {fileID: -7172026105246684885, guid: c34ed1490f594bcd861d062302117006, type: 3}
+  seated5OClock: {fileID: -7172026105246684885, guid: 6752a8f400414e4e9d3bd428fb947166, type: 3}
+  seated7OClock: {fileID: -7172026105246684885, guid: fb05be96709b47028a49e702ad2f69d8, type: 3}
+  seated11OClock: {fileID: -7172026105246684885, guid: 47cd3e381d0a47fd885d01952d3eb197, type: 3}
