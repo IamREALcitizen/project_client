@@ -10,6 +10,8 @@ Unity.exe -batchmode -projectPath <프로젝트> -executeMethod CaptureGameScene
 
 - `<폴더>`에 `Night_1920`, `Night_2400`, `NightPicked_1920`(지훈을 보호 대상으로 고름), `Day_1920`, `Day_2400`, `Vote_1920` PNG와
   `status.txt`(PASS/실패 이유)가 나옵니다. 화면 높이 2400은 긴 휴대폰에서 채팅 창이 늘어나는 모양을 봅니다.
+- `-longNames`: 봇 셋의 닉네임을 길게(하늘다람쥐, 게스트5962, 닉변이공짜) 바꿔 명단 이름패의 줄임을 봅니다.
+- `-growChat <높이>`: 채팅 창(ChatBox) 윗변을 그만큼 올린 채로(저장하지 않음) Play해, 채팅 기록·입력 바가 창을 따라가는지 봅니다.
 - 캔버스를 카메라 하나로 RenderTexture(가로 1080)에 그립니다. 시간은 가짜 서버의 기본 페이즈 길이(밤 20초, 결과 5초, 낮 15초,
   투표 15초)에 맞춰 찍습니다.
 - `-executeMethod CaptureGameScene3.Dress`는 구운 GameScene3에 항해 시안을 입히고(Tools > Game Scene > 항해 시안 입히기와 같음) 저장합니다.
