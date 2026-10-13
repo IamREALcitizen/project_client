@@ -18,7 +18,9 @@ namespace WhoisntCitizen.EditorTools
     //   ├─ BottomSheetLift         (새로) GameBottomSheet를 이 안으로 옮긴다. 입력 바만 남긴다 (서랍 높이 0)
     //   ├─ ChatLogPanel            채팅 기록. 채팅 상자 안에 놓는다
     //   ├─ RoleChip                (새로) 내 역할 칩
-    //   ├─ Notice                  (새로, 꺼 둠) 공지 두루마리. 켜 보고 위치를 고친 뒤 꺼 두지 않아도 된다(Play 때 끈다)
+    //   ├─ NoticeBubble            (새로, 꺼 둠) 공지 상자(녹색 사각형). Play 때 글 길이에 맞춰 크기를 정하고 [내 역할] 칩 바로 아래에 놓는다
+    //   │                          ([보이스파이프 제거 - 주석 처리] VoicePipe: 무대 왼쪽 위 보이스파이프. 공지는 그 입에서 말풍선으로 나왔다)
+    //   │                          ([두루마리 공지 - 주석 처리] Notice: 공지 두루마리. 예전에 구운 씬에 남아 있으면 Play 때 끈다)
     //   └─ GameResultPanel
     // - 하단 시트가 채팅 기록을 밀어 올리지 않게 한다(GameBottomSheet의 pushTargets를 비운다). 채팅 기록 자리는 씬이 정한다.
     // - 원탁·캐릭터·밤 방, 명단 안의 사람, 내 역할 칩의 초상, 채팅 줄처럼 사람·게임에 따라 바뀌는 것은 Play 때 그대로 만든다.

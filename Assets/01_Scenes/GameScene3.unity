@@ -6838,8 +6838,11 @@ MonoBehaviour:
   phaseIcon: {fileID: 1149985459}
   timerFill: {fileID: 1788238430}
   notice: {fileID: 1046247654}
-  noticeGroup: {fileID: 1046247657}
-  noticeText: {fileID: 1310317176}
+  voicePipe: {fileID: 0}
+  bubble: {fileID: 0}
+  bubbleGroup: {fileID: 0}
+  bubbleText: {fileID: 0}
+  pipeGlow: {fileID: 0}
   settingsButton: {fileID: 2120674799}
   mapButton: {fileID: 1382854815}
 --- !u!1 &1549984331
