@@ -107,6 +107,7 @@ public static class CaptureTransitions
                 {
                     if (!string.IsNullOrEmpty(text.text)) CheckGlyphs(text, report);
                 }
+                if (!tall) CheckTiming(view, camera, target, portrait, figure, report);
                 UnityEngine.Object.DestroyImmediate(canvasRect.gameObject);
                 UnityEngine.Object.DestroyImmediate(camera.gameObject);
                 target.Release();
@@ -120,6 +121,66 @@ public static class CaptureTransitions
             Debug.LogException(ex);
             EditorApplication.Exit(1);
         }
+    }
+
+    // The settings asset loads from Resources with the drawn timing, and a beat made longer shows the same picture later.
+    static void CheckTiming(DayTransitionView view, Camera camera, RenderTexture target, Sprite portrait, Sprite figure, StringBuilder report)
+    {
+        DayTransitionSettings asset = Resources.Load<DayTransitionSettings>(DayTransitionSettings.ResourcePath);
+        Check(asset != null, "settings asset does not load from Resources");
+        foreach (DayTransitionKind kind in Enum.GetValues(typeof(DayTransitionKind)))
+        {
+            float[] beats = asset.Beats(kind), design = DayTransitionSettings.DesignBeats(kind);
+            Check(beats.Length == design.Length, kind + ": beat count");
+            for (int i = 0; i < beats.Length; i++) Check(Mathf.Approximately(beats[i], design[i]), kind + ": asset beat " + i + " is not the default");
+        }
+
+        var info = new DayTransitionInfo { Kind = DayTransitionKind.Killed, Day = 1, Name = "민수", Portrait = portrait, Figure = figure };
+        view.Settings = asset;
+        view.Prepare(info);
+        Check(Mathf.Abs(view.HoldAt - 4.0f) < 1e-4f && Mathf.Abs(view.Duration - 4.5f) < 1e-4f, "default hold/end");
+        view.Evaluate(2.3f); // the poster, 0.8 s into the 1.7 s victim beat
+        Color32[] normal = Grab(camera, target);
+
+        var slow = ScriptableObject.CreateInstance<DayTransitionSettings>();
+        slow.killed.victim = 3.4f;
+        slow.outLength = 1f;
+        view.Settings = slow;
+        view.Prepare(info);
+        Check(Mathf.Abs(view.HoldAt - 5.7f) < 1e-4f && Mathf.Abs(view.Duration - 6.7f) < 1e-4f, "slow hold/end: " + view.HoldAt + "/" + view.Duration);
+        view.Evaluate(1.5f + 0.8f * 2f); // the same moment of a beat twice as long
+        Check(Same(normal, Grab(camera, target)), "a longer beat does not show the same picture later");
+        view.Evaluate(view.Duration + 0.01f);
+        Check(view.GetComponent<CanvasGroup>().alpha <= 0.001f, "slow: still visible after its end");
+        info.GameOver = true;
+        view.Prepare(info);
+        Check(Mathf.Abs(view.HoldAt - 4.9f) < 1e-4f, "game over drops the dawn beat");
+        view.Settings = asset;
+        report.AppendLine("timing: asset defaults, beat stretch (victim x2 at the same picture), out length, game over: OK");
+    }
+
+    static Color32[] Grab(Camera camera, RenderTexture target)
+    {
+        Canvas.ForceUpdateCanvases();
+        camera.Render();
+        RenderTexture.active = target;
+        var pixels = new Texture2D(target.width, target.height, TextureFormat.RGBA32, false);
+        pixels.ReadPixels(new Rect(0, 0, target.width, target.height), 0, 0);
+        pixels.Apply();
+        Color32[] data = pixels.GetPixels32();
+        UnityEngine.Object.DestroyImmediate(pixels);
+        RenderTexture.active = null;
+        return data;
+    }
+
+    static bool Same(Color32[] a, Color32[] b)
+    {
+        if (a.Length != b.Length) return false;
+        for (int i = 0; i < a.Length; i++)
+        {
+            if (Mathf.Abs(a[i].r - b[i].r) > 2 || Mathf.Abs(a[i].g - b[i].g) > 2 || Mathf.Abs(a[i].b - b[i].b) > 2) return false;
+        }
+        return true;
     }
 
     static void CheckGlyphs(TMP_Text text, StringBuilder report)
