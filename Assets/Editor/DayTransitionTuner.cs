@@ -210,7 +210,7 @@ namespace WhoisntCitizen.EditorTools
                 Kind = kind,
                 Day = 1,
                 Name = playerName,
-                Figure = skin != null ? skin.Standing : null,
+                Figure = skin != null ? skin.Bound : null,
                 Portrait = portrait,
                 Votes = 4,
                 TotalVotes = 7,

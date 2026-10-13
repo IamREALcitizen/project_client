@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
   designId: CREW_BOATSWAIN
   standing: {fileID: 2100000000000000001, guid: c9eb129b93764b79a097551df3040588, type: 3}
+  bound: {fileID: 21300000, guid: c270758dd0cf44f0af272f75383703dc, type: 3}
   seatedFront: {fileID: 2100000000000000002, guid: c9eb129b93764b79a097551df3040588, type: 3}
   seatedFrontBlink: {fileID: 2100000000000000003, guid: c9eb129b93764b79a097551df3040588, type: 3}
   seatedFrontTalk: {fileID: 2100000000000000004, guid: c9eb129b93764b79a097551df3040588, type: 3}

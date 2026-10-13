@@ -1,0 +1,531 @@
+{
+  "created": "2026-10-14",
+  "generator": "built-in imagegen",
+  "purpose": "투표 처형 연출용, 밧줄에 묶인 스킨별 단일 전신 스프라이트",
+  "alphaBoundsThreshold": 16,
+  "pixelsPerUnit": 256,
+  "postProcess": "생성 결과(1024x1535-1536)를 알파 8 이상 영역 + 여백 4px로 자르고, 가로·세로를 4의 배수로 맞춤(남는 칸은 좌우·위쪽 투명). 발끝이 이미지 아래 끝, 가로는 알파 영역 중앙. 피벗은 하단 중앙. width/height/pivot/alphaBounds/transparentPixels는 자른 뒤 값.",
+  "commonPrompt": "Use case: identity-preserve. Asset type: ONE transparent PNG full-body SD/chibi sprite for a Unity pirate social-deduction game's vote-elimination cutscene. Input Image 1 is the character identity reference sheet: use ONLY the full-body standing character in its TOP-LEFT cell; the other five poses are identity references, not output layout. Input Image 2 is a reference for the rope material, restrained pose, proportions, framing and painterly finish only; never copy its face or outfit. Produce ONE character, NOT a sheet. Preserve the identity, head/body ratio, face, colors, species, costume, headwear and identifying accessories of Image 1. Full body upright, frontal with a very slight three-quarter turn, centered, feet together and on one baseline. Thick tan ship rope wraps in many horizontal coils around the CLOTHED torso and upper arms pinned to the sides, waist, and wrists held together in front, with a clear front knot. Separate coils around both lower legs together. Neck, mouth and face unobstructed, rope below shoulders. Restrained serious or concerned expression suitable to this character. No handheld objects that would conflict with bound hands; preserve pouches/props attached to belt. Entire body visible, around 88% canvas height, 6% clear top and bottom padding; do not cut off feet, tail, hat, hair or fins. Match detailed painterly pirate-game 2D rendering and compact chibi proportions. Real transparent alpha background; no dark gradient, no scenery, no floor, no chair/post, no background shadow, no text, labels, frame or watermark, no duplicates. Fully clothed non-graphic cartoon game asset, no injury or gore.",
+  "promptComposition": "첫 스킨은 fullPrompt. 나머지 스킨은 commonPrompt + promptSuffix를 그대로 연결. referenceImages 순서대로 입력. transparent_background=true.",
+  "assets": [
+    {
+      "designId": "PIRATE_SPY",
+      "displayName": "해적 첩자",
+      "file": "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/PirateSpySkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Standing.png"
+      ],
+      "generationFile": "exec-c012c86c-2c16-4902-9b40-902ddc40833f.png",
+      "width": 916,
+      "height": 1512,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 7,
+        "right": 910,
+        "bottom": 1507
+      },
+      "transparentPixels": 575792,
+      "visibleEdgePixels": 0,
+      "fullPrompt": "Use case: identity-preserve. Asset type: one transparent PNG full-body sprite for a Unity pirate social-deduction game's vote-elimination cutscene. Image 1 is the character identity and rendering reference. Make one single bound version of THIS exact SD/chibi adult female pirate spy: identical large head / compact body proportions, black hood with red lining, dark braided hair, gold earrings, red scarf, black leather coat, belt, gold accessories and boots. Keep her face, costume, colors and detailed painterly 2D sprite finish. Standing upright, front-facing with a slight natural three-quarter turn like the reference, feet together and planted at the same ground level. Thick ordinary tan ship rope wraps tightly in many layered horizontal loops around the clothed chest, upper arms pinned to her sides, wrists and waist, with a clear knot at the front; a separate rope loop binds the lower legs together. Body and arms visibly restrained, face fully visible with a stern displeased expression. Rope stays below the shoulders, neck and mouth remain unobstructed. Full body including hat and both feet, centered, roughly 88 percent of canvas height, generous clear edge padding, no clipping. Genuine transparent background, no scene, no floor, no chair or post, no cast background shadow, no text, no labels, no border, no duplicate characters, no sprite sheet. Fully clothed non-graphic cartoon game asset, no injury, no gore. Do not change into realistic adult proportions."
+    },
+    {
+      "designId": "CREW_DOCTOR",
+      "displayName": "의사",
+      "file": "Assets/09_Image/Characters/CrewDoctor_SD/CrewDoctor_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewDoctorSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewDoctor_SD/CrewDoctor_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-509ff09c-a88c-4074-9ac8-bc2fe04e5be8.png",
+      "width": 636,
+      "height": 1468,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 4,
+        "right": 630,
+        "bottom": 1463
+      },
+      "transparentPixels": 314260,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements, overriding generic anatomy above: Identity: mature bearded ship doctor, wavy graying brown hair, blue naval coat, white neck cloth, brown medical satchel attached at hip."
+    },
+    {
+      "designId": "PIRATE_KRAKEN",
+      "displayName": "크라켄",
+      "file": "Assets/09_Image/Characters/PirateKraken_SD/PirateKraken_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/PirateKrakenSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/PirateKraken_SD/PirateKraken_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-b85c292b-6750-423e-a2ab-b4b83e00cf4d.png",
+      "width": 836,
+      "height": 1436,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 6,
+        "top": 7,
+        "right": 829,
+        "bottom": 1431
+      },
+      "transparentPixels": 465262,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements, overriding generic anatomy above: SPECIES OVERRIDE: this is the blue-and-red octopus kraken from Image 1, NOT a humanoid; do not give it human arms, legs, clothes, hair or a face. Preserve its pointed mantle, orange eyes and 8 suckered tentacles. Gather the tentacles into a compact upright bundle and visibly bind the tentacle bases and the lower bundle with many thick tan ship-rope coils and a front knot; a few curled tentacle tips remain visible at the bottom. Eyes remain unobstructed. Use Image 2 only for rope appearance and game-sprite finish. Entire creature, all outer tips within padded canvas."
+    },
+    {
+      "designId": "CONCEPT_SIREN",
+      "displayName": "세이렌",
+      "file": "Assets/09_Image/Characters/ConceptSiren_SD/ConceptSiren_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/ConceptSirenSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/ConceptSiren_SD/ConceptSiren_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-8350a707-3f4d-4260-8e5f-11c18334f40b.png",
+      "width": 772,
+      "height": 1512,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 4,
+        "right": 767,
+        "bottom": 1507
+      },
+      "transparentPixels": 390885,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements, overriding generic anatomy above: SPECIES OVERRIDE: the siren has a long scaled green mermaid tail and fluke instead of legs or boots. Keep her long black hair, coral crown, fully clothed scale outfit and dark red cloak. Bind her upper arms and wrists to the clothed torso with thick tan rope; wrap coils lower around the folded single tail, with tail fin visible beneath. No human legs, no boots. Keep the face and glowing throat details unobstructed."
+    },
+    {
+      "designId": "CREW_GUNNER",
+      "displayName": "포수",
+      "file": "Assets/09_Image/Characters/CrewGunner_SD/CrewGunner_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewGunnerSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewGunner_SD/CrewGunner_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-f1a10e14-f72b-44c5-afb8-e11639624ff4.png",
+      "width": 716,
+      "height": 1460,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 5,
+        "right": 711,
+        "bottom": 1455
+      },
+      "transparentPixels": 431361,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements, overriding generic anatomy above: Identity: dark-blue bandana, mustache and short beard, soot on cheek, blue vest, white shirt, ammunition bandolier. Holster the pistol; empty bound hands in front."
+    },
+    {
+      "designId": "PIRATE_RAIDER",
+      "displayName": "해적 약탈자",
+      "file": "Assets/09_Image/Characters/PirateRaider_SD/PirateRaider_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/PirateRaiderSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/PirateRaider_SD/PirateRaider_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-d867456d-9034-4cd3-a538-6b004d777da5.png",
+      "width": 948,
+      "height": 1468,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 5,
+        "right": 940,
+        "bottom": 1463
+      },
+      "transparentPixels": 515717,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Bearded pirate captain with black skull tricorn, red feather, red sash, black/gold coat. Preserve scar and braided beard; sword remains sheathed. Big head and compact short body exactly like top-left reference."
+    },
+    {
+      "designId": "CREW_SAILOR",
+      "displayName": "선원",
+      "file": "Assets/09_Image/Characters/CrewSailor_SD/CrewSailor_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewSailorSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewSailor_SD/CrewSailor_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-8c3b3cbc-cea9-4456-bfec-02bd8947e98c.png",
+      "width": 608,
+      "height": 1468,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 4,
+        "right": 601,
+        "bottom": 1463
+      },
+      "transparentPixels": 322771,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Young adult sailor, blue knitted cap, brown tousled hair, clean-shaven freckled face, blue coat and white neckerchief. Keep compact chibi proportions. Shoulder rope coil may remain behind the new restraining rope."
+    },
+    {
+      "designId": "CREW_BOATSWAIN",
+      "displayName": "갑판장",
+      "file": "Assets/09_Image/Characters/CrewBoatswain_SD/CrewBoatswain_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewBoatswainSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewBoatswain_SD/CrewBoatswain_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-11708c20-d8ac-438c-8050-1908d0481ed2.png",
+      "width": 760,
+      "height": 1468,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 6,
+        "right": 754,
+        "bottom": 1461
+      },
+      "transparentPixels": 439253,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Stocky mature boatswain with graying beard, anchor-emblem blue bandana, scarred cheek, blue vest and brass whistle. Keep original silhouette and shoulder rope coil behind binding. Hands now together, not holding shoulder coil."
+    },
+    {
+      "designId": "CREW_GHOST",
+      "displayName": "유령 선원",
+      "file": "Assets/09_Image/Characters/CrewGhost_SD/CrewGhost_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewGhostSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewGhost_SD/CrewGhost_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-244b3572-6575-4cbe-b54c-7af7e25624e2.png",
+      "width": 708,
+      "height": 1472,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 6,
+        "top": 6,
+        "right": 701,
+        "bottom": 1466
+      },
+      "transparentPixels": 310543,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Ghost sailor: translucent mint-green spectral skin and hair, glowing pale eyes, tattered blue sailor cap and coat, striped shirt, white neckerchief. His lower body fades into small compact spirit wisps, so bind the torso/arms and lower coat with tan rope instead of adding human legs if the reference has none. Attach his recognizable glowing lantern at the belt beside him so both hands can be bound together. Keep chibi head/body proportions and complete wisp tips; no background aura."
+    },
+    {
+      "designId": "CREW_CAPTAIN",
+      "displayName": "선장",
+      "file": "Assets/09_Image/Characters/CrewCaptain_SD/CrewCaptain_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewCaptainSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewCaptain_SD/CrewCaptain_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-9eeac6c9-dd86-4a9b-968d-c25e2161f6c2.png",
+      "width": 848,
+      "height": 1504,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 8,
+        "right": 843,
+        "bottom": 1499
+      },
+      "transparentPixels": 501015,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Captain with blue tricorn and blue feather, golden compass star medallion, curled mustache, blue coat with gold epaulets. Telescope is tucked at belt instead of held. Big head and compact body as standing source."
+    },
+    {
+      "designId": "CREW_MONKEY",
+      "displayName": "원숭이 항해사",
+      "file": "Assets/09_Image/Characters/CrewMonkey_SD/CrewMonkey_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewMonkeySkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewMonkey_SD/CrewMonkey_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-82477d45-3bc8-4dc4-ae97-dadefd5ba32a.png",
+      "width": 872,
+      "height": 1420,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 6,
+        "top": 7,
+        "right": 865,
+        "bottom": 1415
+      },
+      "transparentPixels": 507795,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: SPECIES OVERRIDE: brown capuchin monkey sailor, cream cheek fur, blue anchor cap and blue/gold vest, curled brown tail and bare monkey feet. Preserve monkey anatomy and SHORT squat body, not human proportions, no boots. Bind torso, arms and wrists with thick tan rope, then both ankles. Roll of map tucked at belt, hands empty. Keep whole curled tail inside frame."
+    },
+    {
+      "designId": "CREW_LOOKOUT",
+      "displayName": "망루지기",
+      "file": "Assets/09_Image/Characters/CrewLookout_SD/CrewLookout_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewLookoutSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewLookout_SD/CrewLookout_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-1e90b5f7-c533-4dde-b71d-bd51b04cbd78.png",
+      "width": 820,
+      "height": 1516,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 7,
+        "right": 815,
+        "bottom": 1511
+      },
+      "transparentPixels": 438657,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Adult female lookout, teal cloth hood and matching cloak, brown braids, freckles, white shirt, dark breeches and brown boots. Both eyes now open, concerned expression; telescope stowed at belt so the hands can be bound at waist. Keep same large head and short compact chibi body."
+    },
+    {
+      "designId": "CREW_DRUNK",
+      "displayName": "주정뱅이",
+      "file": "Assets/09_Image/Characters/CrewDrunk_SD/CrewDrunk_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewDrunkSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewDrunk_SD/CrewDrunk_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-67329dbd-81e5-4296-92ba-5ca316d42122.png",
+      "width": 700,
+      "height": 1424,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 6,
+        "top": 7,
+        "right": 693,
+        "bottom": 1419
+      },
+      "transparentPixels": 312342,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Stocky older drunken sailor, rosy cheeks and nose, gray beard with tiny tied tuft, blue anchor cap, blue coat, ivory shirt, dark neckerchief. Preserve stocky round short body and large head. Wooden mug may hang from belt instead of held in bound hands, no other props."
+    },
+    {
+      "designId": "PIRATE_PARROT",
+      "displayName": "해적 앵무새",
+      "file": "Assets/09_Image/Characters/PirateParrot_SD/PirateParrot_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/PirateParrotSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/PirateParrot_SD/PirateParrot_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-4eb133e2-3b88-469e-bee9-d16ce9fca020.png",
+      "width": 924,
+      "height": 1424,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 4,
+        "right": 917,
+        "bottom": 1419
+      },
+      "transparentPixels": 503664,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: SPECIES OVERRIDE: compact scarlet macaw pirate with black curved beak, golden eye, blue/red feathers, black skull tricorn with red/teal plumes and brass monocle, short black/gold vest and red scarf. Use natural short bird body and claws, no human legs or arms. Rope wraps firmly around torso pinning both folded WINGS against body, and around short ankles together just above visible claws. Head/beak and long tail feathers visible, all inside canvas."
+    },
+    {
+      "designId": "CREW_MONKEY_ALT",
+      "displayName": "금화 원숭이",
+      "file": "Assets/09_Image/Characters/CrewMonkeyAlt_SD/CrewMonkeyAlt_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/CrewMonkeyAltSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/CrewMonkeyAlt_SD/CrewMonkeyAlt_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-d6384066-2754-4fa8-b998-df0c608c91be.png",
+      "width": 956,
+      "height": 1388,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 4,
+        "right": 950,
+        "bottom": 1383
+      },
+      "transparentPixels": 552627,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: SPECIES OVERRIDE: capuchin monkey with cream cheek fur, brown body fur, maroon-and-ochre ragged scarf, gold coin pendants, bare paws, curled tail. Keep SHORT squat monkey body, no human clothes or boots added. Bind torso and forearms, wrists together, lower legs together; coin from hand becomes pendant so bound hands empty. Preserve tail and ear shapes."
+    },
+    {
+      "designId": "CONCEPT_GHOST_CAPTAIN",
+      "displayName": "유령 선장",
+      "file": "Assets/09_Image/Characters/ConceptGhostCaptain_SD/ConceptGhostCaptain_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/ConceptGhostCaptainSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/ConceptGhostCaptain_SD/ConceptGhostCaptain_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-6162accc-fa15-445d-ba38-f3a9878aada8.png",
+      "width": 964,
+      "height": 1516,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 6,
+        "top": 6,
+        "right": 957,
+        "bottom": 1510
+      },
+      "transparentPixels": 472745,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Ghost captain with stern spectral mint-green face, glowing white eyes, long white-green beard and hair, tattered black tricorn with compass/octopus emblem, ornate black/navy coat, gold epaulets, ragged cravat and boots. Ordinary tan rope visibly wraps clothed chest, arms, wrists and lower legs. Preserve ghost wisps attached to silhouette with transparent gaps, no background aura or scene."
+    },
+    {
+      "designId": "PIRATE_COOK",
+      "displayName": "남성 요리사",
+      "file": "Assets/09_Image/Characters/PirateCook_SD/PirateCook_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/PirateCookSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/PirateCook_SD/PirateCook_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-98d9d532-ea89-43c8-b9ce-1407618ff3a5.png",
+      "width": 596,
+      "height": 1412,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 5,
+        "right": 590,
+        "bottom": 1406
+      },
+      "transparentPixels": 218073,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Stocky older male ship cook, gray beard, rosy cheeks, cream chef hat, red neckerchief, blue vest, ivory sleeves, stained cream apron, brown boots and utensils tucked at belt. Keep round short chibi body and large head. Remove hand-held stew pot and ladle to show bound wrists together; one ladle can remain tucked at belt."
+    },
+    {
+      "designId": "THIRD_MERMAID_MALE",
+      "displayName": "남성 인어",
+      "file": "Assets/09_Image/Characters/ThirdMermaidMale_SD/ThirdMermaidMale_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/ThirdMermaidMaleSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/ThirdMermaidMale_SD/ThirdMermaidMale_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-e0b5c945-848b-47b9-9b30-5481c7082734.png",
+      "width": 788,
+      "height": 1496,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 6,
+        "right": 782,
+        "bottom": 1490
+      },
+      "transparentPixels": 425680,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: SPECIES OVERRIDE: adult merman noble with long wavy dark-teal hair, short beard, pearl/shell/coral ornaments, fin ears, ornate navy-and-turquoise scale armor with gold trim, and a SINGLE curved scaled fish tail with luminous pale fins INSTEAD of legs or boots. Keep head-to-body proportions of top-left reference. Rope wraps armored torso pinning upper arms; wrists bound together in front. Wrap lower fish tail with separate coils above the fully visible fluke. Pearl tucked into belt ornament, empty hands. No human legs or boots."
+    },
+    {
+      "designId": "THIRD_MERMAID",
+      "displayName": "여성 인어",
+      "file": "Assets/09_Image/Characters/ThirdMermaid_SD/ThirdMermaid_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/ThirdMermaidSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/ThirdMermaid_SD/ThirdMermaid_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-2549fd9f-44a4-433b-9412-3ff3bc6c85cd.png",
+      "width": 784,
+      "height": 1488,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 5,
+        "top": 6,
+        "right": 777,
+        "bottom": 1483
+      },
+      "transparentPixels": 360493,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: SPECIES OVERRIDE: adult mermaid with long dark-teal hair, pearl/shell/coral hair ornaments, fin ears, turquoise/gold ornamental scale bodice, gauzy pale sleeve drapes, pearl jewelry, and a SINGLE curved iridescent teal fish tail with pale flowing fins, INSTEAD of legs/boots. Keep original compact chibi proportions. Rope wraps bodice/upper arms and wrists in front, separate coils around lower tail above visible fluke. Face visible, concerned stern expression, no sensual framing. Handheld pearl-shell becomes belt ornament; no hand-held props. No human legs or boots."
+    },
+    {
+      "designId": "PIRATE_COOK_FEMALE",
+      "displayName": "여성 요리사",
+      "file": "Assets/09_Image/Characters/PirateCookFemale_SD/PirateCookFemale_Bound.png",
+      "skinAsset": "Assets/Resources/DayTable/Skins/PirateCookFemaleSkin.asset",
+      "referenceImages": [
+        "Assets/09_Image/Characters/PirateCookFemale_SD/PirateCookFemale_BaseSheet.png",
+        "Assets/09_Image/Characters/PirateSpy_SD/PirateSpy_Bound.png"
+      ],
+      "generationFile": "exec-33ce3b6f-92c6-46de-b998-5ae8f8c13549.png",
+      "width": 688,
+      "height": 1516,
+      "pivot": {
+        "x": 0.5,
+        "y": 0
+      },
+      "alphaBounds": {
+        "left": 4,
+        "top": 6,
+        "right": 682,
+        "bottom": 1511
+      },
+      "transparentPixels": 408297,
+      "visibleEdgePixels": 0,
+      "promptSuffix": " Character-specific requirements: Adult female ship cook with cream chef hat, dark wavy hair and braid, gold earrings, red neckerchief, blue vest, rolled ivory sleeves, cream apron, dark trousers and brown boots. Retain compact chibi body and the same face. Remove handheld frying pan and spoon so hands can be bound together; wooden spoon and tools can remain tucked at belt. Bind torso/upper arms, wrists, lower legs with same tan rope."
+    }
+  ]
+}
