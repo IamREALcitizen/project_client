@@ -16,7 +16,7 @@ MonoBehaviour:
   stageHeight: 810
   deckRaise: 170
   tableWidth: 743
-  tableY: -150
+  tableY: -115
   chairSize: 171.3
   fewPlayersScale: 1
   ringPaddingX: 90
