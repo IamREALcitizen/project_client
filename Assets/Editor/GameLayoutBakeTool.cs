@@ -68,6 +68,40 @@ namespace WhoisntCitizen.EditorTools
             return !EditorApplication.isPlayingOrWillChangePlaymode;
         }
 
+        // Tools > Game Scene > 항해 시안 입히기 (GameScene3)
+        // 이미 구운 GameScene3에 항해 시안(Docs/UIConcepts/*-nautical.png, GameLayoutTabs.Dress)을 입힌다: 채팅 창 금테·항구,
+        // 행동 줄과 명단을 감싸는 밤 패널, 배지·제목·버튼 자리, 채팅 기록 자리, 입력 바. 예전 둥근 패널과 테두리는 뗀다.
+        // 다시 해도 같은 모양이 된다(배지·제목·버튼·채팅 기록·입력 바 자리는 시안 자리로 돌아간다).
+        private const string DressMenuPath = "Tools/Game Scene/항해 시안 입히기 (GameScene3)";
+
+        [MenuItem(DressMenuPath)]
+        private static void DressMenu()
+        {
+            GameScreen screen = FindTabsScreen();
+            if (screen == null || !IsBaked(screen))
+            {
+                EditorUtility.DisplayDialog("항해 시안 입히기", "열린 씬에 구운 Tabs 배치(GameScene3)가 없습니다. GameScene3을 열고 다시 실행하세요.", "확인");
+                return;
+            }
+            Dress(screen);
+            EditorUtility.DisplayDialog("항해 시안 입히기", "입혔습니다. Ctrl+S로 씬을 저장하세요.", "확인");
+        }
+
+        [MenuItem(DressMenuPath, true)]
+        private static bool DressValidate()
+        {
+            return !EditorApplication.isPlayingOrWillChangePlaymode;
+        }
+
+        internal static void Dress(GameScreen screen)
+        {
+            RoundTablePreview.Clear();
+            screen.GetComponent<GameLayoutTabs>().DressBaked();
+            RecordPrefabInstances(screen.transform);
+            EditorSceneManager.MarkSceneDirty(screen.gameObject.scene);
+            RoundTablePreview.Refresh();
+        }
+
         private static GameScreen FindTabsScreen()
         {
             foreach (GameScreen screen in Object.FindObjectsByType<GameScreen>(FindObjectsInactive.Include, FindObjectsSortMode.None))

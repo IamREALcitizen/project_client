@@ -182,6 +182,17 @@ public static class CaptureResults
             Check(players.gameObject.activeSelf && !root.Find("Card/ResultPlayerCards").gameObject.activeSelf, "Cancellation kept stale player cards");
             panel.Show(Result(Factions.Crew), null);
             Check(!root.Find("ResultBackground").gameObject.activeSelf, "Unknown player should not be labelled defeated");
+            // Include all three factions together when reviewing the result palette.
+            for (int faction = 0; faction < factions.Length; faction++)
+            {
+                var mixed = Result(factions[faction]);
+                mixed.players[8].role = "NEUTRAL_MERMAID"; mixed.players[8].roleName = "인어";
+                mixed.players[9].role = "NEUTRAL_KRAKEN"; mixed.players[9].roleName = "크라켄";
+                mixed.players[11].role = "NEUTRAL_GHOST_CAPTAIN"; mixed.players[11].roleName = "유령 선장";
+                panel.Show(mixed, new MyRoleDto { playerId = faction == 2 ? 9 : faction + 1, faction = factions[faction] }, false);
+                panel.SkipIntro(); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
+                Save(camera, target, Path.Combine(output, victories[faction] + "_FactionColors.png"));
+            }
             File.WriteAllText(Path.Combine(output, "status.txt"), "PASS: result mappings, 4 backgrounds, 12-player text/lineup, worn skins, staged reveal, skip, repeated click, 20-second countdown after intro, fake-game return disabled, interrupted intro cleanup and cancellations; previews rendered.");
             EditorApplication.Exit(0);
         }
