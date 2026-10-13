@@ -121,7 +121,9 @@ public static class CaptureResults
                 Canvas.ForceUpdateCanvases(); Step(sequence, 0f);
                 CheckUniformLineup(root);
                 Image art = root.Find("ResultBackground").GetComponent<Image>();
-                Check(art.sprite != null && art.sprite.name == names[i], "Wrong or missing resource: " + names[i]);
+                // A kraken win uses its own picture (GameResult/KrakenVictory, else the kraken's ability cut-in art).
+                bool artOk = i == 2 ? art.sprite != null && art.sprite.name != "PersonalVictory" : art.sprite != null && art.sprite.name == names[i];
+                Check(artOk, "Wrong or missing resource: " + names[i]);
                 Transform cards = root.Find("Card/ResultPlayerCards/Players");
                 Check(cards.childCount == 12 && !players.gameObject.activeSelf, "Portrait cards must replace the text roster");
                 var catalog = Resources.Load<DesignSpriteCatalog>("GameHud/Portraits");
