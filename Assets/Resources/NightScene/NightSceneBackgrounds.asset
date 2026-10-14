@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.NightSceneBackgroundCatalog
   pirateShared: {fileID: 21300000, guid: dc172164611d4034bf3c3f2f63948ed1, type: 3}
   backgrounds:
+  - designId: DEAD_SHARED
+    sprite: {fileID: 21300000, guid: e6fb35eb1d79410da03d2314a195b0f6, type: 3}
   - designId: CONCEPT_GHOST_CAPTAIN
     sprite: {fileID: 21300000, guid: d50bff9832f1431a90bca749c9ef3113, type: 3}
   - designId: CONCEPT_SIREN

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DayTransitionSettings
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.DayTransitionSettings
   killed:
-    nightLifts: 0.7
-    strike: 0.8
-    victim: 1.7
-    dawn: 0.8
+    nightLifts: 0.88
+    strike: 1
+    victim: 2.12
+    dawn: 1
   protectedNight:
     nightLifts: 0.7
     strike: 0.8
@@ -36,5 +36,11 @@ MonoBehaviour:
     tally: 0.8
     verdict: 1.4
     nightFalls: 0.6
+  dragged:
+    nightLifts: 0.7
+    rise: 0.6
+    tentacle: 0.9
+    victims: 1.4
+    dawn: 0.8
   outLength: 0.5
   maxHold: 2.5
