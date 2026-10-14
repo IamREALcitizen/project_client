@@ -14,7 +14,7 @@ namespace WhoisntCitizen.EditorTools
         private const string SettingsPath = "Assets/Resources/DayTransition/DayTransitionSettings.asset";
         private const string FontPath = "Assets/Fonts/MalgunGothic SDF.asset";
         private const float ResultPhaseSeconds = 5f; // 가짜 서버의 밤 결과·처형 페이즈 길이 (FakeGameApi)
-        private static readonly string[] KindNames = { "밤사이 사망", "선의 보호로 생존", "아무 일 없음", "투표로 처형", "처형 없음 (동점·투표 없음)" };
+        private static readonly string[] KindNames = { "밤사이 사망", "선의 보호로 생존", "아무 일 없음", "투표로 처형", "처형 없음 (동점·투표 없음)", "크라켄에게 끌려감" };
 
         private DayTransitionSettings settings;
         private SerializedObject serialized;
@@ -203,17 +203,25 @@ namespace WhoisntCitizen.EditorTools
         private DayTransitionInfo Info()
         {
             ChibiCharacterSkin skin = skins.Length > 0 ? skins[Mathf.Clamp(skinIndex, 0, skins.Length - 1)] : null;
+            ChibiCharacterSkin other = skins.Length > 1 ? skins[(Mathf.Clamp(skinIndex, 0, skins.Length - 1) + 1) % skins.Length] : null;
+            Sprite portrait = skin != null && portraits != null ? portraits.Find(skin.DesignId) : null;
             return new DayTransitionInfo
             {
                 Kind = kind,
                 Day = 1,
                 Name = playerName,
-                Figure = skin != null ? skin.Standing : null,
-                Portrait = skin != null && portraits != null ? portraits.Find(skin.DesignId) : null,
+                Figure = skin != null ? skin.Bound : null,
+                Portrait = portrait,
                 Votes = 4,
                 TotalVotes = 7,
                 Reason = "동점이라 아무도 처형되지 않았습니다.",
                 Mine = mine,
+                // 크라켄 장면: 고른 스킨과 그다음 스킨, 두 사람이 끌려간 밤
+                Victims = new[]
+                {
+                    new DayTransitionVictim { Name = playerName, Portrait = portrait, Mine = mine, Kraken = true },
+                    new DayTransitionVictim { Name = "민수", Portrait = other != null && portraits != null ? portraits.Find(other.DesignId) : null, Kraken = true },
+                },
                 GameOver = gameOver,
             };
         }
