@@ -19573,6 +19573,7 @@ MonoBehaviour:
   createRoomPopup: {fileID: 532672327}
   roomPasswordPopup: {fileID: 8931399705705844968}
   accountLinkPopup: {fileID: 0}
+  chatRoomListArea: {fileID: 0}
   statusMessage: {fileID: 286184024}
 --- !u!1 &1884289714
 GameObject:
