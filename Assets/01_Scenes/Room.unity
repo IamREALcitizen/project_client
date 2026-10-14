@@ -4009,6 +4009,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445792555}
   m_CullTransparentMesh: 1
+--- !u!1001 &462838668
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: AudioCursor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: PlayOnEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: audioClipcontainer
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fdcf2dfa415b43a6aca2a9dae8eebc0, type: 2}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 643.91437
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 707.4232
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577645503828660983, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_Name
+      value: BGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577645503828660983, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
 --- !u!1 &479416448
 GameObject:
   m_ObjectHideFlags: 0
@@ -6179,6 +6256,7 @@ MonoBehaviour:
   chatLog: {fileID: 873315828}
   bottomTab: {fileID: 0}
   inputBar: {fileID: 625172879}
+  lobbyChat: 0
   maxMessages: 50
   myUserId: -1
   autoLogin: 1
@@ -6200,6 +6278,9 @@ MonoBehaviour:
   localNoticePrefix: "[\uC548\uB0B4] "
   deadColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   nightChatColor: {r: 1, g: 0.6, b: 0.2, a: 1}
+  sirenChatColor: {r: 0.95, g: 0.55, b: 0.85, a: 1}
+  spamWarningColor: {r: 1, g: 0.55, b: 0.1, a: 1}
+  spamMuteColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   logSystemMessagesToConsole: 1
 --- !u!114 &659043162
 MonoBehaviour:
@@ -6216,15 +6297,18 @@ MonoBehaviour:
   baseUrlOverride: 
   apiPrefix: /api/v1
   roomId: 1
+  lobby: 0
   timeoutSeconds: 5
   adminKey: 
   nightChatField: nightChat
+  sirenChatField: sirenChat
   messageIdField: messageId
   typeField: type
   userIdField: userId
   nicknameField: nickname
   messageField: message
   createdAtField: createdAt
+  spamWarningField: spamWarning
 --- !u!4 &659043163
 Transform:
   m_ObjectHideFlags: 0
@@ -13721,7 +13805,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -18.1, y: -59.71}
+  m_AnchoredPosition: {x: -18.099976, y: -59.70996}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1247511237
@@ -24635,3 +24719,4 @@ SceneRoots:
   - {fileID: 521789682}
   - {fileID: 1155920863}
   - {fileID: 659043163}
+  - {fileID: 462838668}

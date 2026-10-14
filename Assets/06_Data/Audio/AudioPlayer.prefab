@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioPlayer
   audioClipcontainer: {fileID: 0}
-  PlayOnEnable: 0
+  PlayOnEnable: 1
   UseScaledTime: 0
-  loop: 0
+  loop: 1
   AudioCursor: 0
 --- !u!82 &1806531947714352952
 AudioSource:
