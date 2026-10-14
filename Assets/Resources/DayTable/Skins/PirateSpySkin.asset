@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
   designId: PIRATE_SPY
   standing: {fileID: -7172026105246684885, guid: 975448e01fa743b19b6d4229fe9e6ab1, type: 3}
+  bound: {fileID: 21300000, guid: e67de6b1359c4e9b891e1555d23f06e0, type: 3}
   seatedFront: {fileID: -7172026105246684885, guid: 0740c97d3da64e95a1325c5e2479d8fd, type: 3}
   seatedFrontBlink: {fileID: -7172026105246684885, guid: 140841f1bb62401ba8e4e22dd167ae58, type: 3}
   seatedFrontTalk: {fileID: -7172026105246684885, guid: 9e581c498b984d968dd817241347e2e3, type: 3}

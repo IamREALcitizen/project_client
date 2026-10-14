@@ -19,21 +19,32 @@ public static class CaptureResults
         Directory.CreateDirectory(output);
         try
         {
+            // The server's winner is never NEUTRAL: a neutral role wins alone (KRAKEN, ...) and only winnerIds says who won.
             string[] factions = { Factions.Crew, Factions.Pirate, Factions.Neutral };
+            string[] winners = { Winners.Crew, Winners.Pirate, Winners.Kraken };
             string[] victories = { "CrewVictory", "PirateVictory", "PersonalVictory" };
             for (int winner = 0; winner < 3; winner++)
                 for (int me = 0; me < 3; me++)
-                    Check(GameResultPanel.BackgroundName(Result(factions[winner]), factions[me]) ==
+                {
+                    var mapped = Result(winners[winner]);
+                    if (winner == 2) mapped.winnerIds.Add(3); // the kraken (player 3) wins alone
+                    Check(GameResultPanel.BackgroundName(mapped, new MyRoleDto { playerId = me + 1, faction = factions[me] }) ==
                           (winner == me ? victories[winner] : "Defeat"), "Wrong result mapping");
-            Check(GameResultPanel.BackgroundName(null, Factions.Crew) == null, "Null result");
-            Check(GameResultPanel.BackgroundName(Result(Factions.Crew), null) == null, "Missing local faction");
-            Check(GameResultPanel.BackgroundName(Result("UNKNOWN"), Factions.Crew) == null, "Unknown winner");
-            var pending = Result(Factions.Crew); pending.ended = false;
-            Check(GameResultPanel.BackgroundName(pending, Factions.Crew) == null, "Not ended");
+                }
+            var seducedCrew = Result(Winners.Crew); seducedCrew.winnerIds.Add(2); // player 1 is crew but was seduced
+            Check(GameResultPanel.BackgroundName(seducedCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew }) == "Defeat",
+                "A seduced sailor lost with the siren team");
+            var crewMe = new MyRoleDto { playerId = 1, faction = Factions.Crew };
+            Check(GameResultPanel.BackgroundName(null, crewMe) == null, "Null result");
+            Check(GameResultPanel.BackgroundName(Result(Winners.Crew), null) == null, "Missing local player");
+            Check(GameResultPanel.BackgroundName(Result("UNKNOWN"), crewMe) == null, "Unknown winner");
+            var pending = Result(Winners.Crew); pending.ended = false;
+            Check(GameResultPanel.BackgroundName(pending, crewMe) == null, "Not ended");
             foreach (string reason in new[] { EndReasons.CancelledError, EndReasons.CancelledAllDisconnected, EndReasons.CancelledNoDeaths })
             {
-                var cancelled = Result(Factions.Crew); cancelled.endReason = reason;
-                Check(GameResultPanel.BackgroundName(cancelled, Factions.Pirate) == null, "Cancellation displayed as defeat");
+                var cancelled = Result(Winners.Crew); cancelled.endReason = reason;
+                Check(GameResultPanel.BackgroundName(cancelled, new MyRoleDto { playerId = 2, faction = Factions.Pirate }) == null,
+                    "Cancellation displayed as defeat");
             }
 
             var camera = new GameObject("Camera").AddComponent<Camera>();
@@ -78,9 +89,11 @@ public static class CaptureResults
             string[] names = { "CrewVictory", "PirateVictory", "PersonalVictory", "Defeat" };
             for (int i = 0; i < names.Length; i++)
             {
-                string winningFaction = i == 3 ? Factions.Pirate : factions[i];
+                string winner = i == 3 ? Winners.Pirate : winners[i];
                 string myFaction = i == 3 ? Factions.Crew : factions[i];
-                panel.Show(Result(winningFaction), new MyRoleDto { playerId = 1, faction = myFaction });
+                var shown = Result(winner);
+                if (i == 2) shown.winnerIds.Add(1); // I am the kraken and win alone
+                panel.Show(shown, new MyRoleDto { playerId = 1, faction = myFaction });
                 Check(panel.IsIntroPlaying && !Counting(panel), "Countdown must wait for intro");
                 var sequence = root.GetComponent<GameResultSequence>();
                 Step(sequence, .25f);
@@ -108,7 +121,9 @@ public static class CaptureResults
                 Canvas.ForceUpdateCanvases(); Step(sequence, 0f);
                 CheckUniformLineup(root);
                 Image art = root.Find("ResultBackground").GetComponent<Image>();
-                Check(art.sprite != null && art.sprite.name == names[i], "Wrong or missing resource: " + names[i]);
+                // A kraken win uses its own picture (GameResult/KrakenVictory, else the kraken's ability cut-in art).
+                bool artOk = i == 2 ? art.sprite != null && art.sprite.name != "PersonalVictory" : art.sprite != null && art.sprite.name == names[i];
+                Check(artOk, "Wrong or missing resource: " + names[i]);
                 Transform cards = root.Find("Card/ResultPlayerCards/Players");
                 Check(cards.childCount == 12 && !players.gameObject.activeSelf, "Portrait cards must replace the text roster");
                 var catalog = Resources.Load<DesignSpriteCatalog>("GameHud/Portraits");
@@ -128,7 +143,7 @@ public static class CaptureResults
                         Check(label.textInfo.meshInfo[0].vertexCount > 0, "Card text is not visible: " + field);
                     }
                 }
-                if (i == 2) Check(winnerText.text == "개인 승리", "Personal victory headline exposes backend faction code");
+                if (i == 2) Check(winnerText.text == "크라켄 승리", "Personal victory headline exposes backend winner code");
                 Check(art.transform.GetSiblingIndex() == 0, "Background covers controls");
                 Check(root.childCount == 6, "Repeated Show duplicated presentation layers");
                 var a = new Vector3[4]; var b = new Vector3[4];
@@ -141,7 +156,7 @@ public static class CaptureResults
                 panel.Hide(); Check(!root.gameObject.activeSelf, "Hide failed");
             }
             Check(backCount == 4, "Back callback failed or duplicate listeners");
-            var fullCrew = Result(Factions.Crew);
+            var fullCrew = Result(Winners.Crew);
             foreach (var player in fullCrew.players) player.role = RoleCodes.CrewSailor;
             panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
             panel.SkipIntro();
@@ -155,7 +170,7 @@ public static class CaptureResults
             CheckUniformLineup(root); // Includes wide kraken/mermaid/animal skins as well as humans.
             Save(camera, target, Path.Combine(output, "MixedWinners.png"));
             panel.SkinOf = id => skins[(int)(id - 1) % skins.Length];
-            panel.Show(Result(Factions.Crew), new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
+            panel.Show(Result(Winners.Crew), new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
             string frames = Path.Combine(output, "IntroFrames"); Directory.CreateDirectory(frames);
             Save(camera, target, Path.Combine(frames, "Frame000.png"));
             for (int frame = 1; frame <= 40; frame++)
@@ -180,16 +195,17 @@ public static class CaptureResults
             Check(winnerText.text == "게임 취소", "Cancellation headline");
             Check(!panel.IsIntroPlaying && !root.Find("ResultCharacters").gameObject.activeSelf, "Cancellation celebrated");
             Check(players.gameObject.activeSelf && !root.Find("Card/ResultPlayerCards").gameObject.activeSelf, "Cancellation kept stale player cards");
-            panel.Show(Result(Factions.Crew), null);
+            panel.Show(Result(Winners.Crew), null);
             Check(!root.Find("ResultBackground").gameObject.activeSelf, "Unknown player should not be labelled defeated");
             // Include all three factions together when reviewing the result palette.
             for (int faction = 0; faction < factions.Length; faction++)
             {
-                var mixed = Result(factions[faction]);
+                var mixed = Result(winners[faction]);
                 mixed.players[8].role = "NEUTRAL_MERMAID"; mixed.players[8].roleName = "인어";
                 mixed.players[9].role = "NEUTRAL_KRAKEN"; mixed.players[9].roleName = "크라켄";
                 mixed.players[11].role = "NEUTRAL_GHOST_CAPTAIN"; mixed.players[11].roleName = "유령 선장";
-                panel.Show(mixed, new MyRoleDto { playerId = faction == 2 ? 9 : faction + 1, faction = factions[faction] }, false);
+                if (faction == 2) mixed.winnerIds.Add(10); // the kraken (player 10) wins alone
+                panel.Show(mixed, new MyRoleDto { playerId = faction == 2 ? 10 : faction + 1, faction = factions[faction] }, false);
                 panel.SkipIntro(); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
                 Save(camera, target, Path.Combine(output, victories[faction] + "_FactionColors.png"));
             }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
   designId: PIRATE_COOK_FEMALE
   standing: {fileID: 2100000000000000001, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
+  bound: {fileID: 21300000, guid: 98b94af5b81944058905cd2b9dfa8bb4, type: 3}
   seatedFront: {fileID: 2100000000000000002, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
   seatedFrontBlink: {fileID: 2100000000000000003, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}
   seatedFrontTalk: {fileID: 2100000000000000004, guid: cf1a8c8e248144bd9db5647605acc365, type: 3}

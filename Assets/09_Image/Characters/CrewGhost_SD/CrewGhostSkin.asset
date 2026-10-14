@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WhoisntCitizen.GameUI.ChibiCharacterSkin
   designId: CREW_GHOST
   standing: {fileID: 2100000000000000001, guid: f7906b67794747bc951541ab96bb69f4, type: 3}
+  bound: {fileID: 21300000, guid: 4132f28ad63b4852a83c81ac76c1d75c, type: 3}
   seatedFront: {fileID: 2100000000000000002, guid: f7906b67794747bc951541ab96bb69f4, type: 3}
   seatedFrontBlink: {fileID: 2100000000000000003, guid: f7906b67794747bc951541ab96bb69f4, type: 3}
   seatedFrontTalk: {fileID: 2100000000000000004, guid: f7906b67794747bc951541ab96bb69f4, type: 3}
