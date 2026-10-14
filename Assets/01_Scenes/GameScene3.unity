@@ -966,6 +966,7 @@ MonoBehaviour:
   localNoticePrefix: "[\uC548\uB0B4] "
   deadColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   nightChatColor: {r: 1, g: 0.6, b: 0.2, a: 1}
+  sirenChatColor: {r: 0.95, g: 0.55, b: 0.85, a: 1}
   logSystemMessagesToConsole: 1
 --- !u!114 &161325564
 MonoBehaviour:
@@ -985,6 +986,7 @@ MonoBehaviour:
   timeoutSeconds: 5
   adminKey: 
   nightChatField: nightChat
+  sirenChatField: sirenChat
   messageIdField: messageId
   typeField: type
   userIdField: userId
