@@ -18,29 +18,29 @@ MonoBehaviour:
     victim: 2.12
     dawn: 1
   protectedNight:
-    nightLifts: 0.7
-    strike: 0.8
-    shield: 1.3
-    dawn: 0.9
+    nightLifts: 0.88
+    strike: 1
+    shield: 1.62
+    dawn: 1.12
   quiet:
-    nightLifts: 0.7
-    calmSea: 0.9
-    sunrise: 1
+    nightLifts: 0.88
+    calmSea: 1.12
+    sunrise: 1.25
   executed:
-    tally: 0.8
-    verdict: 1
-    plank: 1.3
-    splash: 0.8
-    nightFalls: 0.6
+    tally: 1
+    verdict: 1.25
+    plank: 1.62
+    splash: 1
+    nightFalls: 0.75
   notExecuted:
-    tally: 0.8
-    verdict: 1.4
-    nightFalls: 0.6
+    tally: 1
+    verdict: 1.75
+    nightFalls: 0.75
   dragged:
-    nightLifts: 0.7
-    rise: 0.6
-    tentacle: 0.9
-    victims: 1.4
-    dawn: 0.8
+    nightLifts: 0.88
+    rise: 0.75
+    tentacle: 1.12
+    victims: 1.75
+    dawn: 1
   outLength: 0.5
   maxHold: 2.5
