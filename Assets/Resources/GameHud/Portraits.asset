@@ -17,8 +17,6 @@ MonoBehaviour:
     sprite: {fileID: -2907640988166597232, guid: 1c8dc37efeba2447eafb25ed2223cd02, type: 3}
   - designId: CONCEPT_SIREN
     sprite: {fileID: -8172110048455051528, guid: 7b59199896dec45529d07682a2a9e569, type: 3}
-  - designId: CONCEPT_SIREN_ALT
-    sprite: {fileID: 5074945622015331794, guid: 268ad222d5aa844b6bff01867633ed61, type: 3}
   - designId: CREW_BOATSWAIN
     sprite: {fileID: 6908188858080432131, guid: 3d9cd078495504180818b4e960fa5270, type: 3}
   - designId: CREW_CAPTAIN
