@@ -9,7 +9,9 @@ using WhoisntCitizen.Lobby;
 using WhoisntCitizen.Profile;
 
 // Lobby 씬에 프로필/친구 UI를 만들고 컨트롤러를 연결하는 일회성 빌더 (run_script로 실행).
-// 여러 번 실행해도 Popup_Profile / Popup_Friend / ProfileManager 를 지우고 다시 만든다.
+// 여러 번 실행해도 Popup_Profile / Popup_Avatar / Popup_Friend / Popup_Setting / ProfileManager 를 지우고 다시 만든다.
+//   - 상단바 Profile_Button(사람 아이콘) = 친구 창 버튼, Setting_Button(톱니바퀴) = 설정 창(로그아웃)
+//   - 로비 상단 정보 패널(Rooms/UserInfoArea) 전체를 누르면 프로필 창, 프로필 창의 내 아바타를 누르면 아바타 선택 창
 public static class BuildProfileFriendUI
 {
     const string PrefabFolder = "Assets/03_Prefabs/Friend";
@@ -36,7 +38,7 @@ public static class BuildProfileFriendUI
         tplStatus = tplBg.Find("StatusMessageText");
 
         // 다시 실행해도 되도록 이전 결과물 삭제
-        foreach (string n in new[] { "Popup_Profile", "Popup_Friend" })
+        foreach (string n in new[] { "Popup_Profile", "Popup_Avatar", "Popup_Friend", "Popup_Setting" })
         {
             Transform old = popupRoot.Find(n);
             if (old != null) Object.DestroyImmediate(old.gameObject);
@@ -52,23 +54,40 @@ public static class BuildProfileFriendUI
 
         // 팝업
         ProfileRefs pr = BuildProfilePopup(popupRoot);
+        AvatarRefs ar = BuildAvatarPopup(popupRoot);
         FriendRefs fr = BuildFriendPopup(popupRoot, friendItemPrefab, requestItemPrefab);
+        SettingRefs sr = BuildSettingPopup(popupRoot);
 
-        // Profile_Button 텍스트를 아이콘 위(맨 앞)로
-        Transform profileButton = canvas.transform.Find("SafeArea/TopBar/Profile_Button");
-        TMP_Text btnText = profileButton.Find("Text (TMP)").GetComponent<TMP_Text>();
-        ConfigureProfileButtonText(btnText);
+        // 상단바: Profile_Button(사람 아이콘)이 친구 창 버튼이다. 이전 실행에서 만든 Friend_Button / Avatar 는 정리한다.
+        Transform topBar = canvas.transform.Find("SafeArea/TopBar");
+        Transform oldFriendButton = topBar.Find("Friend_Button");
+        if (oldFriendButton != null) Object.DestroyImmediate(oldFriendButton.gameObject);
+        Transform friendButtonTf = topBar.Find("Profile_Button");
+        Transform oldAvatar = friendButtonTf.Find("Avatar");
+        if (oldAvatar != null) Object.DestroyImmediate(oldAvatar.gameObject);
+        Button friendButton = friendButtonTf.GetComponent<Button>();
+        Button settingButton = topBar.Find("Setting_Button").GetComponent<Button>();
+
+        // 로비 상단 정보 패널 전체가 프로필 창 버튼. 패널의 프로필 칸(profileImage) 안에 아바타를 표시한다.
+        Transform infoArea = canvas.transform.Find("SafeArea/Rooms/UserInfoArea");
+        Button profileOpenButton = EnsureInfoPanelButton(infoArea);
+        Image panelAvatar = EnsureAvatar(infoArea.Find("profileImage"), "Avatar");
 
         // 매니저 + 컨트롤러 연결
         GameObject mgr = new GameObject("ProfileManager");
         LobbyProfileController lpc = mgr.AddComponent<LobbyProfileController>();
         FriendUIController fui = mgr.AddComponent<FriendUIController>();
 
-        Set(lpc, "profileButton", profileButton.GetComponent<Button>());
-        Set(lpc, "profileButtonText", btnText);
+        Set(lpc, "profileButton", profileOpenButton);
         Set(lpc, "profilePopup", pr.root);
         Set(lpc, "closeButton", pr.close);
         Set(lpc, "nicknameText", pr.nickname);
+        Set(lpc, "profileButtonAvatar", panelAvatar);
+        Set(lpc, "avatarImage", pr.avatar);
+        Set(lpc, "avatarEditButton", pr.avatarEditButton);
+        Set(lpc, "avatarPopup", ar.root);
+        Set(lpc, "avatarCloseButton", ar.close);
+        SetArray(lpc, "avatarButtons", ar.buttons);
         Set(lpc, "levelText", pr.level);
         Set(lpc, "goldText", pr.gold);
         Set(lpc, "recordText", pr.record);
@@ -77,7 +96,7 @@ public static class BuildProfileFriendUI
         Set(lpc, "changeNicknameButton", pr.changeButton);
         Set(lpc, "statusMessage", pr.status);
 
-        Set(fui, "openButton", pr.friendsButton);
+        Set(fui, "openButton", friendButton); // TopBar 의 사람 아이콘 버튼
         Set(fui, "friendPopup", fr.root);
         Set(fui, "closeButton", fr.close);
         Set(fui, "friendsTabButton", fr.friendsTab);
@@ -96,13 +115,22 @@ public static class BuildProfileFriendUI
         Set(fui, "searchInput", fr.searchInput);
         Set(fui, "searchButton", fr.searchButton);
         Set(fui, "resultRoot", fr.resultRoot);
+        Set(fui, "resultAvatarImage", fr.resultAvatar);
         Set(fui, "resultNicknameText", fr.resultNickname);
         Set(fui, "resultInfoText", fr.resultInfo);
         Set(fui, "sendRequestButton", fr.sendButton);
         Set(fui, "statusMessage", fr.status);
 
+        LobbySettingsPopup sp = mgr.AddComponent<LobbySettingsPopup>();
+        Set(sp, "openButton", settingButton);
+        Set(sp, "popup", sr.root);
+        Set(sp, "closeButton", sr.close);
+        Set(sp, "logoutButton", sr.logout);
+
         pr.root.SetActive(false);
+        ar.root.SetActive(false);
         fr.root.SetActive(false);
+        sr.root.SetActive(false);
 
         UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(canvas.scene);
         return "OK\n" + log;
@@ -115,7 +143,8 @@ public static class BuildProfileFriendUI
     class ProfileRefs
     {
         public GameObject root;
-        public Button close, changeButton, friendsButton;
+        public Button close, changeButton, avatarEditButton;
+        public Image avatar;
         public TMP_Text nickname, level, gold, record, winRate;
         public TMP_InputField nicknameInput;
         public StatusMessageView status;
@@ -127,6 +156,15 @@ public static class BuildProfileFriendUI
         Transform bg = NewPopupShell(popupRoot, "Popup_Profile", 650f, out r.root);
 
         Title(bg, "내 프로필");
+
+        // 내 아바타: 누르면 아바타 선택 창이 뜬다
+        r.avatar = AvatarImage(bg, "Avatar_Current", 120f);
+        r.avatar.raycastTarget = true;
+        r.avatarEditButton = r.avatar.gameObject.AddComponent<Button>();
+        r.avatarEditButton.targetGraphic = r.avatar;
+        TMP_Text hint = Label(bg, "Text_AvatarHint", "이미지를 눌러 변경", 24f, TextAlignmentOptions.Center, -1f, 1f);
+        LE(hint.gameObject, -1f, 30f, 1f, -1f);
+        hint.color = new Color(1f, 1f, 1f, 0.7f);
 
         r.nickname = InfoRow(bg, "닉네임");
         r.level = InfoRow(bg, "레벨");
@@ -140,8 +178,46 @@ public static class BuildProfileFriendUI
         r.nicknameInput = Input(change, "InputField_Nickname", 330f);
         r.changeButton = Button(change, "Button_ChangeNickname", "변경", tplBtn, 150f, 54f, 28f);
 
-        r.friendsButton = Button(bg, "Button_Friends", "친구", tplBtn, 220f, 54f, 30f);
         r.status = Status(bg);
+        r.close = Close(bg);
+        return r;
+    }
+
+    // ------------------------------------------------------------------
+    // 아바타 선택 팝업 / 설정 팝업
+    // ------------------------------------------------------------------
+
+    class AvatarRefs
+    {
+        public GameObject root;
+        public Button close;
+        public Button[] buttons;
+    }
+
+    static AvatarRefs BuildAvatarPopup(Transform popupRoot)
+    {
+        AvatarRefs r = new AvatarRefs();
+        Transform bg = NewPopupShell(popupRoot, "Popup_Avatar", 520f, out r.root);
+        Title(bg, "프로필 이미지");
+        r.buttons = AvatarGrid(bg);
+        r.close = Close(bg);
+        return r;
+    }
+
+    class SettingRefs
+    {
+        public GameObject root;
+        public Button close, logout;
+    }
+
+    static SettingRefs BuildSettingPopup(Transform popupRoot)
+    {
+        SettingRefs r = new SettingRefs();
+        Transform bg = NewPopupShell(popupRoot, "Popup_Setting", 520f, out r.root);
+        Title(bg, "설정");
+        Spacer(bg, 10);
+        r.logout = Button(bg, "Button_Logout", "로그아웃", tplBtn, 260f, 60f, 30f);
+        Spacer(bg, 10);
         r.close = Close(bg);
         return r;
     }
@@ -161,6 +237,7 @@ public static class BuildProfileFriendUI
     {
         public GameObject root, friendsPanel, requestsPanel, addPanel, friendEmpty, requestEmpty, resultRoot;
         public Button close, friendsTab, requestsTab, addTab, searchButton, sendButton;
+        public Image resultAvatar;
         public TMP_Text requestBadge, resultNickname, resultInfo;
         public Transform friendContent, requestContent;
         public TMP_InputField searchInput;
@@ -210,6 +287,7 @@ public static class BuildProfileFriendUI
         resultBg.color = new Color(1f, 1f, 1f, 0.12f);
         VLG(result.gameObject, 18, 18, 16, 16, 8f, TextAnchor.UpperCenter);
         LE(result.gameObject, -1f, -1f, 1f, -1f);
+        r.resultAvatar = AvatarImage(result, "Avatar", 96f);
         r.resultNickname = Label(result, "Text_Nickname", "-", 38f, TextAlignmentOptions.Center, -1f, 1f);
         LE(r.resultNickname.gameObject, -1f, 46f);
         r.resultInfo = Label(result, "Text_Info", "-", 28f, TextAlignmentOptions.Center, -1f, 1f);
@@ -366,12 +444,14 @@ public static class BuildProfileFriendUI
     static FriendItemView BuildFriendItemPrefab()
     {
         GameObject root = NewItemRoot("FriendItem");
+        Image avatar = AvatarImage(root.transform, "Avatar", 64f);
         Transform info = ItemInfo(root.transform, out TMP_Text nick, out TMP_Text record);
         Button remove = Button(root.transform, "Button_Remove", "삭제", tplClose, 96f, 54f, 26f);
 
         FriendItemView view = root.AddComponent<FriendItemView>();
         Set(view, "nicknameText", nick);
         Set(view, "recordText", record);
+        Set(view, "avatarImage", avatar);
         Set(view, "removeButton", remove);
         return SavePrefab<FriendItemView>(root, PrefabFolder + "/FriendItem.prefab");
     }
@@ -566,6 +646,94 @@ public static class BuildProfileFriendUI
         foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
             if (t.name == name) return t;
         throw new System.Exception(name + " 를 " + root.name + " 아래에서 찾지 못했습니다.");
+    }
+
+    // 아바타 표시용 정사각 Image (스프라이트는 런타임에 AvatarCatalog가 채운다)
+    static Image AvatarImage(Transform parent, string name, float size)
+    {
+        RectTransform rt = NewRect(name, parent);
+        rt.sizeDelta = new Vector2(size, size);
+        Image img = rt.gameObject.AddComponent<Image>();
+        img.preserveAspect = true;
+        img.raycastTarget = false;
+        LE(rt.gameObject, size, size);
+        return img;
+    }
+
+    // 프로필 팝업의 아바타 선택 그리드 (버튼 순서 = 아바타 번호)
+    static Button[] AvatarGrid(Transform parent)
+    {
+        RectTransform grid = NewRect("Avatar_Grid", parent);
+        GridLayoutGroup g = grid.gameObject.AddComponent<GridLayoutGroup>();
+        g.cellSize = new Vector2(88f, 88f);
+        g.spacing = new Vector2(10f, 10f);
+        g.childAlignment = TextAnchor.UpperCenter;
+        g.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
+        g.constraintCount = 4;
+        LE(grid.gameObject, -1f, 186f, 1f, -1f);
+
+        var buttons = new Button[AvatarCatalog.Count];
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            RectTransform cell = NewRect("Avatar_" + i, grid);
+            Image img = cell.gameObject.AddComponent<Image>();
+            img.preserveAspect = true;
+            buttons[i] = cell.gameObject.AddComponent<Button>();
+            buttons[i].targetGraphic = img;
+        }
+        return buttons;
+    }
+
+    // 부모를 꽉 채우는 아바타 Image 를 (없으면) 만든다. 부모(프로필 칸 틀) 안쪽으로 약간 들여 놓는다.
+    static Image EnsureAvatar(Transform parent, string name)
+    {
+        Transform t = parent.Find(name);
+        if (t == null)
+        {
+            RectTransform rt = NewRect(name, parent);
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.offsetMin = new Vector2(10f, 10f);
+            rt.offsetMax = new Vector2(-10f, -10f);
+            t = rt;
+            Image created = t.gameObject.AddComponent<Image>();
+            created.preserveAspect = true;
+            created.raycastTarget = false;
+        }
+        return t.GetComponent<Image>();
+    }
+
+    // 정보 패널(UserInfoArea) 전체를 덮는 투명 버튼을 (없으면) 만든다. 패널 배경(Background) 크기에 맞춘다.
+    static Button EnsureInfoPanelButton(Transform infoArea)
+    {
+        Transform t = infoArea.Find("OpenProfileButton");
+        if (t == null)
+        {
+            RectTransform rt = NewRect("OpenProfileButton", infoArea);
+            RectTransform bgRt = (RectTransform)infoArea.Find("Background");
+            rt.anchorMin = bgRt.anchorMin;
+            rt.anchorMax = bgRt.anchorMax;
+            rt.pivot = bgRt.pivot;
+            rt.anchoredPosition = bgRt.anchoredPosition;
+            rt.sizeDelta = bgRt.sizeDelta;
+            Image img = rt.gameObject.AddComponent<Image>();
+            img.color = new Color(1f, 1f, 1f, 0f); // 안 보이지만 클릭은 받는다
+            Button b = rt.gameObject.AddComponent<Button>();
+            b.targetGraphic = img;
+            t = rt;
+        }
+        t.SetAsLastSibling(); // 다른 자식들 위에서 클릭을 받는다
+        return t.GetComponent<Button>();
+    }
+
+    static void SetArray(Component c, string field, Object[] values)
+    {
+        SerializedObject so = new SerializedObject(c);
+        SerializedProperty p = so.FindProperty(field);
+        if (p == null) throw new System.Exception(c.GetType().Name + "." + field + " 필드를 찾지 못했습니다.");
+        p.arraySize = values.Length;
+        for (int i = 0; i < values.Length; i++) p.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+        so.ApplyModifiedPropertiesWithoutUndo();
     }
 
     // SerializedObject로 private [SerializeField] 연결 (문자열/오브젝트)

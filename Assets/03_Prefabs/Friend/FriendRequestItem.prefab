@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 3785046799328454654}
   - component: {fileID: 7874861163982577272}
   - component: {fileID: 8338826530375607122}
+  - component: {fileID: 8297876243136729825}
   m_Layer: 5
   m_Name: Button_Reject
   m_TagString: Untagged
@@ -300,6 +301,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8297876243136729825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651360013925213613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!1 &2863453749427645859
 GameObject:
   m_ObjectHideFlags: 0
