@@ -107,10 +107,10 @@ public static class CaptureResults
                     Save(camera, target, Path.Combine(output, "Intro-125.png"));
                     Step(sequence, .75f);
                 }
-                else panel.SkipIntro();
-                Check(!panel.IsIntroPlaying && Counting(panel), "Intro completion or skip did not start countdown");
-                Bind(panel, "remaining", 17f); panel.SkipIntro();
-                Check((float)typeof(GameResultPanel).GetField("remaining", Private).GetValue(panel) == 17f, "Repeated skip reset countdown");
+                else Step(sequence, GameResultSequence.Duration); // a tap cannot skip the intro: play it to the end
+                Check(!panel.IsIntroPlaying && Counting(panel), "Intro completion did not start countdown");
+                Bind(panel, "remaining", 17f); Step(sequence, 1f);
+                Check((float)typeof(GameResultPanel).GetField("remaining", Private).GetValue(panel) == 17f, "Stepping past the intro reset countdown");
                 int expectedFigures = i == 2 || i == 3 ? 1 : i == 1 ? 4 : 9;
                 Check(root.Find("ResultCharacters").childCount == expectedFigures, "Wrong winning team / solo figures");
                 foreach (Transform holder in root.Find("ResultCharacters"))
@@ -159,14 +159,14 @@ public static class CaptureResults
             var fullCrew = Result(Winners.Crew);
             foreach (var player in fullCrew.players) player.role = RoleCodes.CrewSailor;
             panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
-            panel.SkipIntro();
+            FinishIntro(root);
             Check(!Counting(panel), "Fake game auto-return enabled");
             Check(root.Find("ResultCharacters").childCount == 12, "Full 12-player lineup missing");
             Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f); CheckUniformLineup(root);
             Save(camera, target, Path.Combine(output, "TwelveWinners.png"));
             panel.SkinOf = id => skins[((int)(id - 1) + 12) % skins.Length];
             panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew }, false);
-            panel.SkipIntro(); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
+            FinishIntro(root); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
             CheckUniformLineup(root); // Includes wide kraken/mermaid/animal skins as well as humans.
             Save(camera, target, Path.Combine(output, "MixedWinners.png"));
             panel.SkinOf = id => skins[(int)(id - 1) % skins.Length];
@@ -184,7 +184,8 @@ public static class CaptureResults
             Check(!Counting(panel) && !panel.IsIntroPlaying && backCount == 4, "Hidden intro sent delayed callbacks");
             panel.Show(fullCrew, new MyRoleDto { playerId = 1, faction = Factions.Crew });
             button.onClick.Invoke();
-            Check(!panel.IsIntroPlaying && backCount == 4, "First click should skip rather than leave");
+            Check(panel.IsIntroPlaying && backCount == 4, "A click during the intro must neither skip it nor leave");
+            FinishIntro(root);
             Bind(panel, "remaining", 0f);
             typeof(GameResultPanel).GetMethod("Update", Private).Invoke(panel, null);
             typeof(GameResultPanel).GetMethod("Update", Private).Invoke(panel, null);
@@ -206,10 +207,10 @@ public static class CaptureResults
                 mixed.players[11].role = "NEUTRAL_GHOST_CAPTAIN"; mixed.players[11].roleName = "유령 선장";
                 if (faction == 2) mixed.winnerIds.Add(10); // the kraken (player 10) wins alone
                 panel.Show(mixed, new MyRoleDto { playerId = faction == 2 ? 10 : faction + 1, faction = factions[faction] }, false);
-                panel.SkipIntro(); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
+                FinishIntro(root); Canvas.ForceUpdateCanvases(); Step(root.GetComponent<GameResultSequence>(), 0f);
                 Save(camera, target, Path.Combine(output, victories[faction] + "_FactionColors.png"));
             }
-            File.WriteAllText(Path.Combine(output, "status.txt"), "PASS: result mappings, 4 backgrounds, 12-player text/lineup, worn skins, staged reveal, skip, repeated click, 20-second countdown after intro, fake-game return disabled, interrupted intro cleanup and cancellations; previews rendered.");
+            File.WriteAllText(Path.Combine(output, "status.txt"), "PASS: result mappings, 4 backgrounds, 12-player text/lineup, worn skins, staged reveal, unskippable intro, repeated click, 20-second countdown after intro, fake-game return disabled, interrupted intro cleanup and cancellations; previews rendered.");
             EditorApplication.Exit(0);
         }
         catch (Exception ex)
@@ -243,6 +244,8 @@ public static class CaptureResults
     static void Check(bool passed, string message) { if (!passed) throw new Exception(message); }
     static bool Counting(GameResultPanel panel) => (bool)typeof(GameResultPanel).GetField("counting", Private).GetValue(panel);
     static void Step(GameResultSequence sequence, float delta) { typeof(GameResultSequence).GetMethod("Step", Private).Invoke(sequence, new object[] { delta }); }
+    // The intro cannot be skipped: advance it by its full length so it completes on its own.
+    static void FinishIntro(RectTransform root) { Step(root.GetComponent<GameResultSequence>(), GameResultSequence.Duration); }
     static void CheckUniformLineup(RectTransform root)
     {
         Transform stage = root.Find("ResultCharacters");
