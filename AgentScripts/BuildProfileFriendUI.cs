@@ -72,6 +72,8 @@ public static class BuildProfileFriendUI
         Transform infoArea = canvas.transform.Find("SafeArea/Rooms/UserInfoArea");
         Button profileOpenButton = EnsureInfoPanelButton(infoArea);
         Image panelAvatar = EnsureAvatar(infoArea.Find("profileImage"), "Avatar");
+        panelAvatar.enabled = false; // 프로필을 불러와 AvatarCatalog가 채울 때까지 흰 사각형이 보이지 않게
+        pr.avatar.enabled = false;
 
         // 매니저 + 컨트롤러 연결
         GameObject mgr = new GameObject("ProfileManager");
@@ -86,7 +88,9 @@ public static class BuildProfileFriendUI
         Set(lpc, "avatarImage", pr.avatar);
         Set(lpc, "avatarEditButton", pr.avatarEditButton);
         Set(lpc, "avatarPopup", ar.root);
-        Set(lpc, "avatarCloseButton", ar.close);
+        Set(lpc, "avatarConfirmButton", ar.confirm);
+        Set(lpc, "avatarCancelButton", ar.cancel);
+        Set(lpc, "avatarStatusMessage", ar.status);
         SetArray(lpc, "avatarButtons", ar.buttons);
         Set(lpc, "levelText", pr.level);
         Set(lpc, "goldText", pr.gold);
@@ -174,6 +178,8 @@ public static class BuildProfileFriendUI
 
         Spacer(bg, 6);
 
+        TMP_Text changeLabel = Label(bg, "Text_ChangeNickname", "닉네임 변경", 28f, TextAlignmentOptions.MidlineLeft, -1f, 1f);
+        LE(changeLabel.gameObject, -1f, 36f, 1f, -1f);
         RectTransform change = HRow(bg, "Area_ChangeNickname", 54f, 10f);
         r.nicknameInput = Input(change, "InputField_Nickname", 330f);
         r.changeButton = Button(change, "Button_ChangeNickname", "변경", tplBtn, 150f, 54f, 28f);
@@ -190,17 +196,23 @@ public static class BuildProfileFriendUI
     class AvatarRefs
     {
         public GameObject root;
-        public Button close;
+        public Button confirm, cancel;
+        public StatusMessageView status;
         public Button[] buttons;
     }
 
     static AvatarRefs BuildAvatarPopup(Transform popupRoot)
     {
         AvatarRefs r = new AvatarRefs();
-        Transform bg = NewPopupShell(popupRoot, "Popup_Avatar", 520f, out r.root);
+        Transform bg = NewPopupShell(popupRoot, "Popup_Avatar", 900f, out r.root);
         Title(bg, "프로필 이미지");
         r.buttons = AvatarGrid(bg);
-        r.close = Close(bg);
+        r.status = Status(bg);
+
+        // 왼쪽 확인 / 오른쪽 취소
+        RectTransform row = HRow(bg, "Buttons", 64f, 40f);
+        r.confirm = Button(row, "Button_Confirm", "확인", tplBtn, 220f, 64f, 32f);
+        r.cancel = Button(row, "Button_Cancel", "취소", tplBtn, 220f, 64f, 32f);
         return r;
     }
 
@@ -661,27 +673,51 @@ public static class BuildProfileFriendUI
     }
 
     // 프로필 팝업의 아바타 선택 그리드 (버튼 순서 = 아바타 번호)
+    // 칸마다 테두리(금색 선) + 어두운 바탕 + 초상화를 겹쳐서 서로 구분되게 하고, 칸 사이도 넉넉히 띄운다.
     static Button[] AvatarGrid(Transform parent)
     {
+        const float cell = 140f, gap = 16f, border = 3f, inset = 8f;
         RectTransform grid = NewRect("Avatar_Grid", parent);
         GridLayoutGroup g = grid.gameObject.AddComponent<GridLayoutGroup>();
-        g.cellSize = new Vector2(88f, 88f);
-        g.spacing = new Vector2(10f, 10f);
+        g.cellSize = new Vector2(cell, cell);
+        g.spacing = new Vector2(gap, gap);
         g.childAlignment = TextAnchor.UpperCenter;
         g.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-        g.constraintCount = 4;
-        LE(grid.gameObject, -1f, 186f, 1f, -1f);
+        g.constraintCount = 5;
+        int rows = (AvatarCatalog.Count + g.constraintCount - 1) / g.constraintCount;
+        LE(grid.gameObject, -1f, rows * cell + (rows - 1) * gap, 1f, -1f);
 
         var buttons = new Button[AvatarCatalog.Count];
         for (int i = 0; i < buttons.Length; i++)
         {
-            RectTransform cell = NewRect("Avatar_" + i, grid);
-            Image img = cell.gameObject.AddComponent<Image>();
+            // 바깥: 테두리 색 / 눌림 영역
+            RectTransform root = NewRect("Avatar_" + i, grid);
+            Image frame = root.gameObject.AddComponent<Image>();
+            frame.color = new Color(0.85f, 0.68f, 0.30f, 0.9f);
+
+            RectTransform fill = Stretch(NewRect("Fill", root), border);
+            Image fillImg = fill.gameObject.AddComponent<Image>();
+            fillImg.color = new Color(0.07f, 0.09f, 0.12f, 0.9f);
+            fillImg.raycastTarget = false;
+
+            RectTransform portrait = Stretch(NewRect("Portrait", root), inset);
+            Image img = portrait.gameObject.AddComponent<Image>();
             img.preserveAspect = true;
-            buttons[i] = cell.gameObject.AddComponent<Button>();
-            buttons[i].targetGraphic = img;
+            img.raycastTarget = false;
+
+            buttons[i] = root.gameObject.AddComponent<Button>();
+            buttons[i].targetGraphic = img; // 컨트롤러가 초상화 Image에 아바타를 넣고 선택 여부를 밝기로 표시한다
         }
         return buttons;
+    }
+
+    static RectTransform Stretch(RectTransform rt, float inset)
+    {
+        rt.anchorMin = Vector2.zero;
+        rt.anchorMax = Vector2.one;
+        rt.offsetMin = new Vector2(inset, inset);
+        rt.offsetMax = new Vector2(-inset, -inset);
+        return rt;
     }
 
     // 부모를 꽉 채우는 아바타 Image 를 (없으면) 만든다. 부모(프로필 칸 틀) 안쪽으로 약간 들여 놓는다.
