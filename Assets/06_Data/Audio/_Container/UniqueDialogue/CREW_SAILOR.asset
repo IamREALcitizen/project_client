@@ -20,5 +20,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 22660ccf629fd49aeac8f3208c99e678, type: 3}
   - {fileID: 8300000, guid: 0d1d173a58536419ebfbf712a7fe0741, type: 3}
   - {fileID: 8300000, guid: b4afcda328fc446de8c42653d5055de8, type: 3}
-  UseRandomPlay: 0
+  UseRandomPlay: 1
   Volmue: 0.8

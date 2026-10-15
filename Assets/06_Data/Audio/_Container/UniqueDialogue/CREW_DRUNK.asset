@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CREW_DRUNK
   m_EditorClassIdentifier: Assembly-CSharp::AudioClipContainer
   ChannelType: 1
-  AudioClip: {fileID: 8300000, guid: 64bab06241b1448a4980369f12736f59, type: 3}
+  AudioClip: {fileID: 8300000, guid: a1eefaccb0d8c4ea1984cc8204e9b40c, type: 3}
   AuidoClips: []
   UseRandomPlay: 0
   Volmue: 0.8

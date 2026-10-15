@@ -15,7 +15,7 @@ MonoBehaviour:
   ChannelType: 1
   AudioClip: {fileID: 0}
   AuidoClips:
-  - {fileID: 8300000, guid: b54c77bdadd90407ea0b1c0c50c1f458, type: 3}
-  - {fileID: 8300000, guid: fee8d0ba84ac841dbb1e46479e206ca2, type: 3}
-  UseRandomPlay: 0
+  - {fileID: 8300000, guid: 21b328d4898eb40cfaa73daea7b76d4c, type: 3}
+  - {fileID: 8300000, guid: 1e0656c7d480d42ab867bafbd2f3f05f, type: 3}
+  UseRandomPlay: 1
   Volmue: 0.8

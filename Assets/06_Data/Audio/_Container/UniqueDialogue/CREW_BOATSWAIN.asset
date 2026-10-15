@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CREW_BOATSWAIN
   m_EditorClassIdentifier: Assembly-CSharp::AudioClipContainer
   ChannelType: 1
-  AudioClip: {fileID: 8300000, guid: 8ec8eda2a10304d61a5aa80514c30a2a, type: 3}
+  AudioClip: {fileID: 8300000, guid: 7c9447f71e795441db10210bb2a8b6a1, type: 3}
   AuidoClips: []
   UseRandomPlay: 0
   Volmue: 0.8
