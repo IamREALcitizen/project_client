@@ -21,4 +21,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0d1d173a58536419ebfbf712a7fe0741, type: 3}
   - {fileID: 8300000, guid: b4afcda328fc446de8c42653d5055de8, type: 3}
   UseRandomPlay: 1
-  Volmue: 0.8
+  Volmue: 1

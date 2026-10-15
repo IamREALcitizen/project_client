@@ -16,4 +16,4 @@ MonoBehaviour:
   AudioClip: {fileID: 8300000, guid: 32f5e27172c004a8ab20e16d05b99241, type: 3}
   AuidoClips: []
   UseRandomPlay: 0
-  Volmue: 0.8
+  Volmue: 1
