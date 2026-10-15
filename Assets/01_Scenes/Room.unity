@@ -2101,6 +2101,7 @@ GameObject:
   - component: {fileID: 229035245}
   - component: {fileID: 229035244}
   - component: {fileID: 229035243}
+  - component: {fileID: 229035246}
   m_Layer: 5
   m_Name: Button_Cancel
   m_TagString: Untagged
@@ -2210,6 +2211,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 229035241}
   m_CullTransparentMesh: 1
+--- !u!114 &229035246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229035241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!1 &229135753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3702,7 +3717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 356.46002, y: -27.45}
+  m_AnchoredPosition: {x: 356.45502, y: -27.45}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &416789547
@@ -4009,6 +4024,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 445792555}
   m_CullTransparentMesh: 1
+--- !u!1001 &462838668
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: AudioCursor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: PlayOnEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6553465261813554412, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: audioClipcontainer
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fdcf2dfa415b43a6aca2a9dae8eebc0, type: 2}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 643.91437
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 707.4232
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164817813720672876, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577645503828660983, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_Name
+      value: BGM
+      objectReference: {fileID: 0}
+    - target: {fileID: 8577645503828660983, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54c32c09e53e144f69d62125286e3a89, type: 3}
 --- !u!1 &479416448
 GameObject:
   m_ObjectHideFlags: 0
@@ -6179,6 +6271,7 @@ MonoBehaviour:
   chatLog: {fileID: 873315828}
   bottomTab: {fileID: 0}
   inputBar: {fileID: 625172879}
+  lobbyChat: 0
   maxMessages: 50
   myUserId: -1
   autoLogin: 1
@@ -6200,6 +6293,9 @@ MonoBehaviour:
   localNoticePrefix: "[\uC548\uB0B4] "
   deadColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   nightChatColor: {r: 1, g: 0.6, b: 0.2, a: 1}
+  sirenChatColor: {r: 0.95, g: 0.55, b: 0.85, a: 1}
+  spamWarningColor: {r: 1, g: 0.55, b: 0.1, a: 1}
+  spamMuteColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   logSystemMessagesToConsole: 1
 --- !u!114 &659043162
 MonoBehaviour:
@@ -6216,15 +6312,18 @@ MonoBehaviour:
   baseUrlOverride: 
   apiPrefix: /api/v1
   roomId: 1
+  lobby: 0
   timeoutSeconds: 5
   adminKey: 
   nightChatField: nightChat
+  sirenChatField: sirenChat
   messageIdField: messageId
   typeField: type
   userIdField: userId
   nicknameField: nickname
   messageField: message
   createdAtField: createdAt
+  spamWarningField: spamWarning
 --- !u!4 &659043163
 Transform:
   m_ObjectHideFlags: 0
@@ -13721,7 +13820,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -18.1, y: -59.71}
+  m_AnchoredPosition: {x: -18.099976, y: -59.70996}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1247511237
@@ -15121,6 +15220,7 @@ GameObject:
   - component: {fileID: 1399797379}
   - component: {fileID: 1399797378}
   - component: {fileID: 1399797377}
+  - component: {fileID: 1399797380}
   m_Layer: 5
   m_Name: Button_Save
   m_TagString: Untagged
@@ -15230,6 +15330,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1399797375}
   m_CullTransparentMesh: 1
+--- !u!114 &1399797380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399797375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!1 &1407487648
 GameObject:
   m_ObjectHideFlags: 0
@@ -17053,6 +17167,7 @@ GameObject:
   - component: {fileID: 1559827284}
   - component: {fileID: 1559827283}
   - component: {fileID: 1559827282}
+  - component: {fileID: 1559827286}
   m_Layer: 5
   m_Name: Button_TransferHost
   m_TagString: Untagged
@@ -17077,7 +17192,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 368.3, y: -125}
+  m_AnchoredPosition: {x: 713.3, y: -125}
   m_SizeDelta: {x: 150, y: 60.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1559827282
@@ -17182,6 +17297,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559827280}
   m_CullTransparentMesh: 1
+--- !u!114 &1559827286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559827280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!1 &1574606560
 GameObject:
   m_ObjectHideFlags: 0
@@ -19356,7 +19485,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 260, y: -27.45}
-  m_SizeDelta: {x: 82.92, y: 50}
+  m_SizeDelta: {x: 82.91, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1669895991
 MonoBehaviour:
@@ -21301,6 +21430,7 @@ GameObject:
   - component: {fileID: 1940655425}
   - component: {fileID: 1940655424}
   - component: {fileID: 1940655423}
+  - component: {fileID: 1940655427}
   m_Layer: 5
   m_Name: Button_Kick
   m_TagString: Untagged
@@ -21325,7 +21455,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 181.7, y: -125}
+  m_AnchoredPosition: {x: 526.7, y: -125}
   m_SizeDelta: {x: 150, y: 60.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1940655423
@@ -21430,6 +21560,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1940655421}
   m_CullTransparentMesh: 1
+--- !u!114 &1940655427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940655421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!1 &1972218906
 GameObject:
   m_ObjectHideFlags: 0
@@ -21603,7 +21747,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 325, y: -714.05}
-  m_SizeDelta: {x: 122.2, y: 34.06}
+  m_SizeDelta: {x: 122.19, y: 34.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986479880
 MonoBehaviour:
@@ -22837,6 +22981,7 @@ GameObject:
   - component: {fileID: 1641017333684773845}
   - component: {fileID: 1258494244106308884}
   - component: {fileID: 8254766181645027513}
+  - component: {fileID: 8254766181645027514}
   m_Layer: 5
   m_Name: Button_confirm
   m_TagString: Untagged
@@ -23054,7 +23199,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -244.98}
+  m_AnchoredPosition: {x: 620, y: -244.98}
   m_SizeDelta: {x: 150, y: 53.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2243259913430248336
@@ -23481,6 +23626,7 @@ GameObject:
   - component: {fileID: 7398756769457184767}
   - component: {fileID: 8846844108299602966}
   - component: {fileID: 3944303493193153859}
+  - component: {fileID: 8846844108299602967}
   m_Layer: 5
   m_Name: Button_Close
   m_TagString: Untagged
@@ -24259,6 +24405,7 @@ GameObject:
   - component: {fileID: 3535815981721064994}
   - component: {fileID: 3277030815448794571}
   - component: {fileID: 6989847013009208478}
+  - component: {fileID: 8054144944029455738}
   m_Layer: 5
   m_Name: Button_Close
   m_TagString: Untagged
@@ -24266,6 +24413,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8054144944029455738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054144944029455737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!114 &8072647122042462040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24339,6 +24500,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8254766181645027514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635024486194248294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!114 &8585575492002962481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24403,8 +24578,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 275, y: -131.3}
-  m_SizeDelta: {x: 450, y: 34.06}
+  m_AnchoredPosition: {x: 620, y: -131.3}
+  m_SizeDelta: {x: 1031.92, y: 34.06}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8803381166443565243
 MonoBehaviour:
@@ -24554,6 +24729,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8846844108299602967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4069571627359362212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!222 &9040937220371474471
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24635,3 +24824,4 @@ SceneRoots:
   - {fileID: 521789682}
   - {fileID: 1155920863}
   - {fileID: 659043163}
+  - {fileID: 462838668}

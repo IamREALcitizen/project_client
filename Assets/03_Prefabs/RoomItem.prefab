@@ -198,6 +198,7 @@ GameObject:
   - component: {fileID: 3343561999945363543}
   - component: {fileID: 8218419379829087565}
   - component: {fileID: 2171882680532526609}
+  - component: {fileID: 3277526490807513925}
   m_Layer: 5
   m_Name: Button_Enter
   m_TagString: Untagged
@@ -327,6 +328,20 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &3277526490807513925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3129402973128369764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a9b8781972e0453fa647e5227bd2242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonBase
+  useOverrideAudio: 0
+  overrideOnClickAudioClip: {fileID: 0}
 --- !u!1 &4252343544864682330
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +654,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 208.595, y: -86.03135}
-  m_SizeDelta: {x: 78.83, y: 33.9373}
+  m_SizeDelta: {x: 0, y: 33.9373}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7347020710095741100
 CanvasRenderer:
