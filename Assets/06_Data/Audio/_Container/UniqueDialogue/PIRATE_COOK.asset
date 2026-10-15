@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e370959c463b4875b1a3797633da159, type: 3}
+  m_Name: PIRATE_COOK
+  m_EditorClassIdentifier: Assembly-CSharp::AudioClipContainer
+  ChannelType: 1
+  AudioClip: {fileID: 0}
+  AuidoClips:
+  - {fileID: 8300000, guid: 773d96a6dc2044c80a1bbf5fcd389f64, type: 3}
+  - {fileID: 8300000, guid: 5a5834d432e2b42f1a0d9fc2af54d710, type: 3}
+  UseRandomPlay: 0
+  Volmue: 0.8
