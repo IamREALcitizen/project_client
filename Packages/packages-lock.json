@@ -17,6 +17,15 @@
       },
       "hash": "30d22075093d1d35dfb0091c1c7550e9ad948577"
     },
+    "com.github.kou-yeung.webglinput": {
+      "version": "https://github.com/kou-yeung/WebGLInput.git?path=Assets/WebGLSupport",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0~"
+      },
+      "hash": "ed85e3ab3bdbb29f972d22feb587ced44975c457"
+    },
     "com.unity.2d.animation": {
       "version": "13.0.4",
       "depth": 0,
