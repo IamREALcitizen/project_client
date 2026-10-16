@@ -945,6 +945,7 @@ MonoBehaviour:
   chatLog: {fileID: 354168055}
   bottomTab: {fileID: 215151736}
   inputBar: {fileID: 0}
+  lobbyChat: 0
   maxMessages: 50
   myUserId: -1
   autoLogin: 1
@@ -967,6 +968,8 @@ MonoBehaviour:
   deadColor: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   nightChatColor: {r: 1, g: 0.6, b: 0.2, a: 1}
   sirenChatColor: {r: 0.95, g: 0.55, b: 0.85, a: 1}
+  spamWarningColor: {r: 1, g: 0.55, b: 0.1, a: 1}
+  spamMuteColor: {r: 1, g: 0.2, b: 0.2, a: 1}
   logSystemMessagesToConsole: 1
 --- !u!114 &161325564
 MonoBehaviour:
@@ -983,6 +986,7 @@ MonoBehaviour:
   baseUrlOverride: 
   apiPrefix: /api/v1
   roomId: 1
+  lobby: 0
   timeoutSeconds: 5
   adminKey: 
   nightChatField: nightChat
@@ -993,6 +997,7 @@ MonoBehaviour:
   nicknameField: nickname
   messageField: message
   createdAtField: createdAt
+  spamWarningField: spamWarning
 --- !u!4 &161325565
 Transform:
   m_ObjectHideFlags: 0

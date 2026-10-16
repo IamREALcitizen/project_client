@@ -27329,6 +27329,7 @@ MonoBehaviour:
   roomPasswordPopup: {fileID: 8931399705705844968}
   accountLinkPopup: {fileID: 0}
   chatRoomListArea: {fileID: 0}
+  chatInputBarPrefab: {fileID: 4417202610161016001, guid: 8648e9f78b644facbaa40c37dc67e5db, type: 3}
   statusMessage: {fileID: 286184024}
 --- !u!1 &1884289714
 GameObject:
