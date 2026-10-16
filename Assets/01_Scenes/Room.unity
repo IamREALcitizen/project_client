@@ -4130,6 +4130,7 @@ GameObject:
   - component: {fileID: 389160497}
   - component: {fileID: 389160496}
   - component: {fileID: 389160495}
+  - component: {fileID: 389160498}
   m_Layer: 5
   m_Name: InputField (TMP)
   m_TagString: Untagged
@@ -4296,6 +4297,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389160493}
   m_CullTransparentMesh: 1
+--- !u!114 &389160498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 389160493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WebGLInput::WebGLSupport.WebGLInput
+  showHtmlElement: 0
 --- !u!1 &416789545
 GameObject:
   m_ObjectHideFlags: 0
@@ -19378,6 +19392,7 @@ GameObject:
   - component: {fileID: 1648001909}
   - component: {fileID: 1648001908}
   - component: {fileID: 1648001910}
+  - component: {fileID: 1648001911}
   m_Layer: 5
   m_Name: ChatInput
   m_TagString: Untagged
@@ -19544,6 +19559,19 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
+--- !u!114 &1648001911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1648001906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc33a39070010f94fb1c2dd721c1286d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: WebGLInput::WebGLSupport.WebGLInput
+  showHtmlElement: 0
 --- !u!1 &1657351953
 GameObject:
   m_ObjectHideFlags: 0
