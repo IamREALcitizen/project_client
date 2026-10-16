@@ -96,7 +96,7 @@ Set-Content -LiteralPath ($skinPath + '.meta') -Value "fileFormatVersion: 2`ngui
 $prefab = Get-Content -LiteralPath $prefabTemplatePath -Raw
 $prefab = $prefab.Replace('PirateSpy_Chibi', "${Name}_Chibi")
 $prefab = $prefab.Replace('a97a21190d3745db8e42f21daecfac56', $skinGuid)
-$prefab = $prefab.Replace('fileID: -7172026105246684885, guid: 975448e01fa743b19b6d4229fe9e6ab1', "fileID: $($base.Ids['Standing']), guid: $($base.Guid)")
+$prefab = [regex]::Replace($prefab, 'fileID: -?\d+, guid: 975448e01fa743b19b6d4229fe9e6ab1', "fileID: $($base.Ids['Standing']), guid: $($base.Guid)")
 Set-Content -LiteralPath $prefabPath -Value $prefab -Encoding utf8
 $prefabGuid = [guid]::NewGuid().ToString('N')
 Set-Content -LiteralPath ($prefabPath + '.meta') -Value "fileFormatVersion: 2`nguid: $prefabGuid`nPrefabImporter:`n  externalObjects: {}`n  userData: `n  assetBundleName: `n  assetBundleVariant: `n" -Encoding utf8
