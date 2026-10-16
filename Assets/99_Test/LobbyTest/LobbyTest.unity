@@ -11320,6 +11320,7 @@ MonoBehaviour:
   clearButton: {fileID: 836664068}
   createRoomPopup: {fileID: 532672327}
   roomPasswordPopup: {fileID: 8931399705705844968}
+  chatInputBarPrefab: {fileID: 4417202610161016001, guid: 8648e9f78b644facbaa40c37dc67e5db, type: 3}
   statusMessage: {fileID: 286184024}
 --- !u!1 &1884289714
 GameObject:

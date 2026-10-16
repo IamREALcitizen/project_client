@@ -16,14 +16,14 @@ namespace WhoisntCitizen.EditorTools
     //   ├─ PlayerList      (기존) 아래쪽을 채팅 영역만큼 올린다 (처음 구성할 때만)
     //   ├─ Buttons         (기존) 채팅 영역 위로 올린다 (처음 구성할 때만)
     //   ├─ RoomChat        (새로) 어두운 배경 + ChatLogPanel(프리팹, 줄 프리팹은 Room 크기용 RoomChatLogLine)
-    //   └─ ChatInputBar    (새로) GameBottomSheet의 TabBar를 복제해 [+] 버튼을 뺀 것: [채팅 입력] [전송]
+    //   └─ ChatInputBar    (새로) ChatInputBar 프리팹 인스턴스 (GameBottomSheet의 TabBar에서 [+] 버튼을 뺀 것): [채팅 입력] [전송]
     //   GameChat           (새로) ChatApiClient + GameChatController (chatLog·inputBar 연결)
     // 크기는 GameScene(1080 기준)의 TabBar를 Room 캔버스(600 기준) 비율로 줄여 쓴다.
     // 여러 번 실행해도 된다. 이미 있는 오브젝트는 다시 만들지 않고 연결만 다시 한다. Ctrl+Z로 되돌릴 수 있고 저장은 직접 한다.
     public static class RoomChatSetupTool
     {
         private const string RoomScenePath = "Assets/01_Scenes/Room.unity";
-        private const string BottomSheetPrefabPath = "Assets/03_Prefabs/GameUI/GameBottomSheet.prefab";
+        private const string ChatInputBarPrefabPath = "Assets/03_Prefabs/GameUI/ChatInputBar.prefab";
         private const string ChatLogPanelPrefabPath = "Assets/03_Prefabs/GameUI/ChatLogPanel.prefab";
         private const string GameLinePrefabPath = "Assets/03_Prefabs/GameUI/ChatLogLine.prefab";
         private const string RoomLinePrefabPath = "Assets/03_Prefabs/Room/RoomChatLogLine.prefab";
@@ -166,17 +166,16 @@ namespace WhoisntCitizen.EditorTools
             Transform bar = canvas.Find("ChatInputBar");
             if (bar == null)
             {
-                // GameScene 하단 탭 바를 그대로 복제해 모양(색·스프라이트·글꼴)을 맞춘다.
-                var sheetPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(BottomSheetPrefabPath);
-                GameObject temp = Object.Instantiate(sheetPrefab);
-                Transform tab = temp.transform.Find("TabBar");
-                GameObject go = Object.Instantiate(tab.gameObject, canvas, false);
-                Object.DestroyImmediate(temp);
+                // GameScene과 같은 채팅 입력 바 프리팹(GameBottomSheet의 TabBar, [+] 제외)을 놓고 Room 크기만 바꾼다. (프리팹 오버라이드)
+                var barPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(ChatInputBarPrefabPath);
+                if (barPrefab == null)
+                {
+                    log.AppendLine("· " + ChatInputBarPrefabPath + " 이 없어 입력 바를 만들지 못했습니다.");
+                    return null;
+                }
+                GameObject go = (GameObject)PrefabUtility.InstantiatePrefab(barPrefab, canvas);
                 go.name = "ChatInputBar";
                 Undo.RegisterCreatedObjectUndo(go, "ChatInputBar");
-
-                Transform plus = go.transform.Find("PlusButton");
-                if (plus != null) Object.DestroyImmediate(plus.gameObject); // [+] 버튼 제외
 
                 RectTransform rt = (RectTransform)go.transform;
                 rt.anchorMin = new Vector2(0, 0);
@@ -207,9 +206,10 @@ namespace WhoisntCitizen.EditorTools
                 }
 
                 foreach (Transform t in go.GetComponentsInChildren<Transform>(true)) t.gameObject.layer = canvas.gameObject.layer;
-                go.AddComponent<ChatInputBar>();
+                foreach (Component c in go.GetComponentsInChildren<Component>(true))
+                    if (c != null) PrefabUtility.RecordPrefabInstancePropertyModifications(c);
                 bar = go.transform;
-                log.AppendLine("· ChatInputBar 생성 (GameScene 탭 바 복제, [+] 제외)");
+                log.AppendLine("· ChatInputBar 배치 (ChatInputBar 프리팹)");
             }
 
             ChatInputBar inputBar = bar.GetComponent<ChatInputBar>();
